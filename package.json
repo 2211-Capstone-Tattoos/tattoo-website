@@ -1,7 +1,7 @@
 {
-  "name": "pern-vite",
+  "name": "capstone-tattoo",
   "version": "1.0.0",
-  "description": "A simple boilerplate for the PERN stack using Vite.js. It includes Node-Postgres v8.8, Express, React 18, React Router DOM v6.6, Morgan, Axios, jsonwebtoken, bcrypt, dotenv, and Nodemon. ",
+  "description": "A site for indie tattoo artists to connect to clients.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -9,7 +9,7 @@
     "start:dev": "(npm run dev --prefix client) & nodemon index.js",
     "seed": "node db/seed.js"
   },
-  "author": "Sean Hagstrom",
+  "author": "Anthony Penaloza, Adam Ross, Dallin Whiting",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
