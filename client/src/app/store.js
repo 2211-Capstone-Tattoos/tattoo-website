@@ -12,7 +12,7 @@ export const store = configureStore({
   },
 
   middleware: (getDefaultMiddleware) => {
-    getDefaultMiddleware().concat(shopAPI.middleware)
+   return getDefaultMiddleware().concat(shopAPI.middleware)
   }
 })
 
