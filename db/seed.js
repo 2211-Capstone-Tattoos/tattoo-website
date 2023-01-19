@@ -1,6 +1,8 @@
 const { client } = require('./client');
-const { getProducts, createProduct } = require('./products');
-const { createUser } = require('./users');
+const {
+  createProduct,
+  createUser
+} = require('./index');
 
 const dropTables = async () => {
   try {
