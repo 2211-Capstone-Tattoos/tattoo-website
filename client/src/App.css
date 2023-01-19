@@ -39,3 +39,15 @@
 .read-the-docs {
   color: #888;
 }
+
+.product-card {
+  background-color: brown;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+.product-card img {
+  width: 250px;
+  height: 250px;
+}
