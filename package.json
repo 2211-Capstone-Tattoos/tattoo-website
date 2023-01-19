@@ -7,7 +7,8 @@
     "start": "node index.js",
     "server:dev": "nodemon index.js",
     "start:dev": "(npm run dev --prefix client) & nodemon index.js",
-    "seed": "node db/seed.js"
+    "seed": "node db/seed.js",
+    "seed:dev": "nodemon db/seed.js"
   },
   "author": "Anthony Penaloza, Adam Ross, Dallin Whiting",
   "license": "ISC",
