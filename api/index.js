@@ -30,6 +30,10 @@ router.get('/health', async (req, res, next) => {
   }
 });
 
+//api/users
 router.use('/users', require('./users'));
+
+//api/products
+router.use('/products', require('./products'))
 
 module.exports = router;
