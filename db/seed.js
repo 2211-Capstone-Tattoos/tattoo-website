@@ -1,16 +1,18 @@
 const { client } = require('./client');
+const { getProducts, createProduct } = require('./products');
+const { createUser } = require('./users');
 
 const dropTables = async () => {
   try {
     console.log('Starting to drop all tables...');
     await client.query(`
-    DROP TABLE IF EXISTS users;
     DROP TABLE IF EXISTS products;
+    DROP TABLE IF EXISTS users;
     `);
     console.log('Finished droppping all tables successfully!');
-  } catch (erroror) {
-    console.erroror('erroror dropping tables');
-    throw erroror;
+  } catch (error) {
+    console.error('Error dropping tables');
+    throw error;
   }
 };
 
@@ -34,65 +36,208 @@ const createTables = async () => {
       description TEXT NOT NULL,
       price MONEY NOT NULL,
       img TEXT,
-      "artistId" FOREIGN KEY REFERENCES users(id)
+      "artistId" INTEGER REFERENCES users(id) NOT NULL
     );
     `);
     console.log(
       'Finished creating all tables successfully! Now, to add some data!'
     );
-  } catch (erroror) {
-    console.erroror('erroror creating tables');
-    throw erroror;
+  } catch (error) {
+    console.error('Error creating tables');
+    throw error;
   }
 };
 
 const createInitialUsers = async () => {
   console.log('Adding initial users to "Users" table...');
   try {
-    client.query(`
-    INSERT INTO 
-    users (email, username, password, fullname, profile_img, location, is_artist)
-    VALUES 
-      ('cde0@rediff.com', 'cde0', 'B8BYWmSDQWk', 'Chiquia De Ruggiero', 'https://robohash.org/animieiusnobis.png?size=250x250&set=set1', 'Baixo Guandu', false),
-      ('gparrin1@php.net', 'gparrin1', 'KqCYx6f8', 'Georas Parrin', 'https://robohash.org/maioresnoninventore.png?size=250x250&set=set1', 'Krasnyy Lyman', true),
-      ('vbrizell2@answers.com', 'vbrizell2', '9S6E9Jm', 'Verla Brizell', 'https://robohash.org/porrosedipsum.png?size=250x250&set=set1', 'Salerno', false),
-      ('ddugald3@japanpost.jp', 'ddugald3', 'raGP5Sbvvg', 'Datha Dugald', 'https://robohash.org/doloresdistinctioea.png?size=250x250&set=set1', 'Rinbung', true),
-      ('bmalpass4@imageshack.us', 'bmalpass4', '8sCoAcNrw6d', 'Barbie Malpass', 'https://robohash.org/estsitveniam.png?size=250x250&set=set1', 'Quezon', false),
-      ('ereinbeck5@virginia.edu', 'ereinbeck5', 'KLWLGUP', 'Ed Reinbeck', 'https://robohash.org/nullaautemoptio.png?size=250x250&set=set1', 'Ya’ngan', true),
-      ('ccarlill6@psu.edu', 'ccarlill6', 'DySvDmXj9QVu', 'Cassie Carlill', 'https://robohash.org/etdelectusquam.png?size=250x250&set=set1', 'Pashkovskiy', false),
-      ('cvoysey7@mashable.com', 'cvoysey7', 'nVrJLWJ', 'Cybil Voysey', 'https://robohash.org/dolorcumquetenetur.png?size=250x250&set=set1', 'Matahuasi', false),
-      ('ccantero8@usda.gov', 'ccantero8', 'MlwMS9fL', 'Clarine Cantero', 'https://robohash.org/nostrumetvoluptas.png?size=250x250&set=set1', 'Osinniki', false),
-      ('rnavarro9@blogs.com', 'rnavarro9', 'qRrYy6gqM2', 'Rodrick Navarro', 'https://robohash.org/sitquoanimi.png?size=250x250&set=set1', 'Campo Verde', true);
-      `)
+    const users = [
+      {
+        email: "tmainds0@google.co.jp",
+        username: "tmainds0",
+        password: "lJ1c3FuiU",
+        fullname: "Thorsten Mainds",
+        profileImg: "https://robohash.org/etquasullam.png?size=500x500&set=set1",
+        location: "Vila",
+        isArtist: false
+      },
+      {
+        email: "dblitzer1@dailymail.co.uk",
+        username: "dblitzer1",
+        password: "pUW8UcRKydCp",
+        fullname: "Delmore Blitzer",
+        profileImg: "https://robohash.org/voluptatemidaut.png?size=500x500&set=set1",
+        location: "Maracanã",
+        isArtist: true
+      },
+      {
+        email: "thazelden2@t-online.de",
+        username: "thazelden2",
+        password: "e1N5Yct6O",
+        fullname: "Tonnie Hazelden",
+        profileImg: "https://robohash.org/essesitreiciendis.png?size=500x500&set=set1",
+        location: "San Pedro",
+        isArtist: true
+      },
+      {
+        email: "begglestone3@skyrock.com",
+        username: "begglestone3",
+        password: "hXjoO5C",
+        fullname: "Brendis Egglestone",
+        profileImg: "https://robohash.org/voluptateaspernaturtempora.png?size=500x500&set=set1",
+        location: "Belo Oriente",
+        isArtist: true
+      },
+      {
+        email: "arostron4@prlog.org",
+        username: "arostron4",
+        password: "F4pEfs",
+        fullname: "Aimil Rostron",
+        profileImg: "https://robohash.org/corporismolestiasqui.png?size=500x500&set=set1",
+        location: "Palaihari",
+        isArtist: false
+      },
+      {
+        email: "bnixon5@scribd.com",
+        username: "bnixon5",
+        password: "9tvI2A",
+        fullname: "Barry Nixon",
+        profileImg: "https://robohash.org/rerumsequipraesentium.png?size=500x500&set=set1",
+        location: "Santa Gertrudes",
+        isArtist: false
+      },
+      {
+        email: "tparlet6@goodreads.com",
+        username: "tparlet6",
+        password: "drXLIa8UhUD",
+        fullname: "Tildie Parlet",
+        profileImg: "https://robohash.org/odioautin.png?size=500x500&set=set1",
+        location: "Lorica",
+        isArtist: false
+      },
+      {
+        email: "ppanchen7@networkadvertising.org",
+        username: "ppanchen7",
+        password: "FnWtMzqsef",
+        fullname: "Paolina Panchen",
+        profileImg: "https://robohash.org/consecteturexpeditaquidem.png?size=500x500&set=set1",
+        location: "Quinipot",
+        isArtist: false
+      },
+      {
+        email: "ijackson8@pinterest.com",
+        username: "ijackson8",
+        password: "pTYJ4YaFz",
+        fullname: "Issi Jackson",
+        profileImg: "https://robohash.org/doloranimiaccusantium.png?size=500x500&set=set1",
+        location: "Binuangan",
+        isArtist: false
+      },
+      {
+        email: "cde0@rediff.com",
+        username: "ChiquiChiqui",
+        password: "eFScjkGl",
+        fullname: "Chiquia De Ruggiero",
+        profileImg: "https://robohash.org/odioquiaculpa.png?size=500x500&set=set1",
+        location: "Xishaqiao",
+        isArtist: true
+      }
+    ]
+    const fetchUsers = Promise.all(users.map(async (user) => {
+      await createUser(user)
+    }))
+    console.log('Finished adding users!');
+    return fetchUsers
   } catch (error) {
-    console.error('erroror adding users to users table', error)
+    console.error('Error adding users to users table', error)
     throw error
   }
-  console.log('Finished adding users!');
 };
 
 const createInitialProducts = async () => {
   console.log('Adding initial products to "Products" table...');
   try {
-    client.query(`
-      INSERT INTO products(title, description, price, img, "artistId")
-      VALUES
-      ('Profound homogeneous emulation', 'utilize granular metrics', '$33.61', 'http://dummyimage.com/179x100.png/cc0000/ffffff', 0),
-      ('Multi-tiered background circuit', 'iterate impactful e-services', '$17.43', 'http://dummyimage.com/231x100.png/cc0000/ffffff', 0),
-      ('Mandatory bi-directional protocol', 'syndicate next-generation synergies', '$8.91', 'http://dummyimage.com/174x100.png/ff4444/ffffff', 4),
-      ('Grass-roots 5th generation Graphic Interface', 'architect cross-media e-services', '$46.09', 'http://dummyimage.com/235x100.png/dddddd/000000', 0),
-      ('Decentralized methodical array', 'streamline B2C schemas', '$1.87', 'http://dummyimage.com/151x100.png/5fa2dd/ffffff', 0),
-      ('Decentralized stable workforce', 'redefine sexy e-markets', '$5.85', 'http://dummyimage.com/104x100.png/dddddd/000000', 4),
-      ('Multi-tiered 24 hour core', 'engineer 24/7 communities', '$49.25', 'http://dummyimage.com/128x100.png/5fa2dd/ffffff', 0),
-      ('Reactive foreground success', 'generate efficient content', '$41.32', 'http://dummyimage.com/224x100.png/cc0000/ffffff', 6),
-      ('Synergistic empowering initiative', 'generate viral communities', '$39.09', 'http://dummyimage.com/176x100.png/5fa2dd/ffffff', 6),
-      ('Persistent multi-tasking customer loyalty', 'whiteboard collaborative eyeballs', '$25.70', 'http://dummyimage.com/138x100.png/ff4444/ffffff', 6);
-      `)
+    const products = [
+      {
+        title: "Common brushtail possum",
+        description: "In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem. Integer tincidunt ante vel ipsum.",
+        price: "$21.47",
+        img: "IMG_GOES_HERE",
+        artistId: 4
+      },
+      {
+        title: "Cat, ringtail",
+        description: "Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat. In congue. Etiam justo.",
+        price: "$48.09",
+        img: "IMG_GOES_HERE",
+        artistId: 4
+      },
+      {
+        title: "Asian red fox",
+        description: "Morbi non quam nec dui luctus rutrum. Nulla tellus. In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus. Suspendisse potenti.",
+        price: "$20.63",
+        img: "IMG_GOES_HERE",
+        artistId: 2
+      },
+      {
+        title: "Albatross, waved",
+        description: "Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh. Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.",
+        price: "$23.82",
+        img: "IMG_GOES_HERE",
+        artistId: 3
+      },
+      {
+        title: "Waved albatross",
+        description: "Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus. Suspendisse potenti. In eleifend quam a odio.",
+        price: "$37.84",
+        img: "IMG_GOES_HERE",
+        artistId: 3
+      },
+      {
+        title: "Water moccasin",
+        description: "Nulla suscipit ligula in lacus. Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla.",
+        price: "$21.34",
+        img: "IMG_GOES_HERE",
+        artistId: 4
+      },
+      {
+        title: "Radiated tortoise",
+        description: "Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi. Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.",
+        price: "$22.98",
+        img: "IMG_GOES_HERE",
+        artistId: 4
+      },
+      {
+        title: "Mountain lion",
+        description: "Nullam molestie nibh in lectus. Pellentesque at nulla.",
+        price: "$37.74",
+        img: "IMG_GOES_HERE",
+        artistId: 2
+      },
+      {
+        title: "Kiskadee, great",
+        description: "Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui. Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.",
+        price: "$15.86",
+        img: "IMG_GOES_HERE",
+        artistId: 3
+      },
+      {
+        title: "Tern, royal",
+        description: "Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus. Pellentesque at nulla.",
+        price: "$34.45",
+        img: "IMG_GOES_HERE",
+        artistId: 3
+      }
+    ]
+    const fetchProducts = Promise.all(products.map(async (product) => {
+      await createProduct(product)
+    }))
+    console.log('Finished adding products!');
+    return fetchProducts
   } catch (error) {
-    console.error('erroror adding products to products table', error)
+    console.error('Error adding products to products table', error)
     throw error
   }
-  console.log('Finished adding products!');
 }
 
 const rebuildDB = async () => {
@@ -102,9 +247,9 @@ const rebuildDB = async () => {
     await createTables();
     await createInitialUsers();
     await createInitialProducts();
-  } catch (erroror) {
-    console.erroror('erroror during rebuildDB', erroror);
-    throw erroror;
+  } catch (error) {
+    console.error('Error during rebuildDB', error);
+    throw error;
   } finally {
     await client.end();
     console.log("Database has been rebuilt, and you're good to go!");
