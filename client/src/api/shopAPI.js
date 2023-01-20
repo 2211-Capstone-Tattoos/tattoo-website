@@ -10,9 +10,14 @@ export const shopAPI = createApi({
     //-------- Products ---------
     getAllProducts: builder.query({
       query: () => `products`,
+
+      //re-fetch *all* products upon tag invalidation
+      //we can also have individual tag subscriptions with id: id
       providesTags: (result) =>
       result
       ? [
+          //re-fetch if subscribed to a product containing 'id' upon invalidation
+          //this will return an array of tags with each product's id and the 'LIST' id invalidated on addProduct
           ...result.map(({id}) => ({ type: 'Products', id })),
           { type: 'Products', id: 'LIST' }
         ]
@@ -47,15 +52,14 @@ export const shopAPI = createApi({
       },
       //tags?
     }),
-    login: builder.query({
+    login: builder.mutation({
       query(body) {
         return {
           url: 'users/login',
-          method: 'GET',
+          method: 'POST',
           body
         }
       }
-    //see what API returns
     })
   })
 })
@@ -65,5 +69,5 @@ export const {
   useAddProductMutation, 
   useGetProductQuery,
   useRegisterMutation,
-  useLoginQuery
+  useLoginMutation
 } = shopAPI
