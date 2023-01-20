@@ -36,4 +36,11 @@ router.use('/users', require('./users'));
 //api/products
 router.use('/products', require('./products'))
 
+router.use("/*", (error, req, res, next) => {
+  res.send({
+    name: error.name,
+    message: error.message
+  })
+})
+
 module.exports = router;
