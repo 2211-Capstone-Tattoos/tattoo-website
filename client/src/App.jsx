@@ -5,14 +5,14 @@ import './App.css'
 
 function App() {
   //const products = useSelector((state) => state.products)
-  const { data = [], isLoading, isError } = useGetAllProductsQuery()
+  const { data = [], isLoading, isFetching, isError } = useGetAllProductsQuery()
 
   return (
     <div className="App">
       <div className="products">{
         isError
         ? <>Oh noes something broke!</>
-        : isLoading 
+        : isLoading || isFetching
           ? <>Loading products...</> 
           : data.map(product => {
             return (
