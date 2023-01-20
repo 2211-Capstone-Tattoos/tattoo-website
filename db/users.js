@@ -10,7 +10,7 @@ const createUser = async ({
   fullname,
   profileImg,
   location,
-  isArtist
+  isArtist = false
 }) => {
   try {
 
