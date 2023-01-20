@@ -1,4 +1,4 @@
-const { getUserByUsername } = require('../db');
+const { getUserByUsername, createUser } = require('../db');
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 const router = require('express').Router();
@@ -21,7 +21,7 @@ router.post("/login", async (req, res, next) => {
     if (user && match) {
       delete user.password;
       const token = jwt.sign(
-        { id: user.id, username: user.username }, process.env.JWT_SECRET);
+        { id: user.id, username: user.username }, process.env.JWT_SECRET, {expiresIn: "1W"});
       res.send({
         message: "You're Logged in!",
         token
@@ -36,6 +36,54 @@ router.post("/login", async (req, res, next) => {
     next(error);
   }
 });
+
+// POST /api/users/register
+router.post("/register", async (req, res, next) => {
+  try {
+    const {
+      email,
+      username,
+      password,
+      fullname,
+      profileImg,
+      location,
+      isArtist } = req.body;
+    const _user = await getUserByUsername(username);
+    if(_user) {
+      next({
+        name: "UsernameTaken",
+        message: `This username ${_user.username} is already taken.`
+      })
+    }
+
+    if(password.length < 8) {
+      next({
+        name: "InsufficientPassword",
+        message: "Password is too short!"
+      })
+    }
+
+    const user = await createUser({
+      email,
+      username,
+      password,
+      fullname,
+      profileImg,
+      location,
+      isArtist
+    });
+
+    const token = jwt.sign({id: user.id, username: user.username}, process.env.JWT_SECRET, {expiresIn: "1W"});
+
+    res.send({
+      message: "Thank you for signing up!",
+      token: token,
+      user: {id: user.id, username: user.username}
+    });
+  } catch (error) {
+    next(error);
+  }
+})
 
 router.use("/*", (error, req, res, next) => {
   res.send({
