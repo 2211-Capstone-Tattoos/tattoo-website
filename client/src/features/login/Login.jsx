@@ -55,7 +55,7 @@ const Login = () => {
         </div>
         <div>
           <label htmlFor="password">Password: </label>
-          <input type="password" ref={passwordRef} required={true}/>
+          <input type="password" ref={passwordRef} required={true} minLength={8} />
         </div>
         <div>
           <button>Let's go!</button>
