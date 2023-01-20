@@ -1,30 +1,47 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useGetAllProductsQuery } from './api/shopAPI'
+
+import { Routes, Route } from 'react-router-dom'
+import Home from './Home'
+import NotFound from './NotFound'
+import {
+  Artists,
+  Cart,
+  Login,
+  Orders,
+  Products
+} from './features'
 import './App.css'
 
 function App() {
   //const products = useSelector((state) => state.products)
-  const { data = [], isLoading, isFetching, isError } = useGetAllProductsQuery()
+
 
   return (
     <div className="App">
-      <div className="products">{
-        isError
-        ? <>Oh noes something broke!</>
-        : isLoading || isFetching
-          ? <>Loading products...</> 
-          : data.map(product => {
-            return (
-              <div className="product-card" key={product.id}>
-                <img src={product.img} alt="product-image" />
-                <p>Title: {product.name}</p>
-                <p>{product.description}</p>
-                <p>Price: {product.price}</p>
-              </div>
-            )
-          })
-      }</div>
+      <Routes>
+        <Route
+          element={<Home />}
+          exact path="/" />
+        <Route
+          element={<Login />}
+          exact path="/login" />
+        <Route
+          element={<Products />}
+          path="/products/*" />
+        <Route
+          element={<Artists />}
+          path="/artists/*" />
+        <Route
+          element={<Orders />}
+          path="/orders" />
+        <Route
+          element={<Cart />}
+          path="/cart" />
+        <Route
+          element={<NotFound />}
+          path="/*" />
+      </Routes>
     </div>
   )
 }
