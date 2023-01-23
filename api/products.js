@@ -1,4 +1,4 @@
-const { getProducts } = require('../db/products');
+const { getProducts, updateProduct } = require('../db/products');
 const router = require('express').Router();
 
 // GET api/products
@@ -79,7 +79,7 @@ router.patch('/:productId', async (req, res, next) => {
 			if (product.artistId === req.user.id) {
 				const updatedProduct = await updateProduct({
 					productId,
-					req.body
+					...req.body
 				})
 				res.send(updatedProduct)
 

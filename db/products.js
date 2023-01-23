@@ -5,7 +5,8 @@ const createProduct = async ({
   description,
   price,
   img,
-  artistId }) => {
+  artistId
+}) => {
   try {
     const { rows: [product] } = await client.query(`
     INSERT INTO products(title, description, price, img, "artistId")
