@@ -1,4 +1,5 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom'
 import { useGetAllProductsQuery } from '../../api/shopAPI'
 
 const Products = () => {
@@ -20,7 +21,8 @@ const Products = () => {
               </div>
             )
           })
-    }</div>
+    }
+    </div >
   )
 }
 

@@ -6,10 +6,12 @@ import Home from './Home'
 import NotFound from './NotFound'
 import {
   Artists,
+  Artist,
   Cart,
   Login,
   Orders,
-  Products
+  Products,
+  Product
 } from './features'
 import './App.css'
 
@@ -22,25 +24,31 @@ function App() {
       <Routes>
         <Route
           element={<Home />}
-          exact path="/" />
+          exact path="" />
         <Route
           element={<Login />}
-          exact path="/login" />
+          exact path="login" />
         <Route
           element={<Products />}
-          path="/products/*" />
+          exact path="products" />
+        <Route
+          element={<Product />}
+          path="products/:id" />
         <Route
           element={<Artists />}
-          path="/artists/*" />
+          exact path="artists/" />
+        <Route
+          element={<Artist />}
+          path="artists/:id" />
         <Route
           element={<Orders />}
-          path="/orders" />
+          path="orders" />
         <Route
           element={<Cart />}
-          path="/cart" />
+          path="cart" />
         <Route
           element={<NotFound />}
-          path="/*" />
+          path="*" />
       </Routes>
     </div>
   )
