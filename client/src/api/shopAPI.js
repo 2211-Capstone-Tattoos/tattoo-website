@@ -48,7 +48,24 @@ export const shopAPI = createApi({
       invalidatesTags: [{type: 'Products', id: 'LIST'}]
     }),
     //updateProduct:
+    updateProduct: builder.mutation({
+      query(body, id) {
+        return {
+          url: `products/${id}`,
+          method: 'PATCH',
+          body
+        }
+      }
+    }),
     //deleteProduct:
+    deleteProduct: builder.mutation({
+      query(id) {
+        return {
+          url: `products/${id}`,
+          method: 'DELETE',
+        }
+      }
+    }),
 
     //-------- User --------
     register: builder.mutation({
@@ -69,6 +86,24 @@ export const shopAPI = createApi({
           body
         }
       }
+    }),
+    updateUser: builder.mutation({
+      query(body, id) {
+        return {
+          url: `users/${id}`,
+          method: 'PATCH',
+          body
+        }
+      }
+    }),
+    deleteUser: builder.mutation({
+      query(id) {
+        return {
+          url: `users/${id}`,
+          method: 'DELETE',
+        }
+      }
+
     })
   })
 })
@@ -77,6 +112,10 @@ export const {
   useGetAllProductsQuery, 
   useAddProductMutation, 
   useGetProductQuery,
+  useUpdateProductMutation,
+  useDeleteProductMutation,
   useRegisterMutation,
-  useLoginMutation
+  useLoginMutation,
+  useUpdateUserMutation,
+  useDeleteUserMutation,
 } = shopAPI
