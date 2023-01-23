@@ -50,7 +50,12 @@ const getProductById = async (productId) => {
 
 const getProductsByUser = async (userId) => {
   try {
-    
+    const { rows: products } = await client.query(`
+      SELECT * FROM products
+      WHERE artistID=${userId};
+    `)
+
+    return products
   } catch (error) {
     throw error
   }
@@ -99,6 +104,7 @@ module.exports = {
   createProduct,
   getProducts,
   getProductById,
+  getProductsByUser,
   updateProduct,
   removeProduct
 }

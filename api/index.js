@@ -61,6 +61,9 @@ router.use('/users', require('./users'));
 //api/products
 router.use('/products', require('./products'))
 
+//api/artists
+router.use('/artists', require('./artists'))
+
 router.use("/*", (error, req, res, next) => {
   res.send({
     name: error.name,

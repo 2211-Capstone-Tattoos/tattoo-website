@@ -27,9 +27,9 @@ router.get('/:productId', async (req, res, next) => {
 		} else {
 			res.status(404)
 			next({
-				name: 'Product not found Error',
+				name: 'ProductNotFoundError',
 				message: `Product: ${req.params.productId} does not exist`,
-				error: 'Product not found Error'
+				error: 'ProductNotFoundError'
 			})
 		}
 	} catch (error) {
@@ -56,9 +56,9 @@ router.post('/', async (req, res, next) => {
 		} else {
 			res.status(401)
 			next({
-				name: 'Unauthorized Error',
+				name: 'UnauthorizedError',
 				message: 'You must be an authenticated artist to post a new product',
-				error: 'Unauthorized Error'
+				error: 'UnauthorizedError'
 			})
 		}
 	} catch (error) {
@@ -76,9 +76,9 @@ router.patch('/:productId', async (req, res, next) => {
 			if (!product) {
 				res.status(404)
 				next({
-					name: 'Product not found Error',
+					name: 'ProductNotFoundError',
 					message: `Product: ${req.params.productId} does not exist`,
-					error: 'Product not found Error'
+					error: 'ProductNotFoundError'
 				})
 			}
 
@@ -91,16 +91,16 @@ router.patch('/:productId', async (req, res, next) => {
 
 			} else {
 				next({
-					name: 'Unauthorized Error',
+					name: 'UnauthorizedError',
 					message: 'You must own this product to edit it.',
-					error: 'Unauthorized Error'
+					error: 'UnauthorizedError'
 				})
 			}
 		} else {
 			next({
-				name: 'Unauthorized Error',
+				name: 'UnauthorizedError',
 				message: 'You must be an artist to edit products.',
-				error: 'Unauthorized Error'
+				error: 'UnauthorizedError'
 			})
 		}
 	} catch (error) {
@@ -118,9 +118,9 @@ router.delete('/:productId', async (req, res, next) => {
 			if (!product) {
 				res.status(404)
 				next({
-					name: 'Product not found Error',
+					name: 'ProductNotFoundError',
 					message: `Product: ${req.params.productId} does not exist`,
-					error: 'Product not found Error'
+					error: 'ProductNotFoundError'
 				})
 			}
 
@@ -130,16 +130,16 @@ router.delete('/:productId', async (req, res, next) => {
 
 			} else {
 				next({
-					name: 'Unauthorized Error',
+					name: 'UnauthorizedError',
 					message: 'You must own this product to delete it.',
-					error: 'Unauthorized Error'
+					error: 'UnauthorizedError'
 				})
 			}
 		} else {
 			next({
-				name: 'Unauthorized Error',
+				name: 'UnauthorizedError',
 				message: 'You must be an artist to delete products.',
-				error: 'Unauthorized Error'
+				error: 'UnauthorizedError'
 			})
 		}
 	} catch (error) {
