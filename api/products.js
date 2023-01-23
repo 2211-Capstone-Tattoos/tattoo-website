@@ -12,6 +12,24 @@ router.get("/", async (req, res, next) => {
 })
 
 // GET api/products/:productId
+router.get('/:productId', async (req, res, next) => {
+	try {
+		const product = await getProductById(req.params.productId)
+
+		if(product) {
+			res.send(product)
+		} else {
+			res.status(404)
+			next({
+				name: 'Product not found Error',
+				message: `Product: ${req.params.productId} does not exist`,
+				error: 'Product not found Error'
+			})
+		}
+	} catch (error) {
+		next(error)
+	}
+})
 
 // POST api/products
 router.post('/', async (req, res, next) => {
@@ -44,11 +62,19 @@ router.post('/', async (req, res, next) => {
 
 // PATCH api/products/:productId
 router.patch('/:productId', async (req, res, next) => {
-	const productId = params.productId
+	const productId = req.params.productId
 
 	try {
 		if (req.user.isArtist) {
 			const product = await getProductById(productId)
+			if (!product) {
+				res.status(404)
+				next({
+					name: 'Product not found Error',
+					message: `Product: ${req.params.productId} does not exist`,
+					error: 'Product not found Error'
+				})
+			}
 
 			if (product.artistId === req.user.id) {
 				const updatedProduct = await updateProduct({
@@ -77,6 +103,43 @@ router.patch('/:productId', async (req, res, next) => {
 })
 
 // DELETE api/products/:productId
+router.delete('/:productId', async (req, res, next) => {
+	const productId = req.params.productId
+
+	try {
+		if (req.user.isArtist) {
+			const product = await getProductById(productId)
+			if (!product) {
+				res.status(404)
+				next({
+					name: 'Product not found Error',
+					message: `Product: ${req.params.productId} does not exist`,
+					error: 'Product not found Error'
+				})
+			}
+
+			if (product.artistId === req.user.id) {
+				const deletedProduct = await removeProduct(productId)
+				res.send(deletedProduct)
+
+			} else {
+				next ({
+					name: 'Unauthorized Error',
+					message: 'You must own this product to delete it.',
+					error: 'Unauthorized Error'
+				})
+			}
+		} else {
+			next ({
+				name: 'Unauthorized Error',
+				message: 'You must be an artist to delete products.',
+				error: 'Unauthorized Error'
+			})
+		}
+	} catch (error) {
+		next(error)
+	}
+})
 
 //does our error handler catch this itself?
 router.use("/*", (error, req, res, next) => {

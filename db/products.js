@@ -47,6 +47,14 @@ const getProductById = async (productId) => {
   }
 }
 
+const getProductsByUser = async (userId) => {
+  try {
+    
+  } catch (error) {
+    throw error
+  }
+}
+
 const updateProduct = async ({ id, ...fields }) => {
   const setString = Object.keys(fields)
   .map((key, index) => `"${key}"=$${index + 1}`)
@@ -71,9 +79,25 @@ const updateProduct = async ({ id, ...fields }) => {
   }
 }
 
+const removeProduct = async (productId) => {
+  try {
+    const { rows: [product] } = await client.query(`
+      UPDATE products
+      SET active=false
+      WHERE id=${productId}
+      RETURNING *;
+    `)
+
+    return product
+  } catch (error) {
+    throw error
+  }
+}
+
 module.exports = {
   createProduct,
   getProducts,
   getProductById,
-  updateProduct
+  updateProduct,
+  removeProduct
 }

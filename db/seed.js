@@ -36,6 +36,7 @@ const createTables = async () => {
       description TEXT NOT NULL,
       price MONEY NOT NULL,
       img TEXT,
+      active BOOLEAN NOT NULL DEFAULT true,
       "artistId" INTEGER REFERENCES users(id) NOT NULL
     );
     `);
@@ -163,70 +164,80 @@ const createInitialProducts = async () => {
         description: "In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem. Integer tincidunt ante vel ipsum.",
         price: "$21.47",
         img: "IMG_GOES_HERE",
-        artistId: 4
+        artistId: 4,
+        active: true
       },
       {
         title: "Cat, ringtail",
         description: "Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat. In congue. Etiam justo.",
         price: "$48.09",
         img: "IMG_GOES_HERE",
-        artistId: 4
+        artistId: 4,
+        active: true
       },
       {
         title: "Asian red fox",
         description: "Morbi non quam nec dui luctus rutrum. Nulla tellus. In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus. Suspendisse potenti.",
         price: "$20.63",
         img: "IMG_GOES_HERE",
-        artistId: 2
+        artistId: 2,
+        active: true
       },
       {
         title: "Albatross, waved",
         description: "Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh. Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.",
         price: "$23.82",
         img: "IMG_GOES_HERE",
-        artistId: 3
+        artistId: 3,
+        active: true
       },
       {
         title: "Waved albatross",
         description: "Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus. Suspendisse potenti. In eleifend quam a odio.",
         price: "$37.84",
         img: "IMG_GOES_HERE",
-        artistId: 3
+        artistId: 3,
+        active: true
       },
       {
         title: "Water moccasin",
         description: "Nulla suscipit ligula in lacus. Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla.",
         price: "$21.34",
         img: "IMG_GOES_HERE",
-        artistId: 4
+        artistId: 4,
+        active: true
       },
       {
         title: "Radiated tortoise",
         description: "Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi. Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.",
         price: "$22.98",
         img: "IMG_GOES_HERE",
-        artistId: 4
+        artistId: 4,
+        active: true
       },
       {
         title: "Mountain lion",
         description: "Nullam molestie nibh in lectus. Pellentesque at nulla.",
         price: "$37.74",
         img: "IMG_GOES_HERE",
-        artistId: 2
+        artistId: 2,
+        active: true
       },
       {
         title: "Kiskadee, great",
         description: "Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui. Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.",
         price: "$15.86",
         img: "IMG_GOES_HERE",
-        artistId: 3
+        artistId: 3,
+        active: true
       },
       {
         title: "Tern, royal",
         description: "Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus. Pellentesque at nulla.",
         price: "$34.45",
         img: "IMG_GOES_HERE",
-        artistId: 3
+        artistId: 3,
+        active: true
       }
     ]
     const fetchProducts = Promise.all(products.map(async (product) => {
