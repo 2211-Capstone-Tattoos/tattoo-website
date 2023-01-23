@@ -1,4 +1,10 @@
-const { getProducts, updateProduct } = require('../db/products');
+const { 
+	getProducts, 
+	updateProduct, 
+	getProductById, 
+	createProduct, 
+	removeProduct 
+} = require('../db/products');
 const router = require('express').Router();
 
 // GET api/products
