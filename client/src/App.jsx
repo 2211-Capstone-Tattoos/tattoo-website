@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import { Routes, Route } from 'react-router-dom'
 import Home from './Home'
 import NotFound from './NotFound'
+import NavBar from './NavBar'
 import {
   Artists,
   Artist,
@@ -21,6 +22,7 @@ function App() {
 
   return (
     <div className="App">
+      <NavBar />
       <Routes>
         <Route
           element={<Home />}
