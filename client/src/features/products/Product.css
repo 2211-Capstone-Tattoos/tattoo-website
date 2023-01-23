@@ -1,0 +1,29 @@
+.single-product {
+  width: 400px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  overflow: ;
+}
+
+.single-product .left {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.product-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.single-product img {
+  max-width: 100%
+}
+
+h2 {
+  margin: 0;
+  padding: 0;
+}

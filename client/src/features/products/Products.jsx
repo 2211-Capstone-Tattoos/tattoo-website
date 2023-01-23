@@ -1,27 +1,35 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 import { useGetAllProductsQuery } from '../../api/shopAPI'
 
 const Products = () => {
   const { data = [], isLoading, isFetching, isError } = useGetAllProductsQuery()
 
+  console.log(data)
+
   return (
-    <div className="products">{
-      isError
-        ? <>Oh noes something broke!</>
-        : isLoading || isFetching
-          ? <>Loading products...</>
-          : data.map(product => {
-            return (
-              <div className="product-card" key={product.id}>
-                <img src={product.img} alt="product-image" />
-                <p>Title: {product.name}</p>
-                <p>{product.description}</p>
-                <p>Price: {product.price}</p>
-              </div>
-            )
-          })
-    }
+    <div className="products">
+      <Outlet />
+      {
+        isError
+          ? <>Oh noes something broke!</>
+          : isLoading || isFetching
+            ? <>Loading products...</>
+            : data.map(product => {
+              if (product.active) {
+                return (
+                  <div className="product-card" key={product.id}>
+                    <img src={product.img} alt="product-image" />
+                    <Link to={`/products/${product.id}`}><p>Title: {product.title}</p></Link>
+                    <p>{product.description}</p>
+                    <p>Price: {product.price}</p>
+                    <p>{product.active ? 'true' : 'false'}</p>
+                  </div>
+                )
+              }
+            })
+      }
+
     </div >
   )
 }

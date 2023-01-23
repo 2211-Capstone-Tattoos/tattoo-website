@@ -32,7 +32,7 @@ function App() {
           exact path="login" />
         <Route
           element={<Products />}
-          exact path="products" />
+          path="products" />
         <Route
           element={<Product />}
           path="products/:id" />
@@ -52,7 +52,7 @@ function App() {
           element={<NotFound />}
           path="*" />
       </Routes>
-    </div>
+    </div >
   )
 }
 
