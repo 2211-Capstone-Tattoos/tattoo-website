@@ -76,7 +76,7 @@ const Login = () => {
             console.log(response)
             window.localStorage.setItem('token', response.token)
           } else {
-            throw new Error(response.error)
+            throw new Error(response.error, response.message)
           }
         } catch (err) {
           throw err

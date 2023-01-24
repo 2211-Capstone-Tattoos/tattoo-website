@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const router = require('express').Router();
 const { getUserById } = require('../db/users')
 
-router.use('/', async (req, res, next) => {
+router.use(async (req, res, next) => {
   const prefix = 'Bearer '
   const auth = req.header('Authorization')
   if (!auth) {
@@ -16,8 +16,13 @@ router.use('/', async (req, res, next) => {
         req.user = await getUserById(id)
         next()
       }
-    } catch ({ name, message }) {
-      next({ name, message })
+    } catch {
+      /* next({
+        name: 'InvalidTokenError',
+        message: 'The supplied token could not be validated',
+        error: 'InvalidTokenError'
+      }) */
+      next()
     }
   } else {
     next({
