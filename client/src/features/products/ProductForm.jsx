@@ -2,7 +2,7 @@ import React from "react";
 import { useRef } from "react";
 import { useAddProductMutation } from "../../api/shopAPI";
 
-const ProductForm = () => {
+const ProductForm = ({ setIsPosting }) => {
     const [addProduct] = useAddProductMutation();
 
     const titleRef = useRef()
@@ -23,7 +23,12 @@ const ProductForm = () => {
                 }
 
                 try {
-                    await addProduct(body)
+                    const newProduct = await addProduct({
+                        artistId: JSON.parse(window.localStorage.getItem('user')).id,
+                        body
+                    })
+                    console.log(newProduct)
+                    setIsPosting(false)
                 } catch (error) {
                     throw error
                 }

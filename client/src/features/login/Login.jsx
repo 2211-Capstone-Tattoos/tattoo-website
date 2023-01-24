@@ -32,6 +32,7 @@ const Login = () => {
           const { data: response } = await registerUser(body)
           console.log(response)
           window.localStorage.setItem('token', response.token)
+          window.localStorage.setItem('user', JSON.stringify(response.user))
         } catch (err) {
           throw err
         }
@@ -75,6 +76,7 @@ const Login = () => {
           if (response.token) {
             console.log(response)
             window.localStorage.setItem('token', response.token)
+            window.localStorage.setItem('user', JSON.stringify(response.user))
           } else {
             throw new Error(response.error, response.message)
           }

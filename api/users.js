@@ -24,7 +24,8 @@ router.post("/login", async (req, res, next) => {
         { id: user.id, username: user.username }, process.env.JWT_SECRET, {expiresIn: "1W"});
       res.send({
         message: "You're Logged in!",
-        token
+        token,
+        user: { id: user.id, username: user.username, isArtist: user.is_artist }
       });
     } else {
       next({
