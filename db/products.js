@@ -52,7 +52,7 @@ const getProductsByUser = async (userId) => {
   try {
     const { rows: products } = await client.query(`
       SELECT * FROM products
-      WHERE artistID=${userId};
+      WHERE "artistId"=${userId};
     `)
 
     return products
