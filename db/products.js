@@ -73,7 +73,7 @@ const updateProduct = async ({ id, ...fields }) => {
         SET ${setString}
         WHERE id=${id}
         RETURNING *;
-      `, [Object.values(fields)])
+      `, Object.values(fields))
 
       return product
     } else {
@@ -81,6 +81,7 @@ const updateProduct = async ({ id, ...fields }) => {
     }
 
   } catch (error) {
+    console.error('Could not update that product ', error)
     throw error
   }
 }

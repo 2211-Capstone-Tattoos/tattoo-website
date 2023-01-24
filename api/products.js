@@ -70,7 +70,7 @@ router.patch('/:productId', async (req, res, next) => {
 	const productId = req.params.productId
 
 	try {
-		if (req.user.isArtist) {
+		if (req.user.is_artist) {
 			const product = await getProductById(productId)
 			if (!product) {
 				res.status(404)
@@ -83,7 +83,7 @@ router.patch('/:productId', async (req, res, next) => {
 
 			if (product.artistId === req.user.id) {
 				const updatedProduct = await updateProduct({
-					productId,
+					id: productId,
 					...req.body
 				})
 				res.send(updatedProduct)
@@ -112,7 +112,7 @@ router.delete('/:productId', async (req, res, next) => {
 	const productId = req.params.productId
 
 	try {
-		if (req.user.isArtist) {
+		if (req.user.is_artist) {
 			const product = await getProductById(productId)
 			if (!product) {
 				res.status(404)

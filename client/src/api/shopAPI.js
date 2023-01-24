@@ -51,22 +51,26 @@ export const shopAPI = createApi({
     }),
     //updateProduct:
     updateProduct: builder.mutation({
-      query(body, id) {
+      query(data) {
+        const { artistId, productId, body } = data
         return {
-          url: `products/${id}`,
+          url: `products/${productId}`,
           method: 'PATCH',
           body
         }
-      }
+      },
+      invalidatesTags: (result, error, { artistId }) => [{ type: 'Artists', artistId }],
     }),
     //deleteProduct:
     deleteProduct: builder.mutation({
-      query(id) {
+      query(data) {
+        const { artistId, productId } = data
         return {
-          url: `products/${id}`,
+          url: `products/${productId}`,
           method: 'DELETE',
         }
-      }
+      },
+      invalidatesTags: (result, error, { artistId }) => [{ type: 'Artists', artistId }],
     }),
 
     //-------- User --------
