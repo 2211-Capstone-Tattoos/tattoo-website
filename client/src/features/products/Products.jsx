@@ -5,11 +5,8 @@ import { useGetAllProductsQuery } from '../../api/shopAPI'
 const Products = () => {
   const { data = [], isLoading, isFetching, isError } = useGetAllProductsQuery()
 
-  console.log(data)
-
   return (
     <div className="products">
-      <Outlet />
       {
         isError
           ? <>Oh noes something broke!</>

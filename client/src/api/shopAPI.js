@@ -13,7 +13,7 @@ export const shopAPI = createApi({
       return headers
     }
   }),
-  tagTypes : ['Products', 'Artists', 'User'],
+  tagTypes: ['Products', 'Artists', 'User'],
   endpoints: (builder) => ({
 
     //-------- Products ---------
@@ -23,15 +23,15 @@ export const shopAPI = createApi({
       //re-fetch *all* products upon tag invalidation
       //we can also have individual tag subscriptions with id: id
       providesTags: (result) =>
-      result
-      ? [
-          //re-fetch if subscribed to a product containing 'id' upon invalidation
-          //this will return an array of tags with each product's id and the 'LIST' id invalidated on addProduct
-          ...result.map(({id}) => ({ type: 'Products', id })),
-          { type: 'Products', id: 'LIST' }
-        ]
-      : //else upon error, still re-fetch all products
-        [{ type: 'Products', id: 'LIST' }]
+        result
+          ? [
+            //re-fetch if subscribed to a product containing 'id' upon invalidation
+            //this will return an array of tags with each product's id and the 'LIST' id invalidated on addProduct
+            ...result.map(({ id }) => ({ type: 'Products', id })),
+            { type: 'Products', id: 'LIST' }
+          ]
+          : //else upon error, still re-fetch all products
+          [{ type: 'Products', id: 'LIST' }]
     }),
     getProduct: builder.query({
       query: (id) => `products/${id}`,
@@ -45,7 +45,7 @@ export const shopAPI = createApi({
           body
         }
       },
-      invalidatesTags: [{type: 'Products', id: 'LIST'}]
+      invalidatesTags: [{ type: 'Products', id: 'LIST' }]
     }),
     //updateProduct:
     updateProduct: builder.mutation({
@@ -104,13 +104,31 @@ export const shopAPI = createApi({
         }
       }
 
-    })
+    }),
+
+    // ARTISTS
+    getAllArtists: builder.query({
+      query: () => `artists`,
+
+      //re-fetch *all* products upon tag invalidation
+      //we can also have individual tag subscriptions with id: id
+      providesTags: (result) =>
+        result
+          ? [
+            //re-fetch if subscribed to a product containing 'id' upon invalidation
+            //this will return an array of tags with each product's id and the 'LIST' id invalidated on addProduct
+            ...result.map(({ id }) => ({ type: 'Artists', id })),
+            { type: 'Artists', id: 'LIST' }
+          ]
+          : //else upon error, still re-fetch all products
+          [{ type: 'Artists', id: 'LIST' }]
+    }),
   })
 })
 
-export const { 
-  useGetAllProductsQuery, 
-  useAddProductMutation, 
+export const {
+  useGetAllProductsQuery,
+  useAddProductMutation,
   useGetProductQuery,
   useUpdateProductMutation,
   useDeleteProductMutation,
@@ -118,4 +136,5 @@ export const {
   useLoginMutation,
   useUpdateUserMutation,
   useDeleteUserMutation,
+  useGetAllArtistsQuery
 } = shopAPI

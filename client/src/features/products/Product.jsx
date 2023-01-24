@@ -7,7 +7,6 @@ import NotFound from '../../NotFound';
 const Product = () => {
   const { id } = useParams()
   const { data = [], isLoading, isFetching, isError } = useGetProductQuery(id)
-  console.log(data)
   return (
     <>
       {data.active

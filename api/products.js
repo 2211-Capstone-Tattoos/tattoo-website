@@ -51,7 +51,6 @@ router.post('/', async (req, res, next) => {
 			}
 
 			const newProduct = await createProduct(body)
-			console.log(newProduct)
 			res.send(newProduct)
 		} else {
 			res.status(401)
