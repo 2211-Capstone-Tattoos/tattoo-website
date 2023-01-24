@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom'
 import { useGetArtistQuery } from '../../api/shopAPI'
 
 const Artist = () => {
+  const { id } = useParams()
   const { data = [], isLoading, isFetching, isError } = useGetArtistQuery(id)
 
-  const { id } = useParams()
   return (
     <div className='single-artist'>
       <div className='top'>
