@@ -123,6 +123,11 @@ export const shopAPI = createApi({
           : //else upon error, still re-fetch all products
           [{ type: 'Artists', id: 'LIST' }]
     }),
+
+    getArtist: builder.query({
+      query: (id) => `artists/${id}`,
+      providesTags: (result, error, id) => [{ type: 'Artists', id }]
+    })
   })
 })
 
@@ -136,5 +141,6 @@ export const {
   useLoginMutation,
   useUpdateUserMutation,
   useDeleteUserMutation,
-  useGetAllArtistsQuery
+  useGetAllArtistsQuery,
+  useGetArtistQuery, 
 } = shopAPI
