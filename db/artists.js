@@ -2,12 +2,18 @@ const { client } = require("./client")
 const { getProductsByUser } = require("./products")
 const { getUserById } = require("./users")
 
+//Add getAllArtists without products?
+
 async function getAllArtists () {
   try {
-    const { rows: artists } = await client.query(`
-      SELECT * FROM users
+    const { rows: artistIds } = await client.query(`
+      SELECT id FROM users
       WHERE users.is_artist = true;
     `)
+
+    const artists = await Promise.all(artistIds.map(
+      artist => getArtistById(artist.id)
+    ))
 
     return artists
   } catch (error) {
