@@ -1,5 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import { useGetArtistQuery } from '../../api/shopAPI'
 
 const Artist = () => {
   const { data = [], isLoading, isFetching, isError } = useGetArtistQuery(id)
