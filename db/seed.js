@@ -51,104 +51,116 @@ const createTables = async () => {
 
 const createInitialUsers = async () => {
   console.log('Adding initial users to "Users" table...');
+  const users = [
+    {
+      id: 1,
+      email: "tmainds0@google.co.jp",
+      username: "tmainds0",
+      password: "lJ1c3FuiU",
+      fullname: "Thorsten Mainds",
+      profileImg: "https://robohash.org/etquasullam.png?size=500x500&set=set1",
+      location: "Vila",
+      isArtist: false
+    },
+    {
+      id: 2,
+      email: "dblitzer1@dailymail.co.uk",
+      username: "dblitzer1",
+      password: "pUW8UcRKydCp",
+      fullname: "Delmore Blitzer",
+      profileImg: "https://robohash.org/voluptatemidaut.png?size=500x500&set=set1",
+      location: "Maracanã",
+      isArtist: true
+    },
+    {
+      id: 3,
+      email: "thazelden2@t-online.de",
+      username: "thazelden2",
+      password: "e1N5Yct6O",
+      fullname: "Tonnie Hazelden",
+      profileImg: "https://robohash.org/essesitreiciendis.png?size=500x500&set=set1",
+      location: "San Pedro",
+      isArtist: true
+    },
+    {
+      id: 4,
+      email: "begglestone3@skyrock.com",
+      username: "begglestone3",
+      password: "hXjoO5C",
+      fullname: "Brendis Egglestone",
+      profileImg: "https://robohash.org/voluptateaspernaturtempora.png?size=500x500&set=set1",
+      location: "Belo Oriente",
+      isArtist: true
+    },
+    {
+      id: 5,
+      email: "arostron4@prlog.org",
+      username: "arostron4",
+      password: "F4pEfs",
+      fullname: "Aimil Rostron",
+      profileImg: "https://robohash.org/corporismolestiasqui.png?size=500x500&set=set1",
+      location: "Palaihari",
+      isArtist: false
+    },
+    {
+      id: 6,
+      email: "bnixon5@scribd.com",
+      username: "bnixon5",
+      password: "9tvI2A",
+      fullname: "Barry Nixon",
+      profileImg: "https://robohash.org/rerumsequipraesentium.png?size=500x500&set=set1",
+      location: "Santa Gertrudes",
+      isArtist: false
+    },
+    {
+      id: 7,
+      email: "tparlet6@goodreads.com",
+      username: "tparlet6",
+      password: "drXLIa8UhUD",
+      fullname: "Tildie Parlet",
+      profileImg: "https://robohash.org/odioautin.png?size=500x500&set=set1",
+      location: "Lorica",
+      isArtist: false
+    },
+    {
+      id: 8,
+      email: "ppanchen7@networkadvertising.org",
+      username: "ppanchen7",
+      password: "FnWtMzqsef",
+      fullname: "Paolina Panchen",
+      profileImg: "https://robohash.org/consecteturexpeditaquidem.png?size=500x500&set=set1",
+      location: "Quinipot",
+      isArtist: false
+    },
+    {
+      id: 9,
+      email: "ijackson8@pinterest.com",
+      username: "ijackson8",
+      password: "pTYJ4YaFz",
+      fullname: "Issi Jackson",
+      profileImg: "https://robohash.org/doloranimiaccusantium.png?size=500x500&set=set1",
+      location: "Binuangan",
+      isArtist: false
+    },
+    {
+      id: 10,
+      email: "cde0@rediff.com",
+      username: "ChiquiChiqui",
+      password: "eFScjkGl",
+      fullname: "Chiquia De Ruggiero",
+      profileImg: "https://robohash.org/odioquiaculpa.png?size=500x500&set=set1",
+      location: "Xishaqiao",
+      isArtist: true
+    }
+  ]
+  const newList = []
   try {
-    const users = [
-      {
-        email: "tmainds0@google.co.jp",
-        username: "tmainds0",
-        password: "lJ1c3FuiU",
-        fullname: "Thorsten Mainds",
-        profileImg: "https://robohash.org/etquasullam.png?size=500x500&set=set1",
-        location: "Vila",
-        isArtist: false
-      },
-      {
-        email: "dblitzer1@dailymail.co.uk",
-        username: "dblitzer1",
-        password: "pUW8UcRKydCp",
-        fullname: "Delmore Blitzer",
-        profileImg: "https://robohash.org/voluptatemidaut.png?size=500x500&set=set1",
-        location: "Maracanã",
-        isArtist: true
-      },
-      {
-        email: "thazelden2@t-online.de",
-        username: "thazelden2",
-        password: "e1N5Yct6O",
-        fullname: "Tonnie Hazelden",
-        profileImg: "https://robohash.org/essesitreiciendis.png?size=500x500&set=set1",
-        location: "San Pedro",
-        isArtist: true
-      },
-      {
-        email: "begglestone3@skyrock.com",
-        username: "begglestone3",
-        password: "hXjoO5C",
-        fullname: "Brendis Egglestone",
-        profileImg: "https://robohash.org/voluptateaspernaturtempora.png?size=500x500&set=set1",
-        location: "Belo Oriente",
-        isArtist: true
-      },
-      {
-        email: "arostron4@prlog.org",
-        username: "arostron4",
-        password: "F4pEfs",
-        fullname: "Aimil Rostron",
-        profileImg: "https://robohash.org/corporismolestiasqui.png?size=500x500&set=set1",
-        location: "Palaihari",
-        isArtist: false
-      },
-      {
-        email: "bnixon5@scribd.com",
-        username: "bnixon5",
-        password: "9tvI2A",
-        fullname: "Barry Nixon",
-        profileImg: "https://robohash.org/rerumsequipraesentium.png?size=500x500&set=set1",
-        location: "Santa Gertrudes",
-        isArtist: false
-      },
-      {
-        email: "tparlet6@goodreads.com",
-        username: "tparlet6",
-        password: "drXLIa8UhUD",
-        fullname: "Tildie Parlet",
-        profileImg: "https://robohash.org/odioautin.png?size=500x500&set=set1",
-        location: "Lorica",
-        isArtist: false
-      },
-      {
-        email: "ppanchen7@networkadvertising.org",
-        username: "ppanchen7",
-        password: "FnWtMzqsef",
-        fullname: "Paolina Panchen",
-        profileImg: "https://robohash.org/consecteturexpeditaquidem.png?size=500x500&set=set1",
-        location: "Quinipot",
-        isArtist: false
-      },
-      {
-        email: "ijackson8@pinterest.com",
-        username: "ijackson8",
-        password: "pTYJ4YaFz",
-        fullname: "Issi Jackson",
-        profileImg: "https://robohash.org/doloranimiaccusantium.png?size=500x500&set=set1",
-        location: "Binuangan",
-        isArtist: false
-      },
-      {
-        email: "cde0@rediff.com",
-        username: "ChiquiChiqui",
-        password: "eFScjkGl",
-        fullname: "Chiquia De Ruggiero",
-        profileImg: "https://robohash.org/odioquiaculpa.png?size=500x500&set=set1",
-        location: "Xishaqiao",
-        isArtist: true
-      }
-    ]
-    const fetchUsers = Promise.all(users.map(async (user) => {
-      await createUser(user)
-    }))
+    while (users.length) {
+      const user = users.shift();
+      newList.push(await createUser(user))
+    }
     console.log('Finished adding users!');
-    return fetchUsers
+    return newList
   } catch (error) {
     console.error('Error adding users to users table', error)
     throw error
@@ -164,7 +176,7 @@ const createInitialProducts = async () => {
         description: "In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem. Integer tincidunt ante vel ipsum.",
         price: "$21.47",
         img: "https://images.pexels.com/photos/2183131/pexels-photo-2183131.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        artistId: 4,
+        artistId: 2,
         active: true
       },
       {
@@ -172,7 +184,7 @@ const createInitialProducts = async () => {
         description: "Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat. In congue. Etiam justo.",
         price: "$48.09",
         img: "https://images.pexels.com/photos/2183131/pexels-photo-2183131.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        artistId: 4,
+        artistId: 2,
         active: true
       },
       {
@@ -204,7 +216,7 @@ const createInitialProducts = async () => {
         description: "Nulla suscipit ligula in lacus. Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla.",
         price: "$21.34",
         img: "https://images.pexels.com/photos/2183131/pexels-photo-2183131.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        artistId: 4,
+        artistId: 3,
         active: true
       },
       {
@@ -220,7 +232,7 @@ const createInitialProducts = async () => {
         description: "Nullam molestie nibh in lectus. Pellentesque at nulla.",
         price: "$37.74",
         img: "https://images.pexels.com/photos/2183131/pexels-photo-2183131.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        artistId: 2,
+        artistId: 4,
         active: true
       },
       {
@@ -228,7 +240,7 @@ const createInitialProducts = async () => {
         description: "Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui. Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.",
         price: "$15.86",
         img: "https://images.pexels.com/photos/2183131/pexels-photo-2183131.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        artistId: 3,
+        artistId: 10,
         active: true
       },
       {
@@ -236,7 +248,7 @@ const createInitialProducts = async () => {
         description: "Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus. Pellentesque at nulla.",
         price: "$34.45",
         img: "https://images.pexels.com/photos/2183131/pexels-photo-2183131.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        artistId: 3,
+        artistId: 10,
         active: true
       }
     ]
