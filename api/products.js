@@ -40,7 +40,7 @@ router.get('/:productId', async (req, res, next) => {
 // POST api/products
 router.post('/', async (req, res, next) => {
 	try {
-		if (req.user.isArtist) {
+		if (req.user.is_artist) {
 			// try shorthand as used in patch
 			const body = {
 				title: req.body.title,

@@ -38,14 +38,16 @@ export const shopAPI = createApi({
       providesTags: (result, error, id) => [{ type: 'Products', id }]
     }),
     addProduct: builder.mutation({
-      query(body) {
+      query(data) {
+        const { artistId, body } = data
+        console.log(`artistId: ${artistId}  newBody: ${body}`)
         return {
           url: 'products',
           method: 'POST',
           body
         }
       },
-      invalidatesTags: [{ type: 'Products', id: 'LIST' }]
+      invalidatesTags: (result, error, { artistId }) => [{ type: 'Artists', artistId }],
     }),
     //updateProduct:
     updateProduct: builder.mutation({

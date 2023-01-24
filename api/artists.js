@@ -16,7 +16,12 @@ router.get('/:artistId', async (req, res, next) => {
   try {
     const artist = await getArtistById(req.params.artistId)
     if (artist) {
-      res.send(artist)
+      if (artist.id === req.user?.id) {
+        artist.isOwner = true
+        res.send(artist)
+      } else {
+        res.send(artist)
+      }
     } else {
       next({
         name: 'ArtistNotFoundError',
