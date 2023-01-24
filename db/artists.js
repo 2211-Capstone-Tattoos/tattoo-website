@@ -14,7 +14,7 @@ async function getAllArtists () {
     const artists = await Promise.all(artistIds.map(
       artist => getArtistById(artist.id)
     ))
-
+    console.log(artists)
     return artists
   } catch (error) {
     throw error
@@ -26,9 +26,9 @@ async function getArtistById (artistId) {
     const artist = await getUserById(artistId)
     if (artist.is_artist) {
       delete artist.password
-      artist.products = await getProductsByUser(artist.username)
+      artist.products = await getProductsByUser(artist.id)
       console.log(artist)
-      res.send(artist)
+      return artist
     } else {
       throw new Error(`User: ${artist.username} is not an artist`)
     }
