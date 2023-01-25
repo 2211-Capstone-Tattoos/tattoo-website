@@ -45,7 +45,7 @@ const createTables = async () => {
       id SERIAL PRIMARY KEY,
       is_complete BOOLEAN NOT NULL DEFAULT false,
       total MONEY,
-      orderTime TIMESTAMPTZ,
+      order_time TIMESTAMPTZ,
       "userId" INTEGER REFERENCES users(id) NOT NULL
     );
     CREATE TABLE order_products(
@@ -91,7 +91,6 @@ const createInitialUsers = async () => {
       isArtist: true
     },
     {
-      id: 3,
       email: "thazelden2@t-online.de",
       username: "thazelden2",
       password: "e1N5Yct6O",
@@ -270,6 +269,215 @@ const createInitialProducts = async () => {
     return fetchProducts
   } catch (error) {
     console.error('Error adding products to products table', error)
+    throw error
+  }
+}
+
+const createInitialOrders = () => {
+  console.log('Adding initial orders to "orders" table...')
+  try {
+    const orders = [
+      {
+        is_complete: false,
+        total: null,
+        order_time: null,
+        userId: 1
+      },
+      {
+        is_complete: false,
+        total: null,
+        order_time: null,
+        userId: 2
+      },
+      {
+        is_complete: false,
+        total: null,
+        order_time: null,
+        userId: 3
+      },
+      {
+        is_complete: true,
+        total: "$8.20",
+        order_time: "5/18/2022",
+        userId: 2
+      },
+      { //id:5
+        is_complete: false,
+        total: null,
+        order_time: null,
+        userId: 4
+      },
+      {
+        is_complete: false,
+        total: null,
+        order_time: null,
+        userId: 5
+      },
+      {
+        is_complete: true,
+        total: "$3.61",
+        order_time: "2/20/2022",
+        userId: 2
+      },
+      {
+        is_complete: true,
+        total: "$3.32",
+        order_time: "10/16/2022",
+        userId: 2
+      },
+      {
+        is_complete: true,
+        total: "$6.77",
+        order_time: "4/7/2022",
+        userId: 1
+      },
+      {
+
+        is_complete: true,
+        total: "$4.99",
+        order_time: "12/28/2022",
+        userId: 1
+      },
+      {
+
+        is_complete: false,
+        total: null,
+        order_time: null,
+        userId: 6
+      },
+      {
+
+        is_complete: false,
+        total: null,
+        order_time: null,
+        userId: 7
+      },
+      {
+
+        is_complete: true,
+        total: "$3.27",
+        order_time: "8/28/2022",
+        userId: 2
+      },
+      {
+
+        is_complete: true,
+        total: "$6.36",
+        order_time: "5/10/2022",
+        userId: 3
+      },
+      {
+        is_complete: true,
+        total: "$9.16",
+        order_time: "4/8/2022",
+        userId: 3
+      }
+    ]
+    console.log('Finished adding orders!')
+  } catch (error) {
+    console.error('Error adding orders to orders table', error)
+    throw error
+  }
+}
+
+const createInitialOrderProducts = () => {
+  console.log('Adding initial order products to "order_products" table...')
+  try {
+    const orderProducts = [
+      {
+        img: null,
+        title: null,
+        description: null,
+        paid_price: null,
+        quantity: 4,
+        orderId: 2,
+        productId: 1
+      },
+      {
+        img: null,
+        title: null,
+        description: null,
+        paid_price: null,
+        quantity: 5,
+        orderId: 2,
+        productId: 2
+      },
+      {
+        img: null,
+        title: "Customer-focused executive model",
+        description: "Morbi quis tortor id nulla ultrices aliquet. Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo.",
+        paid_price: null,
+        quantity: 0,
+        orderId: 4,
+        productId: 3
+      },
+      {
+        img: null,
+        title: "Networked next generation complexity",
+        description: "In hac habitasse platea dictumst. Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem.",
+        paid_price: null,
+        quantity: 9,
+        orderId: 4,
+        productId: 4
+      },
+      {
+        img: null,
+        title: "Proactive neutral support",
+        description: "Aenean auctor gravida sem. Praesent id massa id nisl venenatis lacinia.",
+        paid_price: null,
+        quantity: 3,
+        orderId: 4,
+        productId: 1
+      },
+      {
+        img: null,
+        title: "Reactive homogeneous database",
+        description: "Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis. Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl.",
+        paid_price: null,
+        quantity: 4,
+        orderId: 7,
+        productId: 3
+      },
+      {
+        img: null,
+        title: "Team-oriented next generation infrastructure",
+        description: "Morbi porttitor lorem id ligula.",
+        paid_price: null,
+        quantity: 1,
+        orderId: 7,
+        productId: 8
+      },
+      {
+        img: null,
+        title: "Synergized radical throughput",
+        description: "Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus. Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.",
+        paid_price: null,
+        quantity: 3,
+        orderId: 9,
+        productId: 2
+      },
+      {
+        img: null,
+        title: "Virtual transitional analyzer",
+        description: "Donec quis orci eget orci vehicula condimentum. Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.",
+        paid_price: null,
+        quantity: 8,
+        orderId: 9,
+        productId: 5
+      },
+      {
+        img: null,
+        title: "Synergized client-driven strategy",
+        description: "Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl.",
+        paid_price: null,
+        quantity: 9,
+        orderId: 9,
+        productId: 4
+      }
+    ]
+    console.log('Finished adding order products!')
+  } catch (error) {
+    console.error('Error adding order products to order_products table', error)
     throw error
   }
 }
