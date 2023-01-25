@@ -86,11 +86,6 @@ router.post("/register", async (req, res, next) => {
   }
 })
 
-
-
-//api/users/:userId/cart
-router.use('/:userId/cart', require('./cart'))
-
 router.use("/*", (error, req, res, next) => {
   res.send({
     name: error.name,

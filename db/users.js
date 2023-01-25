@@ -1,6 +1,7 @@
 const { client } = require('./client');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const { createCart } = require('./cart');
 const saltRounds = 10;
 
 const createUser = async ({
@@ -21,6 +22,8 @@ const createUser = async ({
      VALUES ( $1, $2, $3, $4, $5, $6, $7)
      RETURNING *
     `, [email, username, hashedPassword, fullname, profileImg, location, isArtist])
+
+    const cart = await createCart(user.id)
     return user
   } catch (error) {
     console.error(error)
@@ -28,7 +31,7 @@ const createUser = async ({
   }
 }
 
-async function getUser({username, password}) { 
+async function getUser({ username, password }) {
   if (!username || !password) {
     return;
   }
@@ -52,14 +55,14 @@ async function getUserById(userId) {
     `);
 
     delete user.password;
-    
+
     return user;
   } catch (error) {
     throw error
   }
 }
 
-async function getUserByUsername(username) { 
+async function getUserByUsername(username) {
   try {
     const { rows: [user] } = await client.query(`
     SELECT * FROM users
