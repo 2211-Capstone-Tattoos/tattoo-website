@@ -21,7 +21,7 @@ router.post("/login", async (req, res, next) => {
     if (user && match) {
       delete user.password;
       const token = jwt.sign(
-        { id: user.id, username: user.username }, process.env.JWT_SECRET, {expiresIn: "1W"});
+        { id: user.id, username: user.username }, process.env.JWT_SECRET, { expiresIn: "1W" });
       res.send({
         message: "You're Logged in!",
         token,
@@ -50,14 +50,14 @@ router.post("/register", async (req, res, next) => {
       location,
       isArtist } = req.body;
     const _user = await getUserByUsername(username);
-    if(_user) {
+    if (_user) {
       next({
         name: "UsernameTaken",
         message: `This username ${_user.username} is already taken.`
       })
     }
 
-    if(password.length < 8) {
+    if (password.length < 8) {
       next({
         name: "InsufficientPassword",
         message: "Password is too short!"
@@ -74,17 +74,22 @@ router.post("/register", async (req, res, next) => {
       isArtist
     });
 
-    const token = jwt.sign({id: user.id, username: user.username}, process.env.JWT_SECRET, {expiresIn: "1W"});
+    const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, { expiresIn: "1W" });
 
     res.send({
       message: "Thank you for signing up!",
       token: token,
-      user: {id: user.id, username: user.username}
+      user: { id: user.id, username: user.username }
     });
   } catch (error) {
     next(error);
   }
 })
+
+
+
+//api/users/:userId/cart
+router.use('/:userId/cart', require('./cart'))
 
 router.use("/*", (error, req, res, next) => {
   res.send({
