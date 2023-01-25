@@ -133,7 +133,14 @@ export const shopAPI = createApi({
     getArtist: builder.query({
       query: (id) => `artists/${id}`,
       providesTags: (result, error, id) => [{ type: 'Artists', id }]
-    })
+    }),
+
+    // Cart
+    getCart: builder.query({
+      query: (id) => `cart/${id}`,
+      providesTags: (result, error, id) => [{ type: 'Products', id }]
+    }),
+
   })
 })
 
@@ -148,5 +155,6 @@ export const {
   useUpdateUserMutation,
   useDeleteUserMutation,
   useGetAllArtistsQuery,
-  useGetArtistQuery, 
+  useGetArtistQuery,
+  useGetCartQuery,
 } = shopAPI

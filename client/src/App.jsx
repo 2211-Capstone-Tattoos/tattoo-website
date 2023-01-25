@@ -47,7 +47,7 @@ function App() {
           path="orders" />
         <Route
           element={<Cart />}
-          path="cart" />
+          path="cart/:id" />
         <Route
           element={<NotFound />}
           path="*" />
