@@ -24,6 +24,8 @@ router.get("/:userId", async (req, res, next) => {
   }
 })
 
+
+
 router.use("/*", (error, req, res, next) => {
   res.send({
     name: error.name,

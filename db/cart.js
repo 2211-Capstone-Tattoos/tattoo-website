@@ -34,14 +34,14 @@ const getCartByUserId = async (userId) => {
   }
 }
 
-const addProductToCart = async (productId, orderId) => {
+const addProductToCart = async ({ orderId, productId, quantity }) => {
   try {
     const { rows: [orderProduct] } = await client.query(`
-    INSERT INTO order_products ("orderId", "productId")
-    VALUES ($1, $2)
-    ON CONFLICT DO NOTHING
+    INSERT INTO order_products ("orderId", "productId", quantity)
+    VALUES ($1, $2, $3)
+    ON CONFLICT ("orderId", "productId") DO NOTHING
     RETURNING *
-    `, [orderId, productId])
+    `, [orderId, productId, quantity])
     return orderProduct
   } catch (error) {
     console.error(error)

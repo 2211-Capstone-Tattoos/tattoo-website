@@ -13,8 +13,6 @@ const getOrdersByUserId = async (userId) => {
   }
 }
 
-
-
 module.exports = {
   getOrdersByUserId
 }

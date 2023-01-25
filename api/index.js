@@ -11,7 +11,6 @@ router.use(async (req, res, next) => {
   } else if (auth.startsWith(prefix)) {
     const token = auth.slice(prefix.length)
     try {
-      console.log(token)
       const { id } = jwt.verify(token, process.env.JWT_SECRET)
       if (id) {
         req.user = await getUserById(id)
@@ -72,6 +71,9 @@ router.use('/artists', require('./artists'))
 
 //api/orders
 router.use('/orders', require('./orders'))
+
+//api/users/:userId/cart
+router.use('/cart', require('./cart'))
 
 router.use("/*", (error, req, res, next) => {
   res.send({
