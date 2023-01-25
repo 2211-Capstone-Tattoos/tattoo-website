@@ -13,7 +13,6 @@ const createProduct = async ({
     VALUES ($1, $2, $3, $4, $5)
     RETURNING *
     `, [title, description, price, img, artistId])
-    console.log(product)
     return product
   } catch (error) {
     console.error(error)
@@ -26,7 +25,6 @@ const getProducts = async () => {
     const { rows: products } = await client.query(`
     SELECT * FROM products
     `)
-    console.log(products)
     return products
   } catch (error) {
     console.error(error)
@@ -40,8 +38,6 @@ const getProductById = async (productId) => {
       SELECT * FROM products
       WHERE products.id = $1;
     `, [productId])
-
-    console.log(product)
     return product
   } catch (error) {
     throw error
@@ -63,11 +59,11 @@ const getProductsByUser = async (userId) => {
 
 const updateProduct = async ({ id, ...fields }) => {
   const setString = Object.keys(fields)
-  .map((key, index) => `"${key}"=$${index + 1}`)
-  .join(", ")
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(", ")
 
   try {
-    if(setString.length > 0) {
+    if (setString.length > 0) {
       const { rows: [product] } = await client.query(`
         UPDATE products
         SET ${setString}
