@@ -5,6 +5,7 @@ const {
 } = require('../db/cart')
 
 router.get("/:userId", async (req, res, next) => {
+  debugger
   const userId = req.params.userId
   if (!req.user) {
     next({
@@ -25,6 +26,7 @@ router.get("/:userId", async (req, res, next) => {
     next(error);
   }
 })
+
 
 router.use("/*", (error, req, res, next) => {
   res.send({
