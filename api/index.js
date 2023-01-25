@@ -11,6 +11,7 @@ router.use(async (req, res, next) => {
   } else if (auth.startsWith(prefix)) {
     const token = auth.slice(prefix.length)
     try {
+      console.log(token)
       const { id } = jwt.verify(token, process.env.JWT_SECRET)
       if (id) {
         req.user = await getUserById(id)

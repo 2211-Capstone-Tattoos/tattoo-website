@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { getOrdersByUserId } = require('../db/orders')
 
 router.get("/:userId", async (req, res, next) => {
+  debugger
   const userId = req.params.userId
   if (!req.user) {
     next({
