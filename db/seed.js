@@ -1,5 +1,6 @@
 const { addProductToCart } = require('./cart');
 const { client } = require('./client');
+const { completeOrder } = require('./orders');
 const { getProducts, createProduct } = require('./products');
 const { createUser } = require('./users');
 
@@ -277,22 +278,22 @@ const createInitialProducts = async () => {
   }
 }
 
-const addInitialProductsToOrders = async () => {
+const addInitialProductsToOrders = async (orderId) => {
   console.log("Adding initial products to orders")
   try {
     const productsToAdd = [
       {
-        orderId: 2,
+        orderId: orderId,
         productId: 1,
         quantity: 2
       },
       {
-        orderId: 2,
+        orderId: orderId,
         productId: 5,
         quantity: 3
       },
       {
-        orderId: 2,
+        orderId: orderId,
         productId: 9,
         quantity: 10
       }
@@ -300,12 +301,13 @@ const addInitialProductsToOrders = async () => {
     const newCartProducts = Promise.all(productsToAdd.map(async (product) => {
       await addProductToCart(product)
     }))
+
+    console.log("Finished adding initial products to orders")
     return newCartProducts
   } catch (err) {
     console.error('Error adding products to orders', err)
     throw err
   }
-  console.log("Finished adding initial products to orders")
 }
 
 (async () => {
@@ -315,7 +317,9 @@ const addInitialProductsToOrders = async () => {
     await createTables();
     await createInitialUsers();
     await createInitialProducts();
-    await addInitialProductsToOrders();
+    await addInitialProductsToOrders(2);
+    await completeOrder(2, 2)
+    await addInitialProductsToOrders(11);
   } catch (error) {
     console.error('Error during rebuildDB', error);
     throw error;
