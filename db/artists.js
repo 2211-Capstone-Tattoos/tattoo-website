@@ -4,7 +4,7 @@ const { getUserById } = require("./users")
 
 //Add getAllArtists without products?
 
-async function getAllArtists () {
+async function getAllArtists() {
   try {
     const { rows: artistIds } = await client.query(`
       SELECT id FROM users
@@ -14,20 +14,18 @@ async function getAllArtists () {
     const artists = await Promise.all(artistIds.map(
       artist => getArtistById(artist.id)
     ))
-    console.log(artists)
     return artists
   } catch (error) {
     throw error
   }
 }
 
-async function getArtistById (artistId) {
+async function getArtistById(artistId) {
   try {
     const artist = await getUserById(artistId)
     if (artist.is_artist) {
       delete artist.password
       artist.products = await getProductsByUser(artist.id)
-      console.log(artist)
       return artist
     } else {
       throw new Error(`User: ${artist.username} is not an artist`)

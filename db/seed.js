@@ -53,7 +53,6 @@ const createInitialUsers = async () => {
   console.log('Adding initial users to "Users" table...');
   const users = [
     {
-      id: 1,
       email: "tmainds0@google.co.jp",
       username: "tmainds0",
       password: "lJ1c3FuiU",
@@ -63,7 +62,6 @@ const createInitialUsers = async () => {
       isArtist: false
     },
     {
-      id: 2,
       email: "dblitzer1@dailymail.co.uk",
       username: "dblitzer1",
       password: "pUW8UcRKydCp",
@@ -83,7 +81,6 @@ const createInitialUsers = async () => {
       isArtist: true
     },
     {
-      id: 4,
       email: "begglestone3@skyrock.com",
       username: "begglestone3",
       password: "hXjoO5C",
@@ -93,7 +90,6 @@ const createInitialUsers = async () => {
       isArtist: true
     },
     {
-      id: 5,
       email: "arostron4@prlog.org",
       username: "arostron4",
       password: "F4pEfs",
@@ -103,7 +99,6 @@ const createInitialUsers = async () => {
       isArtist: false
     },
     {
-      id: 6,
       email: "bnixon5@scribd.com",
       username: "bnixon5",
       password: "9tvI2A",
@@ -113,7 +108,6 @@ const createInitialUsers = async () => {
       isArtist: false
     },
     {
-      id: 7,
       email: "tparlet6@goodreads.com",
       username: "tparlet6",
       password: "drXLIa8UhUD",
@@ -123,7 +117,6 @@ const createInitialUsers = async () => {
       isArtist: false
     },
     {
-      id: 8,
       email: "ppanchen7@networkadvertising.org",
       username: "ppanchen7",
       password: "FnWtMzqsef",
@@ -133,7 +126,6 @@ const createInitialUsers = async () => {
       isArtist: false
     },
     {
-      id: 9,
       email: "ijackson8@pinterest.com",
       username: "ijackson8",
       password: "pTYJ4YaFz",
@@ -143,7 +135,6 @@ const createInitialUsers = async () => {
       isArtist: false
     },
     {
-      id: 10,
       email: "cde0@rediff.com",
       username: "ChiquiChiqui",
       password: "eFScjkGl",
@@ -263,7 +254,7 @@ const createInitialProducts = async () => {
   }
 }
 
-const rebuildDB = async () => {
+(async () => {
   try {
     await client.connect();
     await dropTables();
@@ -277,6 +268,5 @@ const rebuildDB = async () => {
     await client.end();
     console.log("Database has been rebuilt, and you're good to go!");
   }
-};
+})();
 
-rebuildDB();
