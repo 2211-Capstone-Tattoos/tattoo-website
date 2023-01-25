@@ -6,6 +6,8 @@ const dropTables = async () => {
   try {
     console.log('Starting to drop all tables...');
     await client.query(`
+    DROP TABLE IF EXISTS order_products;
+    DROP TABLE IF EXISTS orders;
     DROP TABLE IF EXISTS products;
     DROP TABLE IF EXISTS users;
     `);
@@ -38,6 +40,24 @@ const createTables = async () => {
       img TEXT,
       active BOOLEAN NOT NULL DEFAULT true,
       "artistId" INTEGER REFERENCES users(id) NOT NULL
+    );
+    CREATE TABLE orders(
+      id SERIAL PRIMARY KEY,
+      is_complete BOOLEAN NOT NULL DEFAULT false,
+      total MONEY,
+      orderTime TIMESTAMPTZ,
+      "userId" INTEGER REFERENCES users(id) NOT NULL
+    );
+    CREATE TABLE order_products(
+      id SERIAL PRIMARY KEY,
+      img TEXT,
+      title VARCHAR(255),
+      description TEXT,
+      paid_price MONEY,
+      quantity INTEGER,
+      "orderId" INTEGER REFERENCES orders(id) NOT NULL,
+      "productId" INTEGER REFERENCES products(id) NOT NULL,
+      UNIQUE ("orderId", "productId") 
     );
     `);
     console.log(
