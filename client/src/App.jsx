@@ -1,7 +1,8 @@
-import { useState } from 'react'
-import { useSelector } from 'react-redux'
-
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { Routes, Route } from 'react-router-dom'
+import { useGetCartQuery } from './api/shopAPI'
+import { loadCart } from './features/cart/cartSlice'
 import Home from './Home'
 import NotFound from './NotFound'
 import NavBar from './NavBar'
@@ -14,10 +15,21 @@ import {
   Products,
   Product
 } from './features'
+
 import './App.css'
 
 function App() {
-  //const products = useSelector((state) => state.products)
+  const dispatch = useDispatch()
+  const user = JSON.parse(window.localStorage.getItem('user'))
+  const { data = [] } = useGetCartQuery(user.id)
+  const localCart = window.localStorage.getItem('cart')
+
+  
+  useEffect(() => {
+    //check for db cart, then check localStorage, finally use empty init state.
+    if (data.products) dispatch(loadCart(data))
+    //else if (localCart.products) dispatch(loadCart(localCart))
+  }, [data]) //change on log in
 
 
   return (
@@ -47,7 +59,7 @@ function App() {
           path="orders" />
         <Route
           element={<Cart />}
-          path="cart/:id" />
+          path="cart" />
         <Route
           element={<NotFound />}
           path="*" />

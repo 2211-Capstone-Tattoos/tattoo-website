@@ -2,7 +2,6 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 
 const NavBar = () => {
-  const id = JSON.parse(window.localStorage.getItem('user')).id
   return (
     <div className="navbar">
       <NavLink
@@ -27,7 +26,7 @@ const NavBar = () => {
         <button>Orders</button>
       </NavLink>
       <NavLink
-        to={`cart/${id}`}
+        to={`cart`}
         className={({ isActive }) =>
           isActive ? "active-nav" : undefined
         }>
