@@ -27,8 +27,14 @@ function App() {
   
   useEffect(() => {
     //check for db cart, then check localStorage, finally use empty init state.
-    if (data.products) dispatch(loadCart(data))
-    //else if (localCart.products) dispatch(loadCart(localCart))
+    if (data.products){ 
+      dispatch(loadCart(data))
+      return
+    }
+    else if (localCart?.products){ 
+      dispatch(loadCart(localCart))
+      return
+    }
   }, [data]) //change on log in
 
 
