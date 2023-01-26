@@ -44,11 +44,11 @@ const completeOrder = async (userId, orderId) => {
   try {
     const { rows: [completedOrder] } = await client.query(`
     UPDATE orders 
-    SET is_complete = true
+    SET is_complete = true,
+        ordered_at = CURRENT_TIMESTAMP
     WHERE id = $1
     RETURNING *
     `, [orderId])
-    console.log('completedorder', completedOrder)
 
     const { rows: products } = await client.query(`
     SELECT 
@@ -63,8 +63,6 @@ const completeOrder = async (userId, orderId) => {
     WHERE order_products."orderId" = $1
     `, [orderId])
 
-    console.log('products', products)
-
     const productsPromise = await Promise.all(products.map(async (product) => {
       const { rows: [orderProduct] } = await client.query(`
       UPDATE order_products
@@ -75,7 +73,6 @@ const completeOrder = async (userId, orderId) => {
       WHERE "productId" = ${product.id}
       RETURNING *
       `, [product.img, product.title, product.description, product.price])
-      console.log(orderProduct)
     }))
 
     await createCart(userId)
