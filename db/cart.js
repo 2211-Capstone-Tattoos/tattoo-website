@@ -51,6 +51,20 @@ const addProductToCart = async ({ orderId, productId, quantity }) => {
   }
 }
 
+const removeProductFromCart = async (orderId, productId) => {
+  try {
+    const { rows: [removedProduct] } = await client.query(`
+    DELETE FROM order_products
+    WHERE "orderId" = $1 AND "productId" = $2
+    RETURNING *
+    `, [orderId, productId])
+    return removedProduct
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
 const clearCart = async (cartId) => {
   try {
     const { rows: deletedOrderProducts } = await client.query(`
@@ -69,5 +83,6 @@ module.exports = {
   createCart,
   getCartByUserId,
   addProductToCart,
+  removeProductFromCart,
   clearCart
 }
