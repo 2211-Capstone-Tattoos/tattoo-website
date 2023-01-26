@@ -13,7 +13,7 @@ export const shopAPI = createApi({
       return headers
     }
   }),
-  tagTypes: ['Products', 'Artists', 'User'],
+  tagTypes: ['Products', 'Artists', 'User', 'Cart'],
   endpoints: (builder) => ({
 
     //-------- Products ---------
@@ -138,9 +138,29 @@ export const shopAPI = createApi({
     // Cart
     getCart: builder.query({
       query: (id) => `cart/${id}`,
-      providesTags: (result, error, id) => [{ type: 'Products', id }]
+      providesTags: ['Cart']
     }),
 
+    clearCart: builder.mutation({
+      query(id) {
+        return {
+          url: `cart/${id}`,
+          method: 'DELETE',
+        }
+      },
+      invalidatesTags: ["Cart"],
+    }),
+
+    removeProduct: builder.mutation({
+      query({userId, productId}) {
+        console.log("this is productId and userId", productId, userId)
+        return {
+          url: `cart/${userId}/${productId}`,
+          method: 'DELETE',
+        }
+      },
+      invalidatesTags: ["Cart"],
+    })
   })
 })
 
@@ -157,4 +177,6 @@ export const {
   useGetAllArtistsQuery,
   useGetArtistQuery,
   useGetCartQuery,
+  useClearCartMutation,
+  useRemoveProductMutation,
 } = shopAPI
