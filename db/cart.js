@@ -20,12 +20,15 @@ const getCartByUserId = async (userId) => {
     SELECT * FROM orders
     WHERE "userId" = $1 AND is_complete = false
     `, [userId])
+
     const { rows: products } = await client.query(`
-    SELECT * FROM products
-    JOIN order_products 
+    SELECT * FROM order_products
+    JOIN products 
       ON order_products."productId" = products.id
     WHERE "orderId" = $1
     `, [cart.id])
+
+    console.log("products", products)
     cart.products = products
     return cart
   } catch (error) {
