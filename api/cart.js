@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const {
   createCart,
-  getCartByUserId
+  getCartByUserId,
+  clearCart
 } = require('../db/cart')
 
 router.get("/:userId", async (req, res, next) => {
@@ -22,10 +23,43 @@ router.get("/:userId", async (req, res, next) => {
   try {
     const cart = await getCartByUserId(userId);
     res.send(cart);
-  } catch (error) {
-    next(error);
+  } catch ({ name, message }) {
+    next({ name, message });
   }
 })
+
+
+// Clear Cart
+router.delete("/:userId", async (req, res, next) => {
+  debugger
+  if (!req.user) {
+    next({
+      name: 'AuthorizationError',
+      message: 'Must be logged in to view cart'
+    })
+  }
+  try {
+    const cart = await getCartByUserId(req.params.userId);
+    if (!cart) {
+      next({
+        name: "NotFoundError",
+        message: "Oops! There's nothing here!"
+      })
+    }
+    if (req.user.id != cart.userId) {
+      next({
+        name: 'UnauthorizedUserError',
+        message: 'You can not edit another users cart'
+      })
+    }
+    const deletedCart = await clearCart(cart.id)
+    res.send(deletedCart);
+  } catch ({ name, message }) {
+    next({ name, message });
+  }
+})
+
+// 
 
 
 router.use("/*", (error, req, res, next) => {
