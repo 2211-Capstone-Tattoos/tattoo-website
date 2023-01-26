@@ -47,7 +47,7 @@ const createTables = async () => {
       id SERIAL PRIMARY KEY,
       is_complete BOOLEAN NOT NULL DEFAULT false,
       total MONEY,
-      orderTime TIMESTAMPTZ,
+      ordered_at TIMESTAMPTZ ,
       "userId" INTEGER REFERENCES users(id) NOT NULL
     );
     CREATE TABLE order_products(
