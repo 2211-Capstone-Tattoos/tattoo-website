@@ -21,21 +21,23 @@ import './App.css'
 function App() {
   const dispatch = useDispatch()
   const user = JSON.parse(window.localStorage.getItem('user'))
-  const { data = [] } = useGetCartQuery(user.id)
-  const localCart = window.localStorage.getItem('cart')
+  const localCart = JSON.parse(window.localStorage.getItem('cart'))
 
   
   useEffect(() => {
     //check for db cart, then check localStorage, finally use empty init state.
-    if (data.products){ 
-      dispatch(loadCart(data))
-      return
+    if(user) {
+      const { data = [] } = useGetCartQuery(user.id)
+      if (data.products){ 
+        dispatch(loadCart(data))
+        return
+      }
     }
-    else if (localCart?.products){ 
+    if (localCart?.products){
       dispatch(loadCart(localCart))
       return
     }
-  }, [data, user]) //change on log in
+  }, [user]) //change on log in
 
 
   return (
