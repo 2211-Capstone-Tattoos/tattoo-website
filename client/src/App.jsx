@@ -35,7 +35,7 @@ function App() {
       dispatch(loadCart(localCart))
       return
     }
-  }, [data]) //change on log in
+  }, [data, user]) //change on log in
 
 
   return (
