@@ -19,11 +19,9 @@ import {
 import './App.css'
 
 function App() {
-  //const products = useSelector((state) => state.products)
   const dispatch = useDispatch()
   const user = JSON.parse(window.localStorage.getItem('user'))
   const { data = [] } = useGetCartQuery(user.id)
-  //const stateCart = useSelector((state) => state.cart.value)
   const localCart = window.localStorage.getItem('cart')
 
   

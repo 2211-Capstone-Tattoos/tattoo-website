@@ -5,10 +5,7 @@ import { useGetCartQuery } from '../../api/shopAPI';
 import './cart.css'
 
 const Cart = () => {
-  const { id } = useParams();
-  //const {data = [], isLoading, isFetching, isError} = useGetCartQuery(id);
   const cart = useSelector((state) => state.cart.cart)
-  console.log("this is your cart: ", cart)
 
   return (
     <div>

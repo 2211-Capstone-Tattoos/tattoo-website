@@ -2,7 +2,6 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 
 const NavBar = () => {
-  //const id = JSON.parse(window.localStorage.getItem('user')).id
   return (
     <div className="navbar">
       <NavLink
