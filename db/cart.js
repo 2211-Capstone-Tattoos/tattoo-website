@@ -65,6 +65,38 @@ const removeProductFromCart = async (orderId, productId) => {
   }
 }
 
+const editProductQuantity = async ({ id, quantity }) => {
+
+  try {
+    const { rows: [product] } = await client.query(`
+    UPDATE order_products
+    SET quantity = $1
+    WHERE id = $2
+    RETURNING *
+    `, [quantity, id])
+    return product
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+const editProductQuantities = async ({ ...fields }) => {
+  try {
+    const keys = Object.values(fields)
+
+    const promisedProducts = await Promise.all(keys.map(async (key) => {
+      const product = await editProductQuantity(key)
+      return product
+    }))
+    console.log('this is promised products', promisedProducts)
+    return promisedProducts
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
 const clearCart = async (cartId) => {
   try {
     const { rows: deletedOrderProducts } = await client.query(`
@@ -84,5 +116,6 @@ module.exports = {
   getCartByUserId,
   addProductToCart,
   removeProductFromCart,
+  editProductQuantities,
   clearCart
 }
