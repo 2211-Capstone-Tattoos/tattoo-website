@@ -6,7 +6,7 @@ import './cart.css'
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart.cart)
-  const userId = data.userId
+  const userId = JSON.parse(window.localStorage.getItem('user'))?.id
   const [clearCart] = useClearCartMutation();
   const [removeProduct] = useRemoveProductMutation();
   
@@ -17,7 +17,7 @@ const Cart = () => {
       <div id="your-cart">
         <button onClick={() => {clearCart(userId); console.log('this works brother')}}>Clear Cart</button>
       {
-        cart
+        cart // try passing down isLoading from cart query
         ? cart.products?.length
           ? cart.products.map(product => {
             return (
