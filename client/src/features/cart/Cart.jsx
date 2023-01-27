@@ -29,6 +29,19 @@ const Cart = () => {
     setIsOpen(false);
   }
 
+  const {data = []} = useGetCartQuery(userId);
+  const prices = [];
+
+  // hey switch data.products to cart.products once cart works
+  if(data.products){data.products.map(product => {
+    prices.push(+product.price.slice(1))
+  })}
+
+  let totalCart = prices.reduce((x, y) => {
+    return x + y;
+  }, 0)
+
+
   return (
     <div>
       <Modal
@@ -95,14 +108,15 @@ const Cart = () => {
               }) : null
           }
           <div>
-            <h4>Your Total {cart?.total}</h4>
+
+            <h4>Your Total ${(Math.round(totalCart * 100)/100).toFixed(2)}</h4>
             <button onClick={() => {
               if (!userId) {
                 openModal()
               } else {
                 navigate('checkout')
               }
-            }}>Purchase</button>
+            }}>Checkout</button>
           </div>
         </div>
       </div>

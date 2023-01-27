@@ -13,7 +13,8 @@ import {
   Login,
   Orders,
   Products,
-  Product
+  Product,
+  PurchaseCart
 } from './features'
 
 import './App.css'
@@ -24,7 +25,6 @@ function App() {
   const user = JSON.parse(window.localStorage.getItem('user'))
   const localCart = JSON.parse(window.localStorage.getItem('cart'))
   const { data = [] } = useGetCartQuery(user.id)
-  console.log(data)
 
 
   useEffect(() => {
@@ -70,6 +70,9 @@ function App() {
         <Route
           element={<Cart />}
           path="cart" />
+        <Route
+          element={<PurchaseCart/>}
+          path="PurchaseCart"/>
         <Route
           element={<NotFound />}
           path="*" />
