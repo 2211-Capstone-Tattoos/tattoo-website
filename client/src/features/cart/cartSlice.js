@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {products: []} //shopAPI -> localStorage -> null
+const initialState = { products: [] } //shopAPI -> localStorage -> null
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -9,7 +9,7 @@ const cartSlice = createSlice({
     loadCart: (state, action) => {
       //Init or modifying?
       try {
-        state = action.payload
+        state.cart = action.payload
       } catch (err) {
         console.error('Error loading cart', err)
       }

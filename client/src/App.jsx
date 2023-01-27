@@ -25,7 +25,7 @@ function App() {
   const user = JSON.parse(window.localStorage.getItem('user'))
   const localCart = JSON.parse(window.localStorage.getItem('cart'))
   const { data = [] } = useGetCartQuery(user.id)
-
+  console.log(data)
 
   useEffect(() => {
     //check for db cart, then check localStorage, finally use empty init state.
@@ -69,10 +69,10 @@ function App() {
           path="orders" />
         <Route
           element={<Cart />}
-          path="cart" />
+          exact path="cart" />
         <Route
-          element={<PurchaseCart/>}
-          path="PurchaseCart"/>
+          element={<PurchaseCart />}
+          path="cart/checkout" />
         <Route
           element={<NotFound />}
           path="*" />

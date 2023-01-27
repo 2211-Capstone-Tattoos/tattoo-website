@@ -33,7 +33,6 @@ router.get("/:userId", async (req, res, next) => {
 
 //Add item to cart
 router.post("/:userId/:productId", async (req, res, next) => {
-
   if (!req.user) {
     next({
       name: 'AuthorizationError',
@@ -54,7 +53,8 @@ router.post("/:userId/:productId", async (req, res, next) => {
         message: 'You can not edit another users cart'
       })
     }
-    const addedProduct = await addProductToCart(cart.id, req.params.productId, req.body.quantity)
+    debugger
+    const addedProduct = await addProductToCart({ orderId: cart.id, productId: req.params.productId, quantity: req.body.quantity })
     res.send(addedProduct);
   } catch ({ name, message }) {
     next({ name, message });

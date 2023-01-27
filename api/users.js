@@ -5,6 +5,7 @@ const router = require('express').Router();
 
 // POST /api/users/login
 router.post("/login", async (req, res, next) => {
+  debugger
   try {
     const { username, password } = req.body;
 

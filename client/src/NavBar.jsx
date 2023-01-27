@@ -2,6 +2,9 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 
 const NavBar = () => {
+  const userId = JSON.parse(window.localStorage.getItem('user'))?.id
+  console.log(userId)
+
   return (
     <div className="navbar">
       <NavLink
@@ -32,14 +35,24 @@ const NavBar = () => {
         }>
         <button>Cart</button>
       </NavLink>
-      <NavLink
-        to="login"
-        className={({ isActive }) =>
-          isActive ? "active-nav" : undefined
-        }>
-        <button>Login</button>
-      </NavLink>
-    </div>
+      {userId
+        ? < NavLink
+          to="login"
+          className={({ isActive }) =>
+            isActive ? "active-nav" : undefined
+          }>
+          <button>Login</button>
+        </NavLink>
+
+        : < NavLink
+          to="login"
+          className={({ isActive }) =>
+            isActive ? "active-nav" : undefined
+          }>
+          <button>Log Out</button>
+        </NavLink>
+      }
+    </div >
   )
 }
 

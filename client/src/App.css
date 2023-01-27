@@ -41,7 +41,29 @@ body {
   color: #888;
 }
 
-.product-card img {
+.login {
   width: 250px;
-  height: 250px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 10px;
+  justify-content: space-between;
+}
+
+.login form {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 10px;
+}
+
+.login form div {
+  display: flex;
+  flex-direction: column;
+}
+
+.login h4 {
+  text-align: center;
+  margin: 0 0 10px 0;
 }
