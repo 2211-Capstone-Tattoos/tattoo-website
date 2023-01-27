@@ -6,7 +6,7 @@ const ArtistProduct = ({product, isOwner}) => {
   const [isEditable, setIsEditable] = useState()
   const [updateProduct] = useUpdateProductMutation()
   const [removeProduct] = useDeleteProductMutation()
-  const artistId = JSON.parse(window.localStorage.getItem('user')).id
+  const artistId = JSON.parse(window.localStorage.getItem('user'))?.id
 
   //form refs
   const titleRef = useRef(product.title)
