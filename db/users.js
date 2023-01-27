@@ -4,24 +4,29 @@ const bcrypt = require('bcrypt');
 const { createCart } = require('./cart');
 const saltRounds = 10;
 
-const createUser = async ({
-  email,
-  username,
-  password,
-  fullname,
-  profileImg,
-  location,
-  isArtist = false
-}) => {
+const createUser = async (fields) => {
+  const { password } = fields
+  delete fields.id
+  const keys = Object.keys(fields)
+  const insertString = keys.map((key, index) => {
+    if (key === 'profileImg') return 'profile_img'
+    if (key === 'isArtist') return 'is_artist'
+    return key
+  }).join(', ')
+
+  const setString = keys.map((key, index) => {
+    return `$${index + 1}`
+  }).join(', ')
+
   try {
-
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+    }
     const { rows: [user] } = await client.query(`
-     INSERT INTO users(email, username, password, fullname, profile_img, location, is_artist)
-     VALUES ( $1, $2, $3, $4, $5, $6, $7)
+     INSERT INTO users(${insertString})
+     VALUES (${setString})
      RETURNING *
-    `, [email, username, hashedPassword, fullname, profileImg, location, isArtist])
+    `, Object.values(fields))
 
     const cart = await createCart(user.id)
     return user

@@ -27,12 +27,12 @@ const createTables = async () => {
     CREATE TABLE users(
       id SERIAL PRIMARY KEY,
       email VARCHAR(255) UNIQUE NOT NULL,
-      username VARCHAR(255) UNIQUE NOT NULL,
-      password VARCHAR(255) NOT NULL,
-      fullname VARCHAR(255) NOT NULL,
+      username VARCHAR(255) UNIQUE,
+      password VARCHAR(255),
+      fullname VARCHAR(255),
       profile_img TEXT,
       location VARCHAR(255),
-      is_artist BOOLEAN NOT NULL DEFAULT false
+      is_artist BOOLEAN DEFAULT false
     );
     CREATE TABLE products(
       id SERIAL PRIMARY KEY,

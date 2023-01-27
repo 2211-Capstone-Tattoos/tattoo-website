@@ -33,7 +33,7 @@ router.get("/:userId", async (req, res, next) => {
 
 //Add item to cart
 router.post("/:userId/:productId", async (req, res, next) => {
-  debugger
+
   if (!req.user) {
     next({
       name: 'AuthorizationError',

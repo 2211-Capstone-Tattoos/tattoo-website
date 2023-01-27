@@ -42,7 +42,8 @@ const addProductToCart = async (orderId, productId, quantity) => {
     const { rows: [orderProduct] } = await client.query(`
     INSERT INTO order_products ("orderId", "productId", quantity)
     VALUES ($1, $2, $3)
-    ON CONFLICT ("orderId", "productId") DO NOTHING
+    ON CONFLICT ("orderId", "productId") 
+    DO UPDATE SET quantity = $3 
     RETURNING *
     `, [orderId, productId, quantity])
     return orderProduct
