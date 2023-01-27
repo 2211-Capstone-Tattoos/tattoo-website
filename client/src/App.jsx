@@ -13,7 +13,8 @@ import {
   Login,
   Orders,
   Products,
-  Product
+  Product,
+  PurchaseCart
 } from './features'
 
 import './App.css'
@@ -69,6 +70,9 @@ function App() {
         <Route
           element={<Cart />}
           path="cart" />
+        <Route
+          element={<PurchaseCart/>}
+          path="PurchaseCart"/>
         <Route
           element={<NotFound />}
           path="*" />
