@@ -9,7 +9,17 @@ const Cart = () => {
   const userId = JSON.parse(window.localStorage.getItem('user'))?.id
   const [clearCart] = useClearCartMutation();
   const [removeProduct] = useRemoveProductMutation();
-  console.log(cart)
+  const {data = []} = useGetCartQuery(userId);
+  const prices = [];
+
+  // hey switch data.products to cart.products once cart works
+  if(data.products){data.products.map(product => {
+    prices.push(+product.price.slice(1))
+  })}
+
+  let totalCart = prices.reduce((x, y) => {
+    return x + y;
+  }, 0)
 
   return (
     <div>
@@ -48,8 +58,8 @@ const Cart = () => {
               }) : null
           }
           <div>
-            <h4>Your Total {cart?.total}</h4>
-            <button>Purchase</button>
+            <h4>Your Total ${(Math.round(totalCart * 100)/100).toFixed(2)}</h4>
+            <button>Checkout</button>
           </div>
         </div>
       </div>
