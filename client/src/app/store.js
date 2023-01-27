@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/dist/query'
-import { shopAPI } from '../api/shopAPI'
-
-import productsReducer from '../features/products/productsSlice'
 import cartReducer from '../features/cart/cartSlice'
+import userReducer from '../features/users/userSlice'
+import { shopAPI } from '../api/shopAPI'
 
 export const store = configureStore({
   reducer: {
     cart: cartReducer,
+    user: userReducer,
 
     [shopAPI.reducerPath]: shopAPI.reducer
   },

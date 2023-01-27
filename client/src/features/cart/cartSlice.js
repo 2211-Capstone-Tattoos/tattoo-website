@@ -9,13 +9,13 @@ const cartSlice = createSlice({
     loadCart: (state, action) => {
       //Init or modifying?
       try {
-        state.cart = action.payload
+        state = action.payload
       } catch (err) {
         console.error('Error loading cart', err)
       }
     },
     addProductToCart: (state, action) => {
-      state.cart += action.payload
+      state.cart.push(action.payload)
     },
     removeProductFromCart: (state, action) => {
       // payload = productId

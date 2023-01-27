@@ -30,6 +30,33 @@ router.get("/:userId", async (req, res, next) => {
   }
 })
 
+router.post("/:userId/:productId", async (req, res, next) => {
+  if (!req.user) {
+    next({
+      name: 'AuthorizationError',
+      message: 'Must be logged in to edit cart'
+    })
+  }
+  try {
+    const cart = await getCartByUserId(req.params.userId);
+    if (!cart) {
+      next({
+        name: "NotFoundError",
+        message: "Oops! There's nothing here!"
+      })
+    }
+    if (req.user.id != cart.userId) {
+      next({
+        name: 'UnauthorizedUserError',
+        message: 'You can not edit another users cart'
+      })
+    }
+    const addedProduct = await addProductToCart(cart.id, req.params.productId, req.body.quantity)
+    res.send(addedProduct);
+  } catch ({ name, message }) {
+    next({ name, message });
+  }
+})
 
 // Clear Cart
 router.delete("/:userId", async (req, res, next) => {

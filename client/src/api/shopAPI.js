@@ -141,14 +141,28 @@ export const shopAPI = createApi({
       providesTags: ['Cart']
     }),
 
-    clearCart: builder.mutation({
-      query(id) {
+    addProductToCart: builder.mutation({
+      query(data) {
+        const { userId, productId, body} = data
         return {
-          url: `cart/${id}`,
-          method: 'DELETE',
+          url: `cart/${userId}/${productId}`,
+          method: 'POST',
+          body
         }
       },
-      invalidatesTags: ["Cart"],
+      invalidatesTags: ['Cart']
+    }),
+
+    patchCartProductQuantity: builder.mutation({
+      query(data) {
+        const { userId, body } = data
+        return {
+          url: `cart/${userId}`,
+          method: 'PATCH',
+          body
+        }
+      },
+      invalidatesTags: ['Cart']
     }),
 
     removeProduct: builder.mutation({
@@ -160,7 +174,17 @@ export const shopAPI = createApi({
         }
       },
       invalidatesTags: ["Cart"],
-    })
+    }),
+    
+    clearCart: builder.mutation({
+      query(id) {
+        return {
+          url: `cart/${id}`,
+          method: 'DELETE',
+        }
+      },
+      invalidatesTags: ["Cart"],
+    }),
   })
 })
 
@@ -177,6 +201,8 @@ export const {
   useGetAllArtistsQuery,
   useGetArtistQuery,
   useGetCartQuery,
+  useAddProductToCartMutation,
+  usePatchCartProductQuantityMutation,
   useClearCartMutation,
   useRemoveProductMutation,
 } = shopAPI
