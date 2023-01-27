@@ -24,7 +24,6 @@ function App() {
   const user = JSON.parse(window.localStorage.getItem('user'))
   const localCart = JSON.parse(window.localStorage.getItem('cart'))
   const { data = [] } = useGetCartQuery(user.id)
-  console.log(data)
 
 
   useEffect(() => {
