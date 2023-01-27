@@ -5,7 +5,7 @@ import { useClearCartMutation, useGetCartQuery, useRemoveProductMutation } from 
 import './cart.css'
 
 const Cart = () => {
-  const cart = useSelector((state) => state.cart.cart)
+  const cart = useSelector((state) => state.cart)
   const userId = JSON.parse(window.localStorage.getItem('user'))?.id
   const [clearCart] = useClearCartMutation();
   const [removeProduct] = useRemoveProductMutation();

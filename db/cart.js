@@ -36,7 +36,7 @@ const getCartByUserId = async (userId) => {
   }
 }
 
-const addProductToCart = async ({ orderId, productId, quantity }) => {
+const addProductToCart = async (orderId, productId, quantity ) => {
   try {
     const { rows: [orderProduct] } = await client.query(`
     INSERT INTO order_products ("orderId", "productId", quantity)
@@ -81,6 +81,7 @@ const editProductQuantity = async ({ id, quantity }) => {
   }
 }
 
+//think this needs to pass the values in separately. Also need the order product ids.
 const editProductQuantities = async ({ ...fields }) => {
   try {
     const keys = Object.values(fields)
