@@ -280,6 +280,7 @@ const createInitialProducts = async () => {
 
 const addInitialProductsToOrders = async (orderId) => {
   console.log("Adding initial products to orders")
+  debugger
   try {
     const productsToAdd = [
       {

@@ -8,12 +8,11 @@ export const store = configureStore({
   reducer: {
     cart: cartReducer,
     user: userReducer,
-
     [shopAPI.reducerPath]: shopAPI.reducer
   },
 
   middleware: (getDefaultMiddleware) => {
-   return getDefaultMiddleware().concat(shopAPI.middleware)
+    return getDefaultMiddleware().concat(shopAPI.middleware)
   }
 })
 
