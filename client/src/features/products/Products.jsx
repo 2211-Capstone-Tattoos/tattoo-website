@@ -17,15 +17,16 @@ const Products = () => {
                 return (
                   <div className="product-card" key={product.id}>
                     <img src={product.img} alt="product-image" />
-                    <Link to={`/products/${product.id}`}><p>Title: {product.title}</p></Link>
-                    <p>{product.description}</p>
-                    <p>Price: {product.price}</p>
-                    <p>{product.active ? 'true' : 'false'}</p>
-                  </div> 
-                  
-                  )
-                }
-              
+                    <p>{product.title}</p>
+                    <div className="product-footer">
+                      <Link to={`/products/${product.id}`}><button>View Product</button></Link>
+                      <p>{product.price}</p>
+                    </div>
+                  </div>
+
+                )
+              }
+
             })
       }
 

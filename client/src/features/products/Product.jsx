@@ -1,12 +1,46 @@
 import './Product.css'
 import React from 'react'
-import { useGetProductQuery } from '../../api/shopAPI';
+import { useAddProductToCartMutation, useGetProductQuery, } from '../../api/shopAPI';
 import { useParams } from 'react-router-dom';
 import NotFound from '../../NotFound';
+import userSlice from '../users/userSlice';
+import { useState } from 'react';
 
 const Product = () => {
   const { id } = useParams()
   const { data = [], isLoading, isFetching, isError } = useGetProductQuery(id)
+  const [quantity, setQuantity] = useState(1)
+  const [addProductToCart] = useAddProductToCartMutation()
+
+  const handleAddToCart = async () => {
+
+    const user = JSON.parse(window.localStorage.getItem('user'))
+    try {
+      if (!user) {
+        const localCart = JSON.parse(window.localStorage.getItem('cart'))
+        const newCart = []
+        if (localCart) {
+          localCart.map(item => {
+            newCart.push(item)
+          })
+        }
+        newCart.push({ id: data.id, quantity: quantity })
+        console.log(newCart)
+        window.localStorage.setItem('cart', JSON.stringify(newCart))
+
+      } else {
+
+        const body = { userId: user.id, productId: data.id, quantity }
+        const addedProduct = await addProductToCart({ userId: user.id, productId: data.id, body })
+        console.log(addedProduct)
+      }
+
+
+    } catch (error) {
+
+    }
+  }
+
   return (
     <>
       {data.active
@@ -25,10 +59,10 @@ const Product = () => {
                 </div>
                 <div className="product-footer">
                   {data.price}
-                  <button>Add to Cart</button>
-                  <button>+</button>
-                  <p>0</p>
-                  <button>+</button>
+                  <button onClick={() => handleAddToCart()}>Add to Cart</button>
+                  <button onClick={() => { if (quantity > 1) setQuantity(quantity - 1) }}>-</button>
+                  {quantity}
+                  <button onClick={() => setQuantity(quantity + 1)}>+</button>
                 </div>
               </div>
             </div>

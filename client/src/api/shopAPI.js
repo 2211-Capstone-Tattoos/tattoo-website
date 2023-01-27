@@ -143,7 +143,7 @@ export const shopAPI = createApi({
 
     addProductToCart: builder.mutation({
       query(data) {
-        const { userId, productId, body} = data
+        const { userId, productId, body } = data
         return {
           url: `cart/${userId}/${productId}`,
           method: 'POST',
@@ -166,7 +166,7 @@ export const shopAPI = createApi({
     }),
 
     removeProduct: builder.mutation({
-      query({userId, productId}) {
+      query({ userId, productId }) {
         console.log("this is productId and userId", productId, userId)
         return {
           url: `cart/${userId}/${productId}`,
@@ -175,7 +175,7 @@ export const shopAPI = createApi({
       },
       invalidatesTags: ["Cart"],
     }),
-    
+
     clearCart: builder.mutation({
       query(id) {
         return {

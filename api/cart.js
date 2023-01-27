@@ -4,11 +4,11 @@ const {
   getCartByUserId,
   clearCart,
   removeProductFromCart,
-  editProductQuantities
+  editProductQuantities,
+  addProductToCart
 } = require('../db/cart')
 
 router.get("/:userId", async (req, res, next) => {
-  debugger
   const userId = req.params.userId
   if (!req.user) {
     next({
@@ -30,7 +30,10 @@ router.get("/:userId", async (req, res, next) => {
   }
 })
 
+
+//Add item to cart
 router.post("/:userId/:productId", async (req, res, next) => {
+  debugger
   if (!req.user) {
     next({
       name: 'AuthorizationError',
