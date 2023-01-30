@@ -1,17 +1,15 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux'
-import { useClearCartMutation, useGetCartQuery, useRemoveProductMutation } from '../../api/shopAPI';
+import { useGetCartQuery } from '../../api/shopAPI';
 import Modal from 'react-modal'
 Modal.setAppElement('#root');
 import './cart.css'
 import Checkout from '../../Checkout';
 
-const Cart = () => {
-  const cart = useSelector((state) => state.cart.cart)
+const Cart = ({ editCartProductQuantity, removeProductFromCart, clearCartProducts }) => {
+  const cart = useSelector((state) => state.cart)
   const userId = JSON.parse(window.localStorage.getItem('user'))?.id
-  const [clearCart] = useClearCartMutation();
-  const [removeProduct] = useRemoveProductMutation();
   const [modalIsOpen, setIsOpen] = useState(false);
   const navigate = useNavigate()
   console.log(cart)
@@ -29,12 +27,9 @@ const Cart = () => {
     setIsOpen(false);
   }
 
-  const { data = [] } = useGetCartQuery(userId);
   const prices = [];
-  console.log('THIS IS DATA', data)
-  // hey switch data.products to cart.products once cart works
-  if (data.products) {
-    data.products.map(product => {
+  if (cart.products) {
+    cart.products.map(product => {
       prices.push((+product.price.slice(1)) * product.quantity)
     })
   }
@@ -98,7 +93,7 @@ const Cart = () => {
                         </div>
                         <div className="bottom">
                           <p>Quantity: {product.quantity}</p>
-                          <button onClick={() => { const productId = product.productId; removeProduct({ userId, productId }) }}>Remove</button>
+                          <button onClick={() => { removeProductFromCart(product) }}>Remove</button>
                         </div>
                       </div>
                     </div>
@@ -108,7 +103,7 @@ const Cart = () => {
               : <>Loading Cart...</>
           }
           <h3>{`Subtotal (${cart ? cart.products.length : 0} items): $${totalCart}`}</h3>
-          <button onClick={() => { clearCart(userId); console.log('this works brother') }}>Clear Cart</button>
+          <button onClick={() => { clearCartProducts() }}>Clear Cart</button>
         </div>
         <div id="order-summary">
           <h3>Order Summary</h3>

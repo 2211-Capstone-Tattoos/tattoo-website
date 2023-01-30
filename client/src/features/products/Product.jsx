@@ -6,13 +6,13 @@ import NotFound from '../../NotFound';
 import userSlice from '../users/userSlice';
 import { useState } from 'react';
 
-const Product = () => {
+const Product = ({addProductToCart}) => {
   const { id } = useParams()
   const { data = [], isLoading, isFetching, isError } = useGetProductQuery(id)
   const [quantity, setQuantity] = useState(1)
-  const [addProductToCart] = useAddProductToCartMutation()
+  //const [addProductToCart] = useAddProductToCartMutation()
 
-  const handleAddToCart = async () => {
+/*   const handleAddToCart = async () => {
 
     const user = JSON.parse(window.localStorage.getItem('user'))
     try {
@@ -39,6 +39,12 @@ const Product = () => {
     } catch (error) {
 
     }
+  } */
+
+  const handleAddToCart = (data) => {
+    const product = {...data}
+    product.quantity = quantity
+    addProductToCart(product)
   }
 
   return (
@@ -64,7 +70,7 @@ const Product = () => {
                     {quantity}
                     <button onClick={() => setQuantity(quantity + 1)}>+</button>
                   </div>
-                  <button onClick={() => handleAddToCart()}>Add to Cart</button>
+                  <button onClick={() => handleAddToCart(data)}>Add to Cart</button>
                 </div>
               </div>
             </div>

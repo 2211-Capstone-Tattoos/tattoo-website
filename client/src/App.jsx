@@ -1,8 +1,14 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Routes, Route } from 'react-router-dom'
-import { useGetCartQuery } from './api/shopAPI'
-import { loadCart } from './features/cart/cartSlice'
+import { 
+  useGetCartQuery,
+  useAddProductToCartMutation,
+  useClearCartMutation,
+  usePatchCartProductQuantityMutation,
+  useRemoveProductMutation 
+} from './api/shopAPI'
+import { addProduct, loadCart, removeProduct, clearCart } from './features/cart/cartSlice'
 import Home from './Home'
 import NotFound from './NotFound'
 import NavBar from './NavBar'
@@ -19,28 +25,89 @@ import {
 
 import './App.css'
 
+const updateCartStorage = (cart) => {
+  window.localStorage.setItem('cart', JSON.stringify(cart))
+}
+
 function App() {
 
   const dispatch = useDispatch()
   const user = JSON.parse(window.localStorage.getItem('user'))
   const localCart = JSON.parse(window.localStorage.getItem('cart'))
-  const { data = [] } = useGetCartQuery(user.id)
-  console.log(data)
-
+  const cartSelector = useSelector((state) => state.cart)
+  const [APIaddProduct] = useAddProductToCartMutation()
+  const [APIeditQuantity] = usePatchCartProductQuantityMutation()
+  const [APIremoveProduct] = useRemoveProductMutation()
+  const [APIclearCart] = useClearCartMutation()
+  
   useEffect(() => {
     //check for db cart, then check localStorage, finally use empty init state.
     if (user) {
+      const { data = [] } = useGetCartQuery(user?.id)
       if (data.products) {
         dispatch(loadCart(data))
-        return
       }
     }
-    if (localCart?.products) {
+    else if (localCart?.products) {
       dispatch(loadCart(localCart))
       return
     }
   }, [user]) //change on log in
 
+
+
+  const addProductToCart = (product) => {
+    try {
+      dispatch(addProduct(product))
+      if (user) {
+        const APIdata = {
+          userId: user.id,
+          productId: product.id,
+          body: {
+            quantity : product.quantity
+          }
+        }
+        APIaddProduct(APIdata)
+      }
+    } catch (err) {
+      throw err
+    } finally {
+      console.log('updating cart')
+      setTimeout(() => updateCartStorage(cartSelector), 0)
+    }
+  }
+  
+  const editCartProductQuantity = (newCartState) => {
+    dispatch(loadCart(newCartState))
+    updateCartStorage(cartSelector)
+    if (user) {
+      const APIdata = {
+        userId: user.id,
+        body: {} //need to figure out db func.
+      }
+      APIeditQuantity(APIdata)
+    }
+  }
+  
+  const removeProductFromCart = (product) => {
+    dispatch(removeProduct(product.id))
+    updateCartStorage(cartSelector)
+    if (user) {
+      const APIdata = {
+        userId: user.id,
+        productId: product.id
+      }
+      APIremoveProduct(APIdata)
+    }
+  }
+  
+  const clearCartProducts = () => {
+    dispatch(clearCart())
+    updateCartStorage(cartSelector)
+    if (user) {
+      APIclearCart(user.id)
+    }
+  }
 
   return (
     <div className="App">
@@ -56,7 +123,7 @@ function App() {
           element={<Products />}
           path="products" />
         <Route
-          element={<Product />}
+          element={<Product addProductToCart={addProductToCart}/>}
           path="products/:id" />
         <Route
           element={<Artists />}
@@ -68,7 +135,7 @@ function App() {
           element={<Orders />}
           path="orders" />
         <Route
-          element={<Cart />}
+          element={<Cart editCartProductQuantity={editCartProductQuantity} removeProductFromCart={removeProductFromCart} clearCartProducts={clearCartProducts} />}
           exact path="cart" />
         <Route
           element={<PurchaseCart />}

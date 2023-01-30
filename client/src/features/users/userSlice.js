@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {}
+//write GET /me to retrive user using localStorage token
+const initialState = JSON.parse(window.localStorage.getItem('user'))
 
 const userSlice = createSlice({
   name: 'user',

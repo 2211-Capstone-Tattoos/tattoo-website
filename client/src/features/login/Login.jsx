@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { useRef } from 'react'
+import { loadUser } from '../users/userSlice'
 import { useLoginMutation, useRegisterMutation } from '../../api/shopAPI'
 
 const Login = () => {
@@ -36,6 +37,7 @@ const Login = () => {
               console.log(response)
               window.localStorage.setItem('token', response.token)
               window.localStorage.setItem('user', JSON.stringify(response.user))
+              loadUser(response.user)
             } catch (err) {
               throw err
             }

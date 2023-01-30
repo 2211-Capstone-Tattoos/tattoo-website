@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { useAddProductToCartMutation, useClearCartMutation, usePatchCartProductQuantityMutation, useRemoveProductMutation } from "../../api/shopAPI"
 import { loadCart } from "./cartSlice"
 
+//place in provider
+
 const dispatch = useDispatch()
 const cartSelector = useSelector((state) => state.cart) //will this update outside of a component?
 const user = useSelector((state) => state.user)
@@ -16,8 +18,8 @@ const updateCartStorage = (cart) => {
   window.localStorage.setItem('cart', JSON.stringify(cart))
 }
 
-export const addProductToCart = (product) => {
-  dispatch(addProductToCart(product))
+export const addProductToCart = async (product) => {
+  dispatch(addProduct(product))
   updateCartStorage(cartSelector)
   if (user) {
     const APIdata = {
@@ -31,7 +33,7 @@ export const addProductToCart = (product) => {
   }
 }
 
-export const editCartProductQuantity = (newCartState) => {
+export const editCartProductQuantity = async (newCartState) => {
   dispatch(loadCart(newCartState))
   updateCartStorage(cartSelector)
   if (user) {
@@ -43,8 +45,8 @@ export const editCartProductQuantity = (newCartState) => {
   }
 }
 
-export const removeProductFromCart = (product) => {
-  dispatch(removeProductFromCart(product))
+export const removeProductFromCart = async (product) => {
+  dispatch(removeProduct(product))
   updateCartStorage(cartSelector)
   if (user) {
     const APIdata = {
@@ -55,7 +57,7 @@ export const removeProductFromCart = (product) => {
   }
 }
 
-export const clearCart = () => {
+export const clearCart = async () => {
   dispatch(clearCart())
   updateCartStorage(cartSelector)
   if (user) {
