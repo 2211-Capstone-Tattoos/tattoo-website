@@ -9,24 +9,31 @@ const cartSlice = createSlice({
     loadCart: (state, action) => {
       //Init or modifying?
       try {
-        state.cart = action.payload
+        state.id = action.payload.id
+        state.isComplete = action.payload.is_complete
+        state.userId = action.payload.userId
+        state.products = action.payload.products
       } catch (err) {
         console.error('Error loading cart', err)
       }
     },
-    addProductToCart: (state, action) => {
-      state.cart.push(action.payload)
+    addProduct: (state, action) => {
+      state.products.push(action.payload)
     },
-    removeProductFromCart: (state, action) => {
+    editQuantity: (state, action) => {
+      const product = state.products.find(prod => prod.id === action.payload.id)
+      product.quantity = action.payload.quantity
+    },
+    removeProduct: (state, action) => {
       // payload = productId
-      state.cart = state.cart.filter(product => product.id !== action.payload)
+      state.products = state.products.filter(product => product.id !== action.payload)
     },
     clearCart: (state) => {
-      state.cart = []
+      state.products = []
     }
   }
 })
 
-export const { loadCart, addToCart, removeProductFromCart, clearCart } = cartSlice.actions
+export const { loadCart, addProduct, editQuantity, removeProduct, clearCart } = cartSlice.actions
 
 export default cartSlice.reducer
