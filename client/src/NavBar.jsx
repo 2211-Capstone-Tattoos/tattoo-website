@@ -1,9 +1,19 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { clearCart } from './features/cart/cartSlice'
 
 const NavBar = () => {
   const userId = JSON.parse(window.localStorage.getItem('user'))?.id
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   console.log(userId)
+
+  const handleLogout = () => {
+    dispatch(clearCart())
+    window.localStorage.clear()
+    navigate('/')
+  }
 
   return (
     <div className="navbar">
@@ -49,7 +59,7 @@ const NavBar = () => {
           className={({ isActive }) =>
             isActive ? "active-nav" : undefined
           }>
-          <button onClick=''>Log Out</button>
+          <button onClick={() => handleLogout()}>Log Out</button>
         </NavLink>
       }
     </div >

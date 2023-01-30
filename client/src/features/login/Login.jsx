@@ -1,13 +1,15 @@
 import React from 'react'
-import { useState } from 'react'
-import { useRef } from 'react'
+import { useState, useRef } from 'react'
+import { useDispatch } from 'react-redux'
 import { loadUser } from '../users/userSlice'
-import { useLoginMutation, useRegisterMutation } from '../../api/shopAPI'
+import { useAddProductToCartMutation, useLoginMutation, useRegisterMutation } from '../../api/shopAPI'
 
-const Login = () => {
+const Login = ({ cartSelector }) => {
   const [loginView, setLoginView] = useState(true)
+  const dispatch = useDispatch()
   const [registerUser] = useRegisterMutation()
   const [loginUser] = useLoginMutation()
+  const [addToCart] = useAddProductToCartMutation()
 
   const emailRef = useRef()
   const usernameRef = useRef()
@@ -86,6 +88,18 @@ const Login = () => {
                 console.log(response)
                 window.localStorage.setItem('token', response.token)
                 window.localStorage.setItem('user', JSON.stringify(response.user))
+                dispatch(loadUser(response.user))
+                if (cartSelector.products.length) {
+                  cartSelector.products.map(product => {
+                    addToCart({
+                      userId: response.user.id,
+                      productId: product.id,
+                      body: {
+                        quantity: product.quantity
+                      }
+                    })
+                  })
+                }
               } else {
                 throw new Error(response.error, response.message)
               }
