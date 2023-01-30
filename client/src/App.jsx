@@ -46,18 +46,21 @@ function App() {
     //check for db cart, then check localStorage, finally use empty init state.
     //TODO: add products from state to db on login
     if (user) {
+      console.log('checking user to load cart...')
       if (data.products) {
+        console.log('loading cart from db...')
         dispatch(loadCart(data))
       }
     }
     else if (localCart?.products) {
+      console.log('loading cart from storage...')
       dispatch(loadCart(localCart))
       return
     }
-  }, [user]) //change on log in
+  }, [user, data]) //change on log in
 
   useEffect(() => {
-    updateCartStorage(cartSelector)
+    updateCartStorage(cartSelector) //wipes localStorage on refresh
   })
 
   const addProductToCart = (product) => {
