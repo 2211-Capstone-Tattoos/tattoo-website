@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { useRef } from 'react'
 import { useLoginMutation, useRegisterMutation } from '../../api/shopAPI'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
   const [loginView, setLoginView] = useState(true)
@@ -16,6 +17,8 @@ const Login = () => {
 
   const loginUsernameRef = useRef()
   const loginPasswordRef = useRef()
+
+  const navigate = useNavigate()
 
   return (
     <div className="login">
@@ -36,6 +39,7 @@ const Login = () => {
               console.log(response)
               window.localStorage.setItem('token', response.token)
               window.localStorage.setItem('user', JSON.stringify(response.user))
+              navigate('/')
             } catch (err) {
               throw err
             }
@@ -84,6 +88,7 @@ const Login = () => {
                 console.log(response)
                 window.localStorage.setItem('token', response.token)
                 window.localStorage.setItem('user', JSON.stringify(response.user))
+                navigate('/')
               } else {
                 throw new Error(response.error, response.message)
               }
