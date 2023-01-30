@@ -23,14 +23,31 @@ const createUser = async (fields) => {
       const hashedPassword = await bcrypt.hash(password, saltRounds);
       fields.password = hashedPassword
     }
-    const { rows: [user] } = await client.query(`
+    debugger
+    if (!fields) {
+      const { rows: [user] } = await client.query(`
+     INSERT INTO users DEFAULT VALUES
+     RETURNING *
+     `)
+      return user
+    } else {
+      const { rows: [user] } = await client.query(`
      INSERT INTO users(${insertString})
      VALUES (${setString})
+     ON CONFLICT DO NOTHING
      RETURNING *
     `, Object.values(fields))
-
-    const cart = await createCart(user.id)
-    return user
+      if (!user && fields.email) {
+        const { rows: [user] } = await client.query(`
+      SELECT * FROM users
+      WHERE email = $1
+      `, [fields.email])
+        return user
+      } else {
+        const cart = await createCart(user.id)
+        return user
+      }
+    }
   } catch (error) {
     console.error(error)
     throw error
@@ -81,9 +98,51 @@ async function getUserByUsername(username) {
   }
 }
 
+async function getUserByEmail(email) {
+  try {
+    const { rows: [user] } = await client.query(`
+    SELECT * FROM users
+    WHERE email = $1;
+    `, [email]);
+
+    return user;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function updateUser(userId, fields) {
+  const keys = Object.keys(fields)
+  const { password } = fields
+  if (password) {
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    fields.password = hashedPassword
+  }
+  const setString = keys.map((key, index) => {
+    return `"${key}" = $${index + 1}`
+  }).join(', ')
+
+
+  try {
+    const { rows: [user] } = await client.query(`
+    UPDATE users
+    SET ${setString}
+    WHERE id = ${userId}
+    RETURNING *
+    `, Object.values(fields))
+    delete user.password
+    console.log(user)
+    return user
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 module.exports = {
   createUser,
   getUser,
   getUserById,
   getUserByUsername,
+  updateUser,
+  getUserByEmail
 };

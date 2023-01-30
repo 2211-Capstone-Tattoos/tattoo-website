@@ -35,7 +35,7 @@ const NavBar = () => {
         }>
         <button>Cart</button>
       </NavLink>
-      {userId
+      {!userId
         ? < NavLink
           to="login"
           className={({ isActive }) =>
@@ -45,11 +45,11 @@ const NavBar = () => {
         </NavLink>
 
         : < NavLink
-          to="login"
+          to="/"
           className={({ isActive }) =>
             isActive ? "active-nav" : undefined
           }>
-          <button>Log Out</button>
+          <button onClick=''>Log Out</button>
         </NavLink>
       }
     </div >
