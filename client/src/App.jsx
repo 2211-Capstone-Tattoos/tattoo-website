@@ -57,10 +57,10 @@ function App() {
       dispatch(loadCart(localCart))
       return
     }
-  }, [user, data]) //change on log in
+  }, [user, data])
 
   useEffect(() => {
-    updateCartStorage(cartSelector) //wipes localStorage on refresh
+    updateCartStorage(cartSelector)
   })
 
   const addProductToCart = (product) => {
