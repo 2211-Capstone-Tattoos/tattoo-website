@@ -7,7 +7,11 @@ const {
   editProductQuantities,
   addProductToCart
 } = require('../db/cart')
+const { createUser } = require('../db/users')
+const { completeOrder } = require('../db/orders')
 
+
+// Get user cart
 router.get("/:userId", async (req, res, next) => {
   const userId = req.params.userId
   if (!req.user) {
@@ -149,6 +153,40 @@ router.patch('/:userId', async (req, res, next) => {
     next({ name, message });
   }
 })
+
+
+//Purchase cart
+
+router.post('/purchase', async (req, res, next) => {
+  try {
+    const { email, products } = req.body
+    let user
+    debugger
+    //if no user, creates user and cart
+    if (!req.user) {
+      user = await createUser({ email: email })
+    } else {
+      user = req.user
+    }
+    const cart = await getCartByUserId(user.id)
+    if (products) {
+      await Promise.all(products.map(async (product) => {
+        await addProductToCart({ orderId: cart.id, productId: product.id, quantity: product.quantity })
+      }))
+    }
+    const completedOrder = await completeOrder(user.id, cart.id)
+    console.log(completedOrder)
+    res.send(completedOrder)
+  } catch ({ name, message }) {
+    next({ name, message });
+  }
+})
+//adds products from state/storage to new cart
+//run purchase cart func'
+
+
+
+
 
 
 router.use("/*", (error, req, res, next) => {

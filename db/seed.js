@@ -26,13 +26,14 @@ const createTables = async () => {
     await client.query(`
     CREATE TABLE users(
       id SERIAL PRIMARY KEY,
-      email VARCHAR(255) UNIQUE NOT NULL,
+      email VARCHAR(255) UNIQUE,
       username VARCHAR(255) UNIQUE,
       password VARCHAR(255),
       fullname VARCHAR(255),
       profile_img TEXT,
       location VARCHAR(255),
-      is_artist BOOLEAN DEFAULT false
+      is_artist BOOLEAN DEFAULT false,
+      admin BOOLEAN DEFAULT false
     );
     CREATE TABLE products(
       id SERIAL PRIMARY KEY,
@@ -90,7 +91,8 @@ const createInitialUsers = async () => {
       fullname: "Delmore Blitzer",
       profileImg: "https://robohash.org/voluptatemidaut.png?size=500x500&set=set1",
       location: "Maracanã",
-      isArtist: true
+      isArtist: true,
+      admin: true
     },
     {
       id: 3,
@@ -164,6 +166,9 @@ const createInitialUsers = async () => {
       profileImg: "https://robohash.org/odioquiaculpa.png?size=500x500&set=set1",
       location: "Xishaqiao",
       isArtist: true
+    },
+    {
+      email: "newguest0@rediff.com"
     }
   ]
   const newList = []
@@ -326,8 +331,8 @@ const addInitialProductsToOrders = async (orderId) => {
     console.error('Error during rebuildDB', error);
     throw error;
   } finally {
-    await client.end();
     console.log("Database has been rebuilt, and you're good to go!");
+    await client.end();
   }
 })();
 

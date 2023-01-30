@@ -1,4 +1,4 @@
-const { getUserByUsername, createUser } = require('../db');
+const { getUserByUsername, createUser, getUserByEmail, updateUser } = require('../db');
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 const router = require('express').Router();
@@ -16,7 +16,10 @@ router.post("/login", async (req, res, next) => {
       });
     }
 
-    const user = await getUserByUsername(username);
+    let user = await getUserByUsername(username);
+    if (!user) {
+      user = await getUserByEmail(username)
+    }
     const hashedPassword = user.password
     const match = await bcrypt.compare(password, hashedPassword)
     if (user && match) {
@@ -46,34 +49,37 @@ router.post("/register", async (req, res, next) => {
       email,
       username,
       password,
-      fullname,
-      profileImg,
-      location,
-      isArtist } = req.body;
-    const _user = await getUserByUsername(username);
+    } = req.body;
+    let user
+    let _user = await getUserByUsername(username);
+    if (!_user) {
+      _user = await getUserByEmail(email)
+    }
     if (_user) {
-      next({
-        name: "UsernameTaken",
-        message: `This username ${_user.username} is already taken.`
-      })
+      if (_user.password) {
+        next({
+          name: "UsernameTaken",
+          message: `This username ${_user.username} is already taken.`
+        })
+      } else {
+        debugger
+        if (password.length < 8) {
+          next({
+            name: "InsufficientPassword",
+            message: "Password is too short!"
+          })
+        }
+        user = await updateUser(_user.id, req.body)
+      }
+    } else {
+      if (password.length < 8) {
+        next({
+          name: "InsufficientPassword",
+          message: "Password is too short!"
+        })
+      }
+      user = await createUser(req.body);
     }
-
-    if (password.length < 8) {
-      next({
-        name: "InsufficientPassword",
-        message: "Password is too short!"
-      })
-    }
-
-    const user = await createUser({
-      email,
-      username,
-      password,
-      fullname,
-      profileImg,
-      location,
-      isArtist
-    });
 
     const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, { expiresIn: "1W" });
 

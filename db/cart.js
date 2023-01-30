@@ -37,7 +37,6 @@ const getCartByUserId = async (userId) => {
 }
 
 const addProductToCart = async ({ orderId, productId, quantity }) => {
-  debugger
   try {
     const { rows: [orderProduct] } = await client.query(`
     INSERT INTO order_products ("orderId", "productId", quantity)
@@ -91,6 +90,7 @@ const editProductQuantities = async ({ ...fields }) => {
     const promisedProducts = await Promise.all(keys.map(async (key) => {
       const product = await editProductQuantity(key)
       return product
+
     }))
     console.log('this is promised products', promisedProducts)
     return promisedProducts
