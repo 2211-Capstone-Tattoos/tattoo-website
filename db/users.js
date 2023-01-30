@@ -21,6 +21,7 @@ const createUser = async (fields) => {
   try {
     if (password) {
       const hashedPassword = await bcrypt.hash(password, saltRounds);
+      fields.password = hashedPassword
     }
     const { rows: [user] } = await client.query(`
      INSERT INTO users(${insertString})

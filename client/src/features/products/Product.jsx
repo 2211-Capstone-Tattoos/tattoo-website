@@ -58,11 +58,13 @@ const Product = () => {
                   {data.description}
                 </div>
                 <div className="product-footer">
-                  {data.price}
+                  <h2>{data.price}</h2>
+                  <div>
+                    <button onClick={() => { if (quantity > 1) setQuantity(quantity - 1) }}>-</button>
+                    {quantity}
+                    <button onClick={() => setQuantity(quantity + 1)}>+</button>
+                  </div>
                   <button onClick={() => handleAddToCart()}>Add to Cart</button>
-                  <button onClick={() => { if (quantity > 1) setQuantity(quantity - 1) }}>-</button>
-                  {quantity}
-                  <button onClick={() => setQuantity(quantity + 1)}>+</button>
                 </div>
               </div>
             </div>
