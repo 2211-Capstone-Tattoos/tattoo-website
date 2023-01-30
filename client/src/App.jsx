@@ -8,7 +8,7 @@ import {
   usePatchCartProductQuantityMutation,
   useRemoveProductMutation 
 } from './api/shopAPI'
-import { addProduct, loadCart, removeProduct, clearCart } from './features/cart/cartSlice'
+import { addProduct, loadCart, removeProduct, emptyCart } from './features/cart/cartSlice'
 import Home from './Home'
 import NotFound from './NotFound'
 import NavBar from './NavBar'
@@ -32,9 +32,11 @@ const updateCartStorage = (cart) => {
 function App() {
 
   const dispatch = useDispatch()
-  const user = JSON.parse(window.localStorage.getItem('user'))
+  const user = useSelector(state => state.user)
   const localCart = JSON.parse(window.localStorage.getItem('cart'))
   const cartSelector = useSelector((state) => state.cart)
+  const { data = [] } = useGetCartQuery(user?.id)
+
   const [APIaddProduct] = useAddProductToCartMutation()
   const [APIeditQuantity] = usePatchCartProductQuantityMutation()
   const [APIremoveProduct] = useRemoveProductMutation()
@@ -42,8 +44,8 @@ function App() {
   
   useEffect(() => {
     //check for db cart, then check localStorage, finally use empty init state.
+    //TODO: add products from state to db on login
     if (user) {
-      const { data = [] } = useGetCartQuery(user?.id)
       if (data.products) {
         dispatch(loadCart(data))
       }
@@ -54,7 +56,9 @@ function App() {
     }
   }, [user]) //change on log in
 
-
+  useEffect(() => {
+    updateCartStorage(cartSelector)
+  })
 
   const addProductToCart = (product) => {
     try {
@@ -71,10 +75,7 @@ function App() {
       }
     } catch (err) {
       throw err
-    } finally {
-      console.log('updating cart')
-      setTimeout(() => updateCartStorage(cartSelector), 0)
-    }
+    } 
   }
   
   const editCartProductQuantity = (newCartState) => {
@@ -102,7 +103,7 @@ function App() {
   }
   
   const clearCartProducts = () => {
-    dispatch(clearCart())
+    dispatch(emptyCart())
     updateCartStorage(cartSelector)
     if (user) {
       APIclearCart(user.id)
@@ -117,7 +118,7 @@ function App() {
           element={<Home />}
           exact path="" />
         <Route
-          element={<Login />}
+          element={<Login cartSelector={cartSelector}/>}
           exact path="login" />
         <Route
           element={<Products />}

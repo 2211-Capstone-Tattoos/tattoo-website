@@ -14,21 +14,23 @@ const { completeOrder } = require('../db/orders')
 // Get user cart
 router.get("/:userId", async (req, res, next) => {
   const userId = req.params.userId
-  if (!req.user) {
-    next({
-      name: 'AuthorizationError',
-      message: 'Must be logged in to view cart'
-    })
-  }
-  if (userId != req.user.id) {
-    next({
-      name: 'UnauthorizedUserError',
-      message: 'You can not view another users cart'
-    })
-  }
+  
   try {
+    if (!req.user) {
+      next({
+        name: 'AuthorizationError',
+        message: 'Must be logged in to view cart'
+      })
+    } else { 
+      if (userId != req.user.id) {
+      next({
+        name: 'UnauthorizedUserError',
+        message: 'You can not view another users cart'
+      }) 
+    } else {
     const cart = await getCartByUserId(userId);
-    res.send(cart);
+    res.send(cart);}
+    }
   } catch ({ name, message }) {
     next({ name, message });
   }

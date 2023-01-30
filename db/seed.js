@@ -326,7 +326,7 @@ const addInitialProductsToOrders = async (orderId) => {
     await createInitialProducts();
     await addInitialProductsToOrders(2); // del daddy's first cart
     await completeOrder(2, 2) // purchase first cart
-    await addInitialProductsToOrders(11); // del daddy's second cart
+    await addInitialProductsToOrders(12); // del daddy's second cart
   } catch (error) {
     console.error('Error during rebuildDB', error);
     throw error;
