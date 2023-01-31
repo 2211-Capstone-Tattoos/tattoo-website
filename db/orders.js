@@ -42,14 +42,7 @@ const getOrderById = async (orderId) => {
 
 const completeOrder = async (userId, orderId) => {
   try {
-    const { rows: [completedOrder] } = await client.query(`
-    UPDATE orders 
-    SET is_complete = true,
-        ordered_at = CURRENT_TIMESTAMP
-    WHERE id = $1
-    RETURNING *
-    `, [orderId])
-
+    debugger
     const { rows: products } = await client.query(`
     SELECT 
       products.id,
@@ -57,24 +50,43 @@ const completeOrder = async (userId, orderId) => {
       products.description,
       products.price,
       products.img
-    FROM products
-    RIGHT JOIN order_products
+      FROM products
+      RIGHT JOIN order_products
       ON products.id = order_products."productId"
-    WHERE order_products."orderId" = $1
-    `, [orderId])
+      WHERE order_products."orderId" = $1
+      `, [orderId])
 
-    const productsPromise = await Promise.all(products.map(async (product) => {
+    const purchasedProducts = await Promise.all(products.map(async (product) => {
       const { rows: [orderProduct] } = await client.query(`
       UPDATE order_products
       SET img = $1,
-        title = $2,
-        description = $3,
-        paid_price = $4
+      title = $2,
+      description = $3,
+      paid_price = $4
       WHERE "productId" = ${product.id}
       RETURNING *
       `, [product.img, product.title, product.description, product.price])
+      return orderProduct
     }))
 
+    const total = purchasedProducts.reduce((acc, product) => {
+      console.log(product)
+      console.log('acc', acc)
+      console.log('product', product.paid_price)
+      console.log('quant', product.quantity)
+      sum = acc + (+product.paid_price.slice(1) * product.quantity)
+      return sum
+    }, 0)
+    console.log('THIS IS TOTAL', total)
+
+    const { rows: [completedOrder] } = await client.query(`
+    UPDATE orders 
+    SET is_complete = true,
+        ordered_at = CURRENT_TIMESTAMP,
+        total = ${total}
+    WHERE id = $1
+    RETURNING *
+    `, [orderId])
     await createCart(userId)
 
     return completedOrder

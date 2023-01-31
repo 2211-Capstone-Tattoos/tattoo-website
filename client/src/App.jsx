@@ -1,12 +1,12 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Routes, Route } from 'react-router-dom'
-import { 
+import {
   useGetCartQuery,
   useAddProductToCartMutation,
   useClearCartMutation,
   usePatchCartProductQuantityMutation,
-  useRemoveProductMutation 
+  useRemoveProductMutation
 } from './api/shopAPI'
 import { addProduct, loadCart, removeProduct, emptyCart } from './features/cart/cartSlice'
 import Home from './Home'
@@ -42,7 +42,7 @@ function App() {
   const [APIeditQuantity] = usePatchCartProductQuantityMutation()
   const [APIremoveProduct] = useRemoveProductMutation()
   const [APIclearCart] = useClearCartMutation()
-  
+
   useEffect(() => {
     //check for db cart, then check localStorage, finally use empty init state.
     //TODO: add products from state to db on login
@@ -72,16 +72,16 @@ function App() {
           userId: user.id,
           productId: product.id,
           body: {
-            quantity : product.quantity
+            quantity: product.quantity
           }
         }
         APIaddProduct(APIdata)
       }
     } catch (err) {
       throw err
-    } 
+    }
   }
-  
+
   const editCartProductQuantity = (newCartState) => {
     dispatch(loadCart(newCartState))
     updateCartStorage(cartSelector)
@@ -93,7 +93,7 @@ function App() {
       APIeditQuantity(APIdata)
     }
   }
-  
+
   const removeProductFromCart = (product) => {
     dispatch(removeProduct(product.id))
     updateCartStorage(cartSelector)
@@ -105,7 +105,7 @@ function App() {
       APIremoveProduct(APIdata)
     }
   }
-  
+
   const clearCartProducts = () => {
     dispatch(emptyCart())
     updateCartStorage(cartSelector)
@@ -122,13 +122,13 @@ function App() {
           element={<Home />}
           exact path="" />
         <Route
-          element={<Login cartSelector={cartSelector}/>}
+          element={<Login cartSelector={cartSelector} />}
           exact path="login" />
         <Route
           element={<Products />}
           path="products" />
         <Route
-          element={<Product addProductToCart={addProductToCart}/>}
+          element={<Product addProductToCart={addProductToCart} />}
           path="products/:id" />
         <Route
           element={<Artists />}
@@ -138,7 +138,7 @@ function App() {
           path="artists/:id" />
         <Route
           element={<Orders />}
-          path="orders" />
+          path="orders/:id" />
         <Route
           element={<Cart editCartProductQuantity={editCartProductQuantity} removeProductFromCart={removeProductFromCart} clearCartProducts={clearCartProducts} />}
           exact path="cart" />
@@ -146,8 +146,8 @@ function App() {
           element={<PurchaseCart />}
           path="cart/checkout" />
         <Route
-        element={<Admin/>}
-        path="admin"
+          element={<Admin />}
+          path="admin"
         />
         <Route
           element={<NotFound />}

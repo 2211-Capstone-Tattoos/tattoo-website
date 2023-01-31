@@ -14,22 +14,23 @@ const { completeOrder } = require('../db/orders')
 // Get user cart
 router.get("/:userId", async (req, res, next) => {
   const userId = req.params.userId
-  
+
   try {
     if (!req.user) {
       next({
         name: 'AuthorizationError',
         message: 'Must be logged in to view cart'
       })
-    } else { 
-      if (userId != req.user.id) {
-      next({
-        name: 'UnauthorizedUserError',
-        message: 'You can not view another users cart'
-      }) 
     } else {
-    const cart = await getCartByUserId(userId);
-    res.send(cart);}
+      if (userId != req.user.id) {
+        next({
+          name: 'UnauthorizedUserError',
+          message: 'You can not view another users cart'
+        })
+      } else {
+        const cart = await getCartByUserId(userId);
+        res.send(cart);
+      }
     }
   } catch ({ name, message }) {
     next({ name, message });
@@ -59,7 +60,6 @@ router.post("/:userId/:productId", async (req, res, next) => {
         message: 'You can not edit another users cart'
       })
     }
-    debugger
     const addedProduct = await addProductToCart({ orderId: cart.id, productId: req.params.productId, quantity: req.body.quantity })
     res.send(addedProduct);
   } catch ({ name, message }) {
@@ -167,15 +167,16 @@ router.post('/purchase', async (req, res, next) => {
     //if no user, creates user and cart
     if (!req.user) {
       user = await createUser({ email: email })
+      if (products) {
+        const cart = await getCartByUserId(user.id)
+        await Promise.all(products.map(async (product) => {
+          await addProductToCart({ orderId: cart.id, productId: product.id, quantity: product.quantity })
+        }))
+      }
     } else {
       user = req.user
     }
     const cart = await getCartByUserId(user.id)
-    if (products) {
-      await Promise.all(products.map(async (product) => {
-        await addProductToCart({ orderId: cart.id, productId: product.id, quantity: product.quantity })
-      }))
-    }
     const completedOrder = await completeOrder(user.id, cart.id)
     console.log(completedOrder)
     res.send(completedOrder)

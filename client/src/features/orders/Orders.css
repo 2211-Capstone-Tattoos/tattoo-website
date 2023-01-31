@@ -1,0 +1,46 @@
+.orders {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.order {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  font-size: 14px;
+}
+
+.order-products {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+
+.order-product {
+  display: flex;
+  gap: 20px;
+}
+
+.order-product img {
+  width: 150px;
+  height: auto;
+}
+
+.order-product .details {
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+button {
+  padding: 3px;
+}

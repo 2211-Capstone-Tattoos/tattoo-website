@@ -13,7 +13,7 @@ export const shopAPI = createApi({
       return headers
     }
   }),
-  tagTypes: ['Products', 'Artists', 'User', 'Cart'],
+  tagTypes: ['Products', 'Artists', 'User', 'Cart', 'Orders'],
   endpoints: (builder) => ({
 
     //-------- Products ---------
@@ -187,6 +187,13 @@ export const shopAPI = createApi({
       },
       invalidatesTags: ["Cart"],
     }),
+
+    // ORDERS
+    getUserOrders: builder.query({
+      query: (userId) => `orders/${userId}`,
+      providesTags: ['Orders']
+    }),
+
   })
 })
 
@@ -208,4 +215,5 @@ export const {
   usePatchCartProductQuantityMutation,
   useClearCartMutation,
   useRemoveProductMutation,
+  useGetUserOrdersQuery
 } = shopAPI
