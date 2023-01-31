@@ -1,6 +1,6 @@
 const API_URL = import.meta.env.VITE_API_PATH || 'http://localhost:8080/api/'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { loadingMessage, successMessage, errorMessage, setToastPromise } from '../features/toast/toastSlice'
+import { setToastPromise } from '../features/toast/toastSlice'
 
 export const shopAPI = createApi({
   reducerPath: 'shopAPI',
@@ -49,6 +49,16 @@ export const shopAPI = createApi({
         }
       },
       invalidatesTags: (result, error, { artistId }) => [{ type: 'Artists', artistId }],
+      async onQueryStarted(data, { dispatch, queryFulfilled }) {
+        dispatch(setToastPromise({
+          promise: queryFulfilled,
+          options: {
+            loading: 'Adding product...',
+            success: "Got it in the bag",
+            error: 'Error adding that product...'
+          }
+        }))
+      }
     }),
     //updateProduct:
     updateProduct: builder.mutation({
@@ -61,6 +71,16 @@ export const shopAPI = createApi({
         }
       },
       invalidatesTags: (result, error, { artistId }) => [{ type: 'Artists', artistId }],
+      async onQueryStarted(data, { dispatch, queryFulfilled }) {
+        dispatch(setToastPromise({
+          promise: queryFulfilled,
+          options: {
+            loading: 'Updating product...',
+            success: "Got it updated!",
+            error: 'Error updating that product'
+          }
+        }))
+      }
     }),
     //deleteProduct:
     deleteProduct: builder.mutation({
@@ -72,6 +92,16 @@ export const shopAPI = createApi({
         }
       },
       invalidatesTags: (result, error, { artistId }) => [{ type: 'Artists', artistId }],
+      async onQueryStarted(data, { dispatch, queryFulfilled }) {
+        dispatch(setToastPromise({
+          promise: queryFulfilled,
+          options: {
+            loading: 'Deleting product...',
+            success: "She's gone",
+            error: 'Error deleting that product'
+          }
+        }))
+      }
     }),
 
     //-------- User --------
@@ -83,7 +113,16 @@ export const shopAPI = createApi({
           body
         }
       },
-      //tags?
+      async onQueryStarted(body, { dispatch, queryFulfilled }) {
+        dispatch(setToastPromise({
+          promise: queryFulfilled,
+          options: {
+            loading: 'Registering...',
+            success: "You're registered!",
+            error: 'Trouble getting you registered in...'
+          }
+        }))
+      }
     }),
     login: builder.mutation({
       query(body) {
@@ -111,6 +150,16 @@ export const shopAPI = createApi({
           method: 'PATCH',
           body
         }
+      },
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        dispatch(setToastPromise({
+          promise: queryFulfilled,
+          options: {
+            loading: 'Applying your updates...',
+            success: "All fresh!",
+            error: 'Error getting you updated...'
+          }
+        }))
       }
     }),
     deleteUser: builder.mutation({
@@ -119,6 +168,16 @@ export const shopAPI = createApi({
           url: `users/${id}`,
           method: 'DELETE',
         }
+      },
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        dispatch(setToastPromise({
+          promise: queryFulfilled,
+          options: {
+            loading: 'Saying goodbye...',
+            success: "Gone for good.",
+            error: 'Error deleting user'
+          }
+        }))
       }
     }),
     allUsers: builder.query({
@@ -163,7 +222,17 @@ export const shopAPI = createApi({
           body
         }
       },
-      invalidatesTags: ['Cart']
+      invalidatesTags: ['Cart'],
+      async onQueryStarted(body, { dispatch, queryFulfilled }) {
+        dispatch(setToastPromise({
+          promise: queryFulfilled,
+          options: {
+            loading: 'Adding to cart...',
+            success: "Added",
+            error: 'Oops couldn\'t add that to your cart...'
+          }
+        }))
+      }
     }),
 
     patchCartProductQuantity: builder.mutation({
@@ -175,7 +244,17 @@ export const shopAPI = createApi({
           body
         }
       },
-      invalidatesTags: ['Cart']
+      invalidatesTags: ['Cart'],
+      async onQueryStarted(body, { dispatch, queryFulfilled }) {
+        dispatch(setToastPromise({
+          promise: queryFulfilled,
+          options: {
+            loading: 'Updating cart...',
+            success: "Good to go",
+            error: 'Dang. Error updating your cart'
+          }
+        }))
+      }
     }),
 
     removeProduct: builder.mutation({
@@ -187,6 +266,16 @@ export const shopAPI = createApi({
         }
       },
       invalidatesTags: ["Cart"],
+      async onQueryStarted(body, { dispatch, queryFulfilled }) {
+        dispatch(setToastPromise({
+          promise: queryFulfilled,
+          options: {
+            loading: 'Deleting from your cart...',
+            success: "It's gone",
+            error: 'Error removing product ;__;'
+          }
+        }))
+      }
     }),
 
     clearCart: builder.mutation({
@@ -197,6 +286,16 @@ export const shopAPI = createApi({
         }
       },
       invalidatesTags: ["Cart"],
+      async onQueryStarted(body, { dispatch, queryFulfilled }) {
+        dispatch(setToastPromise({
+          promise: queryFulfilled,
+          options: {
+            loading: 'Dumping your cart in the middle of the parking lot...',
+            success: "Clear and clean",
+            error: 'Trouble leaving your trash for others to pick up...'
+          }
+        }))
+      }
     }),
   })
 })

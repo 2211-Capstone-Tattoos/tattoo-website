@@ -7,14 +7,11 @@ const toastSlice = createSlice({
   name: 'toast',
   initialState,
   reducers: {
-    loadingMessage: (state, action) => {
-      return state = toast.loading(action.payload)
+    setBlankToast: (state, action) => {
+      return state = toast(action.payload)
     },
-    successMessage: (state, action) => {
-      return state = toast.success(action.payload)
-    },
-    errorMessage: (state, action) => {
-      return state = toast.error(action.payload)
+    setCustomToast: (state, action) => {
+      return state = toast.custom(action.payload)
     },
     setToastPromise: (state, action) => {
       return state = toast.promise(action.payload.promise, action.payload.options)
@@ -22,5 +19,5 @@ const toastSlice = createSlice({
   }
 })
 
-export const { loadingMessage, successMessage, errorMessage, setToastPromise } = toastSlice.actions
+export const { setBlankToast, setCustomToast, setToastPromise } = toastSlice.actions
 export default toastSlice.reducer

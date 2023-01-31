@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { clearCart } from './features/cart/cartSlice'
 import { clearUser } from './features/users/userSlice'
+import { setBlankToast } from './features/toast/toastSlice'
 
 const NavBar = () => {
   const userId = JSON.parse(window.localStorage.getItem('user'))?.id
@@ -10,6 +11,7 @@ const NavBar = () => {
   const dispatch = useDispatch()
 
   const handleLogout = () => {
+    dispatch(setBlankToast('Logging you out...'))
     dispatch(clearCart())
     dispatch(clearUser())
     window.localStorage.clear()
