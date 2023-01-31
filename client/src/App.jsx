@@ -153,7 +153,7 @@ function App() {
           element={<PurchaseCart />}
           path="cart/checkout" />
         <Route
-          element={<Admin/>}
+          element={<Admin APIclearCart={APIclearCart}/>}
           path="admin"
         />
         <Route

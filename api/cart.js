@@ -84,6 +84,7 @@ router.delete("/:userId", async (req, res, next) => {
         message: "Oops! There's nothing here!"
       })
     }
+    // i dont think this if is getting hit
     if (req.user.id != cart.userId) {
       next({
         name: 'UnauthorizedUserError',
