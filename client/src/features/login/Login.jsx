@@ -89,7 +89,7 @@ const Login = ({ cartSelector }) => {
                 window.localStorage.setItem('token', response.token)
                 window.localStorage.setItem('user', JSON.stringify(response.user))
                 dispatch(loadUser(response.user))
-                if (cartSelector.products.length) {
+                if (cartSelector.products?.length) {
                   cartSelector.products.map(product => {
                     addToCart({
                       userId: response.user.id,
