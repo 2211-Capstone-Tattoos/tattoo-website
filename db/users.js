@@ -141,8 +141,7 @@ async function updateUser(userId, fields) {
 async function getAllUsers() {
   try {
     const { rows: userIds } = await client.query(`
-    SELECT * FROM users
-    WHERE is_artist = false AND admin = false
+    SELECT id FROM users
     `)
 
     const users = await Promise.all(userIds.map(

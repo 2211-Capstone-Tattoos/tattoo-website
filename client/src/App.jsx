@@ -21,7 +21,9 @@ import {
   Products,
   Product,
   PurchaseCart,
-  Admin
+  Admin,
+  AdminUsers,
+  UserDetails
 } from './features'
 import { Toaster } from 'react-hot-toast'
 
@@ -120,16 +122,16 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-      <Toaster 
+      <Toaster
         position='top-right'
-        //toastOptions={}
+      //toastOptions={}
       />
       <Routes>
         <Route
           element={<Home />}
           exact path="" />
         <Route
-          element={<Login cartSelector={cartSelector}/>}
+          element={<Login cartSelector={cartSelector} />}
           exact path="login/:from" />
         <Route
           element={<Products />}
@@ -153,8 +155,16 @@ function App() {
           element={<PurchaseCart />}
           path="cart/checkout" />
         <Route
-          element={<Admin/>}
+          element={<Admin />}
           path="admin"
+        />
+        <Route
+          element={<AdminUsers />}
+          path="admin/users"
+        />
+        <Route
+          element={<UserDetails />}
+          path="admin/users/:userId"
         />
         <Route
           element={<NotFound />}

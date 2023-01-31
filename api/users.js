@@ -112,14 +112,14 @@ router.use("/*", (error, req, res, next) => {
 
 // PATCH api/users/:userId
 router.patch('/:userId', async (req, res, next) => {
+  debugger
   const userId = req.params.userId
-  console.log("this is req.user.admin in api", req.user.admin)
   try {
-    if(req.user.admin) {
-        const updatedUser = await updateUser(userId, req.body)
-        console.log(updatedUser)
-        res.send(updatedUser)
-      
+    if (req.user.admin) {
+      const updatedUser = await updateUser(userId, req.body)
+      console.log(updatedUser)
+      res.send(updatedUser)
+
     } else {
       next({
         name: 'Unauthorized Error',
