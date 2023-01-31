@@ -25,7 +25,7 @@ const Orders = () => {
                   .slice(1, 4)
                   .join(' ')
                 return (
-                  <div className="order" key={index}>
+                  <div className="order" key={order.id}>
                     <div className="header">
                       <p>Order placed: {orderedAt}</p>
                       <p>Order #: {order.id}</p>
@@ -35,7 +35,7 @@ const Orders = () => {
                       {
                         order.products.map((product) => {
                           return (
-                            <div className="order-product">
+                            <div className="order-product" key={product.id}>
                               <img src={product.img} alt="product-image" />
                               <div className="details">
                                 <h3>{product.title}</h3>

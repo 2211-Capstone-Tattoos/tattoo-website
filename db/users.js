@@ -142,7 +142,6 @@ async function getAllUsers() {
   try {
     const { rows: users } = await client.query(`
     SELECT * FROM users
-    WHERE is_artist = false AND admin = false
     `)
     delete users.password
     return users
