@@ -26,7 +26,7 @@ import {
 import { Toaster } from 'react-hot-toast'
 
 import './App.css'
-import { useDeferredValue } from 'react'
+import CheckoutPage from './features/checkout/CheckoutPage'
 
 const updateCartStorage = (cart) => {
   window.localStorage.setItem('cart', JSON.stringify(cart))
@@ -67,6 +67,7 @@ function App() {
     updateCartStorage(cartSelector)
   })
 
+  // ---------Cart Handlers---------
   const addProductToCart = (product) => {
     try {
       dispatch(addProduct(product))
@@ -149,9 +150,13 @@ function App() {
         <Route
           element={<Cart editCartProductQuantity={editCartProductQuantity} removeProductFromCart={removeProductFromCart} clearCartProducts={clearCartProducts} />}
           exact path="cart/" />
-        <Route
+        {/* <Route
           element={<PurchaseCart />}
-          path="cart/checkout" />
+          path="cart/checkout" /> */}
+        <Route 
+          element={<CheckoutPage />}
+          path='cart/checkout'
+        />
         <Route
           element={<Admin/>}
           path="admin"
