@@ -138,11 +138,25 @@ async function updateUser(userId, fields) {
   }
 }
 
+async function getAllUsers() {
+  try {
+    const { rows: users } = await client.query(`
+    SELECT * FROM users
+    WHERE is_artist = false AND admin = false
+    `)
+    delete users.password
+    return users
+  } catch (error) {
+    throw error
+  }
+}
+
 module.exports = {
   createUser,
   getUser,
   getUserById,
   getUserByUsername,
   updateUser,
-  getUserByEmail
+  getUserByEmail,
+  getAllUsers
 };

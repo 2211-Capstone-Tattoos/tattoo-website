@@ -109,7 +109,9 @@ export const shopAPI = createApi({
           method: 'DELETE',
         }
       }
-
+    }),
+    allUsers: builder.query({
+      query: () => `users`,
     }),
 
     // ARTISTS
@@ -198,6 +200,7 @@ export const {
   useLoginMutation,
   useUpdateUserMutation,
   useDeleteUserMutation,
+  useAllUsersQuery,
   useGetAllArtistsQuery,
   useGetArtistQuery,
   useGetCartQuery,
