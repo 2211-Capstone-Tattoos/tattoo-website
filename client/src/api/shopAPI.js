@@ -153,7 +153,7 @@ export const shopAPI = createApi({
         }
       },
       invalidatesTags: ['Users'],
-      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+      async onQueryStarted(data, { dispatch, queryFulfilled }) {
         dispatch(setToastPromise({
           promise: queryFulfilled,
           options: {
