@@ -1,9 +1,25 @@
 import React from "react";
-import { useAllUsersQuery } from "../../api/shopAPI"
+import { useAllUsersQuery, useGetAllArtistsQuery, useUpdateUserMutation } from "../../api/shopAPI"
 
 const Admin = () => {
-    const {data = []} = useAllUsersQuery();
-    console.log(data)
+    const { data = [] } = useAllUsersQuery();
+    const [updateUser] = useUpdateUserMutation();
+
+    const makeArtist = async (userId) => {
+        const body = {
+            is_artist: true
+        }
+        const data = {userId, body}
+        const updatedUser = await updateUser(data)
+    }
+    const makeAdmin = async (userId) => {
+        const body = {
+            admin: true
+        }
+        const data = {userId, body}
+        const updatedUser = await updateUser(data)
+    }
+
     return (
         <div>
             <div>
@@ -16,8 +32,8 @@ const Admin = () => {
                             <p>{user.email}</p>
                             <p>{user.profile_img}</p>
                             <p>{user.location}</p>
-                            <button>Make Artist</button>
-                            <button>Make Admin</button>
+                            <button onClick={() => makeArtist(user.id)}>Make Artist</button>
+                            <button onClick={()=> makeAdmin(user.id)}>Make Admin</button>
                         </div>
                     )
                 })}

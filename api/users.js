@@ -1,4 +1,4 @@
-const { getUserByUsername, createUser, getUserByEmail, updateUser, getAllUsers } = require('../db');
+const { getUserByUsername, createUser, getUserByEmail, updateUser, getAllUsers, getUserById } = require('../db');
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 const router = require('express').Router();
@@ -108,6 +108,28 @@ router.use("/*", (error, req, res, next) => {
     name: error.name,
     message: error.message
   })
+})
+
+// PATCH api/users/:userId
+router.patch('/:userId', async (req, res, next) => {
+  const userId = req.params.userId
+  console.log("this is req.user.admin in api", req.user.admin)
+  try {
+    if(req.user.admin) {
+        const updatedUser = await updateUser(userId, req.body)
+        console.log(updatedUser)
+        res.send(updatedUser)
+      
+    } else {
+      next({
+        name: 'Unauthorized Error',
+        message: 'You need to be an Admin',
+        error: 'UnauthorizedError'
+      })
+    }
+  } catch (error) {
+    next(error);
+  }
 })
 
 module.exports = router;

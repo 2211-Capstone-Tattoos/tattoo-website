@@ -94,13 +94,15 @@ export const shopAPI = createApi({
       }
     }),
     updateUser: builder.mutation({
-      query(body, id) {
+      query(data) {
+        const {userId, body} = data
         return {
-          url: `users/${id}`,
+          url: `users/${userId}`,
           method: 'PATCH',
           body
         }
-      }
+      },
+      invalidatesTags: ['Users']
     }),
     deleteUser: builder.mutation({
       query(id) {
@@ -112,6 +114,7 @@ export const shopAPI = createApi({
     }),
     allUsers: builder.query({
       query: () => `users`,
+      providesTags: ['Users']
     }),
 
     // ARTISTS
