@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux'
-import { useGetCartQuery } from '../../api/shopAPI';
 import Modal from 'react-modal'
 Modal.setAppElement('#root');
 import './cart.css'

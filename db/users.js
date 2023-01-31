@@ -140,15 +140,21 @@ async function updateUser(userId, fields) {
 
 async function getAllUsers() {
   try {
-    const { rows: users } = await client.query(`
+    const { rows: userIds } = await client.query(`
     SELECT * FROM users
+    WHERE is_artist = false AND admin = false
     `)
-    delete users.password
+
+    const users = await Promise.all(userIds.map(
+      user => getUserById(user.id)
+    ))
+
     return users
   } catch (error) {
     throw error
   }
 }
+
 
 module.exports = {
   createUser,

@@ -1,12 +1,15 @@
-import React from 'react'
 import { useState, useRef } from 'react'
 import { useDispatch } from 'react-redux'
+import { useNavigate, useParams } from 'react-router-dom'
 import { loadUser } from '../users/userSlice'
 import { useAddProductToCartMutation, useLoginMutation, useRegisterMutation } from '../../api/shopAPI'
 
 const Login = ({ cartSelector }) => {
+  const params = useParams()
+
   const [loginView, setLoginView] = useState(true)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [registerUser] = useRegisterMutation()
   const [loginUser] = useLoginMutation()
   const [addToCart] = useAddProductToCartMutation()
@@ -22,7 +25,7 @@ const Login = ({ cartSelector }) => {
 
   return (
     <div className="login">
-      {!loginView
+      {!loginView // REGISTER
         ? <>
           <form onSubmit={async (e) => {
             e.preventDefault()
@@ -40,6 +43,13 @@ const Login = ({ cartSelector }) => {
               window.localStorage.setItem('token', response.token)
               window.localStorage.setItem('user', JSON.stringify(response.user))
               loadUser(response.user)
+              navigate('/')
+
+              if (params.from === 'cart-redirect') {
+                navigate('/cart')
+              } else {
+                navigate('/')
+              }
             } catch (err) {
               throw err
             }
@@ -72,8 +82,8 @@ const Login = ({ cartSelector }) => {
           <p>Already have an account?</p>
           <p><a onClick={() => setLoginView(!loginView)}>Click here</a> to login</p>
         </>
-
-        : <>
+        // LOGIN
+        : <> 
           <form onSubmit={async (e) => {
             e.preventDefault()
 
@@ -84,11 +94,14 @@ const Login = ({ cartSelector }) => {
 
             try {
               const { data: response } = await loginUser(body)
+              
               if (response.token) {
                 console.log(response)
                 window.localStorage.setItem('token', response.token)
                 window.localStorage.setItem('user', JSON.stringify(response.user))
                 dispatch(loadUser(response.user))
+
+                // Add existing cart to user db
                 if (cartSelector.products?.length) {
                   cartSelector.products.map(product => {
                     addToCart({
@@ -99,6 +112,11 @@ const Login = ({ cartSelector }) => {
                       }
                     })
                   })
+                }
+                if (params.from === 'cart-redirect') {
+                  navigate('/cart')
+                } else {
+                  navigate('/')
                 }
               } else {
                 throw new Error(response.error, response.message)
