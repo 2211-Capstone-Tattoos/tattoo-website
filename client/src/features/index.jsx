@@ -6,6 +6,7 @@ import Orders from './orders/Orders'
 import Products from './products/Products'
 import Product from './products/Product'
 import PurchaseCart from './cart/PurchaseCart'
+import Admin from './admin/Admin'
 
 export {
   Artists,
@@ -15,5 +16,6 @@ export {
   Orders,
   Products,
   Product,
-  PurchaseCart
+  PurchaseCart,
+  Admin
 }

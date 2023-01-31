@@ -20,7 +20,8 @@ import {
   Orders,
   Products,
   Product,
-  PurchaseCart
+  PurchaseCart,
+  Admin
 } from './features'
 
 import './App.css'
@@ -141,6 +142,10 @@ function App() {
         <Route
           element={<PurchaseCart />}
           path="cart/checkout" />
+        <Route
+        element={<Admin/>}
+        path="admin"
+        />
         <Route
           element={<NotFound />}
           path="*" />

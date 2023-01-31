@@ -1,4 +1,4 @@
-const { getUserByUsername, createUser, getUserByEmail, updateUser } = require('../db');
+const { getUserByUsername, createUser, getUserByEmail, updateUser, getAllUsers } = require('../db');
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 const router = require('express').Router();
@@ -90,6 +90,16 @@ router.post("/register", async (req, res, next) => {
     });
   } catch (error) {
     next(error);
+  }
+})
+
+// POST /api/users
+router.get("/", async (req, res, next) => {
+  try {
+    const allUsers = await getAllUsers();
+    res.send(allUsers)
+  } catch (error) {
+    next(error)
   }
 })
 
