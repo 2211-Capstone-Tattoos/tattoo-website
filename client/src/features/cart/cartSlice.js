@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { products: [] } //shopAPI -> localStorage -> null
+const initialState = {} //shopAPI -> localStorage -> null
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -18,6 +18,9 @@ const cartSlice = createSlice({
       }
     },
     addProduct: (state, action) => {
+      if (!state.products) {
+        state.products = []
+      }
       const product = state.products.find(product => product.id === action.payload.id)
       if (product) {
         product.quantity += action.payload.quantity

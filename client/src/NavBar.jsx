@@ -2,15 +2,16 @@ import React from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { clearCart } from './features/cart/cartSlice'
+import { clearUser } from './features/users/userSlice'
 
 const NavBar = () => {
   const userId = JSON.parse(window.localStorage.getItem('user'))?.id
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  console.log(userId)
 
   const handleLogout = () => {
     dispatch(clearCart())
+    dispatch(clearUser())
     window.localStorage.clear()
     navigate('/')
   }
