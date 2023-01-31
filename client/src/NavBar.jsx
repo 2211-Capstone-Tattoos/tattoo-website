@@ -48,7 +48,7 @@ const NavBar = () => {
       </NavLink>
       {!userId
         ? < NavLink
-          to="login"
+          to="login/nav"
           className={({ isActive }) =>
             isActive ? "active-nav" : undefined
           }>

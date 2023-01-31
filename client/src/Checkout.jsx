@@ -1,5 +1,5 @@
-import React from 'react'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useLoginMutation, useRegisterMutation } from './api/shopAPI'
 
 const Checkout = () => {
@@ -10,9 +10,8 @@ const Checkout = () => {
       {!view
         ? <div>
           <h2>Would you like to..</h2>
-          <button>Login</button>
-          <button>Register</button>
-          <button>Checkout As Guest</button>
+          <Link to='/login/cart-redirect'><button>Login or Register?</button></Link>
+          <Link to='/cart/checkout'><button>Checkout as Guest</button></Link>
         </div>
         : <></>
       }

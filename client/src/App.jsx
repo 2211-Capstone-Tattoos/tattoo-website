@@ -123,7 +123,7 @@ function App() {
           exact path="" />
         <Route
           element={<Login cartSelector={cartSelector}/>}
-          exact path="login" />
+          exact path="login/:from" />
         <Route
           element={<Products />}
           path="products" />
@@ -141,13 +141,13 @@ function App() {
           path="orders" />
         <Route
           element={<Cart editCartProductQuantity={editCartProductQuantity} removeProductFromCart={removeProductFromCart} clearCartProducts={clearCartProducts} />}
-          exact path="cart" />
+          exact path="cart/" />
         <Route
           element={<PurchaseCart />}
           path="cart/checkout" />
         <Route
-        element={<Admin/>}
-        path="admin"
+          element={<Admin/>}
+          path="admin"
         />
         <Route
           element={<NotFound />}
