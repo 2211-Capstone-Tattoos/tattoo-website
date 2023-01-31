@@ -144,14 +144,16 @@ export const shopAPI = createApi({
       }
     }),
     updateUser: builder.mutation({
-      query(body, id) {
+      query(data) {
+        const {userId, body} = data
         return {
-          url: `users/${id}`,
+          url: `users/${userId}`,
           method: 'PATCH',
           body
         }
       },
-      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+      invalidatesTags: ['Users'],
+      async onQueryStarted(data, { dispatch, queryFulfilled }) {
         dispatch(setToastPromise({
           promise: queryFulfilled,
           options: {
@@ -182,6 +184,7 @@ export const shopAPI = createApi({
     }),
     allUsers: builder.query({
       query: () => `users`,
+      providesTags: ['Users']
     }),
 
     // ARTISTS
