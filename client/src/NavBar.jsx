@@ -35,7 +35,7 @@ const NavBar = () => {
         <button>Artists</button>
       </NavLink>
       <NavLink
-        to="orders"
+        to={`orders/${userId}`}
         className={({ isActive }) =>
           isActive ? "active-nav" : undefined
         }>

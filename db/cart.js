@@ -37,7 +37,17 @@ const getCartByUserId = async (userId) => {
 }
 
 const addProductToCart = async ({ orderId, productId, quantity }) => {
+  debugger
   try {
+    const { rows: [productQuantity] } = await client.query(`
+    SELECT quantity
+    FROM order_products
+    WHERE "orderId" = $1 AND "productId" = $2
+    `, [orderId, productId])
+    if (productQuantity) {
+      quantity += productQuantity.quantity
+    }
+    console.log(quantity)
     const { rows: [orderProduct] } = await client.query(`
     INSERT INTO order_products ("orderId", "productId", quantity)
     VALUES ($1, $2, $3)
@@ -69,6 +79,14 @@ const removeProductFromCart = async (orderId, productId) => {
 const editProductQuantity = async ({ id, quantity }) => {
 
   try {
+    const { rows: [quantity] } = await client.query(`
+    SELECT quantity 
+    FROM order_products
+    WHERE id = $1
+    `, [id])
+
+    console.log(quantity)
+
     const { rows: [product] } = await client.query(`
     UPDATE order_products
     SET quantity = $1
