@@ -23,15 +23,16 @@ import {
   PurchaseCart,
   Admin
 } from './features'
+import { Toaster } from 'react-hot-toast'
 
 import './App.css'
+import { useDeferredValue } from 'react'
 
 const updateCartStorage = (cart) => {
   window.localStorage.setItem('cart', JSON.stringify(cart))
 }
 
 function App() {
-
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
   const localCart = JSON.parse(window.localStorage.getItem('cart'))
@@ -43,6 +44,7 @@ function App() {
   const [APIremoveProduct] = useRemoveProductMutation()
   const [APIclearCart] = useClearCartMutation()
 
+  // Cart population
   useEffect(() => {
     //check for db cart, then check localStorage, finally use empty init state.
     //TODO: add products from state to db on login
@@ -60,6 +62,7 @@ function App() {
     }
   }, [user, data])
 
+  // localStorage population
   useEffect(() => {
     updateCartStorage(cartSelector)
   })
@@ -117,13 +120,17 @@ function App() {
   return (
     <div className="App">
       <NavBar />
+      <Toaster 
+        position='top-right'
+        //toastOptions={}
+      />
       <Routes>
         <Route
           element={<Home />}
           exact path="" />
         <Route
-          element={<Login cartSelector={cartSelector} />}
-          exact path="login" />
+          element={<Login cartSelector={cartSelector}/>}
+          exact path="login/:from" />
         <Route
           element={<Products />}
           path="products" />
@@ -141,12 +148,12 @@ function App() {
           path="orders/:id" />
         <Route
           element={<Cart editCartProductQuantity={editCartProductQuantity} removeProductFromCart={removeProductFromCart} clearCartProducts={clearCartProducts} />}
-          exact path="cart" />
+          exact path="cart/" />
         <Route
           element={<PurchaseCart />}
           path="cart/checkout" />
         <Route
-          element={<Admin />}
+          element={<Admin/>}
           path="admin"
         />
         <Route
