@@ -1,5 +1,6 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 const API_URL = import.meta.env.VITE_API_PATH || 'http://localhost:8080/api/'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { loadingMessage, successMessage, errorMessage, setToastPromise } from '../features/toast/toastSlice'
 
 export const shopAPI = createApi({
   reducerPath: 'shopAPI',
@@ -91,6 +92,16 @@ export const shopAPI = createApi({
           method: 'POST',
           body
         }
+      },
+      async onQueryStarted(body, { dispatch, queryFulfilled }) {
+        dispatch(setToastPromise({
+          promise: queryFulfilled,
+          options: {
+            loading: 'Logging you in...',
+            success: "You're logged!",
+            error: 'Trouble getting you logged in...'
+          }
+        }))
       }
     }),
     updateUser: builder.mutation({

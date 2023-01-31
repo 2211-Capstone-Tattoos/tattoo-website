@@ -44,7 +44,7 @@ const Login = ({ cartSelector }) => {
               window.localStorage.setItem('user', JSON.stringify(response.user))
               loadUser(response.user)
               navigate('/')
-              
+
               if (params.from === 'cart-redirect') {
                 navigate('/cart')
               } else {
@@ -94,6 +94,7 @@ const Login = ({ cartSelector }) => {
 
             try {
               const { data: response } = await loginUser(body)
+              
               if (response.token) {
                 console.log(response)
                 window.localStorage.setItem('token', response.token)
