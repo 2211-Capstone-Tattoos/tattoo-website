@@ -35,7 +35,7 @@ router.post("/login", async (req, res, next) => {
         res.send({
           message: "You're Logged in!",
           token,
-          user: { id: user.id, username: user.username, isArtist: user.is_artist }
+          user
         });
       } else {
         next({
