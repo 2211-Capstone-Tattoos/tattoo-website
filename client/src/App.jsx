@@ -50,7 +50,7 @@ function App() {
     //TODO: add products from state to db on login
     if (user) {
       console.log('checking user to load cart...')
-      if (data.products) {
+      if (data?.products) {
         console.log('loading cart from db...')
         dispatch(loadCart(data))
       }

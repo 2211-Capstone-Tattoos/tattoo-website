@@ -1,6 +1,6 @@
 {
   "name": "capstone-tattoo",
-  "version": "1.0.0",
+  "version": "0.7.0",
   "description": "A site for indie tattoo artists to connect to clients.",
   "main": "index.js",
   "scripts": {
