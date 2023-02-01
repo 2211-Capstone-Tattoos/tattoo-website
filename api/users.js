@@ -29,7 +29,7 @@ router.post("/login", async (req, res, next) => {
       res.send({
         message: "You're Logged in!",
         token,
-        user: { id: user.id, username: user.username, isArtist: user.is_artist }
+        user
       });
     } else {
       next({
@@ -83,10 +83,11 @@ router.post("/register", async (req, res, next) => {
 
     const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, { expiresIn: "1W" });
 
+    delete user.password
     res.send({
       message: "Thank you for signing up!",
       token: token,
-      user: { id: user.id, username: user.username }
+      user
     });
   } catch (error) {
     next(error);
@@ -103,11 +104,22 @@ router.get("/", async (req, res, next) => {
   }
 })
 
-router.use("/*", (error, req, res, next) => {
-  res.send({
-    name: error.name,
-    message: error.message
-  })
+// GET /api/users/me
+router.get('/me', async (req, res, next) => {
+  try {
+    if (req.user) {
+      res.send(req.user)
+    } else {
+      next({
+        name: 'UnauthorizedError',
+        message: 'You must have a valid token to view this user',
+        error: 'UnauthorizedError'
+      })
+    }
+
+  } catch (error) {
+    next(error)
+  }
 })
 
 // PATCH api/users/:userId
@@ -130,6 +142,13 @@ router.patch('/:userId', async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+})
+
+router.use("/*", (error, req, res, next) => {
+  res.send({
+    name: error.name,
+    message: error.message
+  })
 })
 
 module.exports = router;

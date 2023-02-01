@@ -120,3 +120,11 @@
     flex-direction: column;
     text-align: left;
 }
+
+.cart-product-buttons {
+    display: flex;
+}
+
+.cart-product-buttons button {
+    background-color: blue;
+}

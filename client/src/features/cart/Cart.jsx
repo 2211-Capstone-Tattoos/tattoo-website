@@ -1,17 +1,17 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux'
 import Modal from 'react-modal'
 Modal.setAppElement('#root');
 import './cart.css'
 import Checkout from '../../Checkout';
+import CartProduct from './CartProduct';
 
 const Cart = ({ editCartProductQuantity, removeProductFromCart, clearCartProducts }) => {
   const cart = useSelector((state) => state.cart)
   const userId = JSON.parse(window.localStorage.getItem('user'))?.id
   const [modalIsOpen, setIsOpen] = useState(false);
   const navigate = useNavigate()
-  console.log(cart)
 
   function openModal() {
     setIsOpen(true);
@@ -82,19 +82,10 @@ const Cart = ({ editCartProductQuantity, removeProductFromCart, clearCartProduct
             cart // try passing down isLoading from cart query
               ? cart.products?.length
                 ? cart.products.map(product => {
+                  //const qtyRef = useRef()
                   return (
                     <div className="product-card" key={product.id}>
-                      <img src={product.img} alt="product-image" />
-                      <div className="details">
-                        <div className="top">
-                          <Link to={`/products/${product.productId}`}><p>{product.title}</p></Link>
-                          <p>{product.price}</p>
-                        </div>
-                        <div className="bottom">
-                          <p>Quantity: {product.quantity}</p>
-                          <button onClick={() => { removeProductFromCart(product) }}>Remove</button>
-                        </div>
-                      </div>
+                      <CartProduct product={product} editCartProductQuantity={editCartProductQuantity} removeProductFromCart={removeProductFromCart}/>
                     </div>
                   )
                 })

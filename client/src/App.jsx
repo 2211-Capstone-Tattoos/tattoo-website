@@ -8,7 +8,7 @@ import {
   usePatchCartProductQuantityMutation,
   useRemoveProductMutation
 } from './api/shopAPI'
-import { addProduct, loadCart, removeProduct, emptyCart } from './features/cart/cartSlice'
+import { addProduct, loadCart, removeProduct, emptyCart, editQuantity } from './features/cart/cartSlice'
 import Home from './Home'
 import NotFound from './NotFound'
 import NavBar from './NavBar'
@@ -86,13 +86,20 @@ function App() {
     }
   }
 
-  const editCartProductQuantity = (newCartState) => {
-    dispatch(loadCart(newCartState))
+  const editCartProductQuantity = (cartId, productId, quantity) => {
+    dispatch(editQuantity({
+      id: productId,
+      quantity: quantity
+    }))
     updateCartStorage(cartSelector)
     if (user) {
       const APIdata = {
         userId: user.id,
-        body: {} //need to figure out db func.
+        body: {
+          cartId,
+          productId,
+          quantity
+        }
       }
       APIeditQuantity(APIdata)
     }
@@ -145,14 +152,11 @@ function App() {
           element={<Artist />}
           path="artists/:id" />
         <Route
-          element={<Orders />}
+          element={<Orders user={user}/>}
           path="orders/:id" />
         <Route
           element={<Cart editCartProductQuantity={editCartProductQuantity} removeProductFromCart={removeProductFromCart} clearCartProducts={clearCartProducts} />}
           exact path="cart/" />
-        {/* <Route
-          element={<PurchaseCart />}
-          path="cart/checkout" /> */}
         <Route 
           element={<CheckoutPage />}
           path='cart/checkout'
