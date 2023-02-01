@@ -112,7 +112,6 @@ router.use("/*", (error, req, res, next) => {
 
 // PATCH api/users/:userId
 router.patch('/:userId', async (req, res, next) => {
-  debugger
   const userId = req.params.userId
   try {
     if (req.user.admin) {

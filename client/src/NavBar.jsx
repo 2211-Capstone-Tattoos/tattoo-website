@@ -24,6 +24,13 @@ const NavBar = () => {
         window.location.href.indexOf('admin') > -1
           ? <>
             <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive ? "active-nav" : undefined
+              }>
+              <button>Main Site</button>
+            </NavLink>
+            <NavLink
               to="admin/users"
               className={({ isActive }) =>
                 isActive ? "active-nav" : undefined
@@ -46,6 +53,7 @@ const NavBar = () => {
             </NavLink>
           </>
           : <>
+            <div className="left-nav"></div>
             <NavLink
               to="products"
               className={({ isActive }) =>
@@ -60,13 +68,19 @@ const NavBar = () => {
               }>
               <button>Artists</button>
             </NavLink>
-            <NavLink
-              to={`orders/${userId}`}
-              className={({ isActive }) =>
-                isActive ? "active-nav" : undefined
-              }>
-              <button>Orders</button>
-            </NavLink>
+            {
+              userId
+                ? <NavLink
+                  to={`orders/${userId}`}
+                  className={({ isActive }) =>
+                    isActive ? "active-nav" : undefined
+                  }>
+                  <button>Orders</button>
+                </NavLink>
+                : <></>
+            }
+
+
             <NavLink
               to={`cart`}
               className={({ isActive }) =>

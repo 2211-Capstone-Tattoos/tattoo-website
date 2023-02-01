@@ -3,6 +3,14 @@
 
 }
 
+.admin-products td {
+  max-width: 300px;
+}
+
+table {
+  width: 800px;
+}
+
 tbody tr:nth-child(odd) {
   background-color: rgb(112, 112, 112);
 }
