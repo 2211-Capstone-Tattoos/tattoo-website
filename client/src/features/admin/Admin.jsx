@@ -1,9 +1,10 @@
 import React from "react";
-import { useAllUsersQuery, useGetAllArtistsQuery, useUpdateUserMutation } from "../../api/shopAPI"
+import { useAllUsersQuery, useDeleteUserMutation, useGetAllArtistsQuery, useUpdateUserMutation } from "../../api/shopAPI"
 
-const Admin = () => {
+const Admin = ({APIclearCart}) => {
     const { data = [] } = useAllUsersQuery();
     const [updateUser] = useUpdateUserMutation();
+    const [deleteUser] = useDeleteUserMutation();
 
     const makeArtist = async (userId) => {
         const body = {
@@ -20,6 +21,11 @@ const Admin = () => {
         const updatedUser = await updateUser(data)
     }
 
+    const removeAllOfUser = async (userId) => {
+        await APIclearCart(userId);
+        await deleteUser(userId)
+    }
+
     return (
         <div>
             <div>
@@ -33,7 +39,8 @@ const Admin = () => {
                             <p>{user.profile_img}</p>
                             <p>{user.location}</p>
                             <button onClick={() => makeArtist(user.id)}>Make Artist</button>
-                            <button onClick={()=> makeAdmin(user.id)}>Make Admin</button>
+                            <button onClick={() => makeAdmin(user.id)}>Make Admin</button>
+                            <button onClick={() => removeAllOfUser(user.id)}>Delete User</button>
                         </div>
                     )
                 })}

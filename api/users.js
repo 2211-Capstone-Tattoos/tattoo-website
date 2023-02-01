@@ -1,4 +1,4 @@
-const { getUserByUsername, createUser, getUserByEmail, updateUser, getAllUsers, getUserById } = require('../db');
+const { getUserByUsername, createUser, getUserByEmail, updateUser, getAllUsers, getUserById, deleteUser } = require('../db');
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 const router = require('express').Router();
@@ -115,7 +115,7 @@ router.patch('/:userId', async (req, res, next) => {
   const userId = req.params.userId
   console.log("this is req.user.admin in api", req.user.admin)
   try {
-    if(req.user.admin) {
+    if(req.user.admin || req.user.id === userId) {
         const updatedUser = await updateUser(userId, req.body)
         console.log(updatedUser)
         res.send(updatedUser)
@@ -123,12 +123,33 @@ router.patch('/:userId', async (req, res, next) => {
     } else {
       next({
         name: 'Unauthorized Error',
-        message: 'You need to be an Admin',
+        message: 'You need to be an Authorized User',
         error: 'UnauthorizedError'
       })
     }
   } catch (error) {
     next(error);
+  }
+})
+
+router.delete('/:userId', async (req, res, next) => {
+  const userId = req.params.userId
+  try {
+    if (req.user.admin || req.user.id === userId) {
+      console.log("before deletedUsser")
+      const deletedUser = await deleteUser(userId)
+      console.log("after deletedUsser", deletedUser)
+      res.send(deletedUser);
+    } else {
+      res.status(403)
+      next({
+        name: "UnauthorizedError",
+        message: "You must be owner",
+        error: "UnauthorizedError"
+      })
+    }
+  } catch (error) {
+    next(error)
   }
 })
 
