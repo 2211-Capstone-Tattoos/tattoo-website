@@ -78,7 +78,8 @@ router.use('/cart', require('./cart'))
 router.use("/*", (error, req, res, next) => {
   res.send({
     name: error.name,
-    message: error.message
+    message: error.message,
+    error: error.error
   })
 })
 
