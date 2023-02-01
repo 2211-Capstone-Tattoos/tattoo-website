@@ -26,8 +26,6 @@ router.post("/login", async (req, res, next) => {
         message: 'User does not exist'
       })
     } else {
-
-
       const hashedPassword = user.password
       const match = await bcrypt.compare(password, hashedPassword)
       if (user && match) {
@@ -92,10 +90,11 @@ router.post("/register", async (req, res, next) => {
 
     const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, { expiresIn: "1W" });
 
+    delete user.password
     res.send({
       message: "Thank you for signing up!",
       token: token,
-      user: { id: user.id, username: user.username }
+      user
     });
   } catch (error) {
     next(error);
@@ -111,7 +110,6 @@ router.get("/", async (req, res, next) => {
     next(error)
   }
 })
-
 
 // PATCH api/users/:userId
 router.patch('/:userId', async (req, res, next) => {
@@ -143,7 +141,6 @@ router.patch('/:userId', async (req, res, next) => {
     next(error);
   }
 })
-
 router.delete('/:userId', async (req, res, next) => {
   const userId = req.params.userId
   try {

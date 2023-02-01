@@ -23,6 +23,17 @@ const Login = ({ cartSelector }) => {
   const loginUsernameRef = useRef()
   const loginPasswordRef = useRef()
 
+  const resetInputs = () => {
+    emailRef.current.value = ''
+    usernameRef.current.value = ''
+    firstNameRef.current.value = ''
+    lastNameRef.current.value = ''
+    passwordRef.current.value = ''
+
+    loginUsernameRef.current.value = ''
+    loginPasswordRef.current.value = ''
+  }
+
   return (
     <div className="login">
       {!loginView // REGISTER
@@ -57,7 +68,7 @@ const Login = ({ cartSelector }) => {
             <h4>Register</h4>
             <div>
               <label htmlFor="email">Email: </label>
-              <input type="text" ref={emailRef} required={true} />
+              <input type="text" id='email-ref' ref={emailRef} defaultValue='' required={true} />
             </div>
             <div>
               <label htmlFor="username">Username: </label>
@@ -78,9 +89,9 @@ const Login = ({ cartSelector }) => {
             <div>
               <button>Create account</button>
             </div>
-          </form>
           <p>Already have an account?</p>
-          <p><a onClick={() => setLoginView(!loginView)}>Click here</a> to login</p>
+          </form>
+          <button type='reset' onClick={() => {setLoginView(!loginView); resetInputs()}} >Click here to login</button>
         </>
         // LOGIN
         : <>
@@ -128,7 +139,7 @@ const Login = ({ cartSelector }) => {
             <h4>Login</h4>
             <div>
               <label htmlFor="username">Username: </label>
-              <input type="text" ref={loginUsernameRef} required={true} />
+              <input type="text" id='usernameRef' ref={loginUsernameRef} defaultValue='' required={true} />
             </div>
             <div>
               <label htmlFor="password">Password: </label>
@@ -136,7 +147,7 @@ const Login = ({ cartSelector }) => {
             </div>
             <button>Login</button>
           </form>
-          <p><a onClick={() => setLoginView(!loginView)}>Click here</a> to create an account</p>
+            <button type='reset' onClick={() => {setLoginView(!loginView); resetInputs()}} >Click here to create an account</button>
         </>
       }
     </div>

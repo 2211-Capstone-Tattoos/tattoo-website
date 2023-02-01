@@ -1,3 +1,12 @@
+.profile-order-container {
+  display: flex;
+  margin: auto;
+}
+
+.profile {
+  margin-right: 8rem;
+}
+
 .orders {
   display: flex;
   flex-direction: column;

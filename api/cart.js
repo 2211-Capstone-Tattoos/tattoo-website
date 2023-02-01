@@ -4,7 +4,7 @@ const {
   getCartByUserId,
   clearCart,
   removeProductFromCart,
-  editProductQuantities,
+  editProductQuantity,
   addProductToCart
 } = require('../db/cart')
 const { createUser } = require('../db/users')
@@ -150,7 +150,7 @@ router.patch('/:userId', async (req, res, next) => {
         message: 'You can not edit another users cart'
       })
     }
-    const editedProducts = await editProductQuantities(req.body)
+    const editedProducts = await editProductQuantity(req.body)
     res.send(editedProducts);
   } catch ({ name, message }) {
     next({ name, message });

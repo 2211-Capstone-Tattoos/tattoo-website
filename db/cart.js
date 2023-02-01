@@ -76,23 +76,24 @@ const removeProductFromCart = async (orderId, productId) => {
   }
 }
 
-const editProductQuantity = async ({ id, quantity }) => {
-
+const editProductQuantity = async ({ cartId, productId, quantity }) => {
+  // cartId, productId, quantity
+  //  WHERE orderId = ... and productId = ...
   try {
-    const { rows: [quantity] } = await client.query(`
+    /* const { rows: [quantity] } = await client.query(`
     SELECT quantity 
     FROM order_products
     WHERE id = $1
     `, [id])
 
-    console.log(quantity)
+    console.log(quantity) */
 
     const { rows: [product] } = await client.query(`
     UPDATE order_products
     SET quantity = $1
-    WHERE id = $2
+    WHERE "orderId" = $2 AND "productId" = $3
     RETURNING *
-    `, [quantity, id])
+    `, [quantity, cartId, productId])
     return product
   } catch (error) {
     console.error(error)
@@ -137,6 +138,7 @@ module.exports = {
   getCartByUserId,
   addProductToCart,
   removeProductFromCart,
+  editProductQuantity,
   editProductQuantities,
   clearCart
 }
