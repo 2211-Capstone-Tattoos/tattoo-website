@@ -171,6 +171,7 @@ export const shopAPI = createApi({
           method: 'DELETE',
         }
       },
+      invalidatesTags: ['Users'],
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         dispatch(setToastPromise({
           promise: queryFulfilled,

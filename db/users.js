@@ -1,7 +1,7 @@
 const { client } = require('./client');
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { createCart } = require('./cart');
+const { getOrdersByUserId } = require('./orders');
 const saltRounds = 10;
 
 const createUser = async (fields) => {
@@ -154,6 +154,28 @@ async function getAllUsers() {
   }
 }
 
+async function deleteUser(id) {
+  try {
+    await client.query(`
+    DELETE FROM orders
+    WHERE "userId" = $1;
+    `,[id]);
+
+    await client.query(`
+    DELETE FROM products
+    WHERE "artistId" = $1;
+    `,[id]);
+    
+    const { rows: [deletedUser] } = await client.query(`
+    DELETE FROM users
+    WHERE id = $1
+    RETURNING *;
+    `, [id]);
+    return deletedUser
+  } catch (error) {
+    console.error("error deleting user", error)
+  }
+}
 
 module.exports = {
   createUser,
@@ -162,5 +184,6 @@ module.exports = {
   getUserByUsername,
   updateUser,
   getUserByEmail,
-  getAllUsers
+  getAllUsers,
+  deleteUser
 };
