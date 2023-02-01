@@ -153,7 +153,7 @@ async function getAllUsers() {
     throw error
   }
 }
-
+// this doesn't work still
 async function deleteUser(id) {
   try {
     await client.query(`
@@ -162,7 +162,8 @@ async function deleteUser(id) {
     `,[id]);
 
     await client.query(`
-    DELETE FROM products
+    UPDATE products
+    set active = false
     WHERE "artistId" = $1;
     `,[id]);
     

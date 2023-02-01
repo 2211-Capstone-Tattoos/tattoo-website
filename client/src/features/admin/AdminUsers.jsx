@@ -2,13 +2,14 @@ import React from 'react'
 import { useRef } from 'react';
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAllUsersQuery, useGetAllArtistsQuery, useUpdateUserMutation } from "../../api/shopAPI"
+import { useAllUsersQuery, useDeleteUserMutation, useGetAllArtistsQuery, useUpdateUserMutation } from "../../api/shopAPI"
 import "./Admin.css"
 
-const AdminUsers = () => {
+const AdminUsers = ({APIclearCart}) => {
 
   const { data = [] } = useAllUsersQuery();
   const [updateUser] = useUpdateUserMutation();
+  const [deleteUser] = useDeleteUserMutation();
   const navigate = useNavigate()
   const [search, setSearch] = useState('')
 
@@ -35,10 +36,12 @@ const AdminUsers = () => {
       }
     }
   }
-
-  const deleteUser = async (userId) => {
-
+//doesnt work yet brother
+  const removeAllOfUser = async (userId) => {
+    await APIclearCart(userId);
+    await deleteUser(userId)
   }
+
 
   return (
     <div>
@@ -84,6 +87,7 @@ const AdminUsers = () => {
                   <td><a onClick={() => makeArtist(user)}>{user.is_artist ? "\u2714" : "\u274C"}</a></td>
                   <td><a onClick={() => makeAdmin(user)}>{user.admin ? "\u2714" : "\u274C"}</a></td>
                   <td><a onClick={() => navigate(`${user.id}`)}>View Details</a></td>
+                  <td><a onClick={() => removeAllOfUser(user.id)}>Delete User</a></td>
                 </tr>
               )
 

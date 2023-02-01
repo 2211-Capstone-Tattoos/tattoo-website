@@ -165,11 +165,11 @@ function App() {
           path='cart/checkout'
         />
         <Route
-          element={<Admin APIclearCart={APIclearCart}/>}
+          element={<Admin />}
           path="admin"
         />
         <Route
-          element={<AdminUsers />}
+          element={<AdminUsers APIclearCart={APIclearCart}/>}
           path="admin/users"
         />
         <Route

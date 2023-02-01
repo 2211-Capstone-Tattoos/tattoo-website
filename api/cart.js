@@ -83,16 +83,18 @@ router.delete("/:userId", async (req, res, next) => {
         name: "NotFoundError",
         message: "Oops! There's nothing here!"
       })
+    } else {
+      if (req.user.id === cart.userId || req.user.admin) {
+        console.log("for some reason we are running this too")
+        const deletedCart = await clearCart(cart.id)
+        res.send(deletedCart);
+      } else {
+          next({
+            name: 'UnauthorizedUserError',
+            message: 'You can not edit another users cart'
+          })
+      }
     }
-    // i dont think this if is getting hit
-    if (req.user.id != cart.userId) {
-      next({
-        name: 'UnauthorizedUserError',
-        message: 'You can not edit another users cart'
-      })
-    }
-    const deletedCart = await clearCart(cart.id)
-    res.send(deletedCart);
   } catch ({ name, message }) {
     next({ name, message });
   }
