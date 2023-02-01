@@ -104,24 +104,6 @@ router.get("/", async (req, res, next) => {
   }
 })
 
-// GET /api/users/me
-router.get('/me', async (req, res, next) => {
-  try {
-    if (req.user) {
-      res.send(req.user)
-    } else {
-      next({
-        name: 'UnauthorizedError',
-        message: 'You must have a valid token to view this user',
-        error: 'UnauthorizedError'
-      })
-    }
-
-  } catch (error) {
-    next(error)
-  }
-})
-
 // PATCH api/users/:userId
 router.patch('/:userId', async (req, res, next) => {
   const userId = req.params.userId
@@ -131,7 +113,6 @@ router.patch('/:userId', async (req, res, next) => {
         const updatedUser = await updateUser(userId, req.body)
         console.log(updatedUser)
         res.send(updatedUser)
-      
     } else {
       next({
         name: 'Unauthorized Error',
