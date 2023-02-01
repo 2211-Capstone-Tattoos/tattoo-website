@@ -70,14 +70,9 @@ const completeOrder = async (userId, orderId) => {
     }))
 
     const total = purchasedProducts.reduce((acc, product) => {
-      console.log(product)
-      console.log('acc', acc)
-      console.log('product', product.paid_price)
-      console.log('quant', product.quantity)
       sum = acc + (+product.paid_price.slice(1) * product.quantity)
       return sum
     }, 0)
-    console.log('THIS IS TOTAL', total)
 
     const { rows: [completedOrder] } = await client.query(`
     UPDATE orders 

@@ -58,7 +58,7 @@ export const shopAPI = createApi({
           body
         }
       },
-      invalidatesTags: (result, error, { artistId }) => [{ type: 'Artists', artistId }],
+      invalidatesTags: (result, error, { artistId }) => [{ type: 'Products' }, { type: 'Artists', artistId }],
       async onQueryStarted(data, { dispatch, queryFulfilled }) {
         dispatch(setToastPromise({
           promise: queryFulfilled,
@@ -80,7 +80,7 @@ export const shopAPI = createApi({
           body
         }
       },
-      invalidatesTags: (result, error, { artistId }) => [{ type: 'Artists', artistId }],
+      invalidatesTags: (result, error, { artistId }) => [{ type: 'Products' }, { type: 'Artists', artistId }],
       async onQueryStarted(data, { dispatch, queryFulfilled }) {
         dispatch(setToastPromise({
           promise: queryFulfilled,
@@ -101,7 +101,7 @@ export const shopAPI = createApi({
           method: 'DELETE',
         }
       },
-      invalidatesTags: (result, error, { artistId }) => [{ type: 'Artists', artistId }],
+      invalidatesTags: (result, error, { artistId }) => [{ type: 'Products' }, { type: 'Artists', artistId }],
       async onQueryStarted(data, { dispatch, queryFulfilled }) {
         dispatch(setToastPromise({
           promise: queryFulfilled,
@@ -155,7 +155,7 @@ export const shopAPI = createApi({
     }),
     updateUser: builder.mutation({
       query(data) {
-        const {userId, body} = data
+        const { userId, body } = data
         return {
           url: `users/${userId}`,
           method: 'PATCH',
@@ -181,6 +181,7 @@ export const shopAPI = createApi({
           method: 'DELETE',
         }
       },
+      invalidatesTags: ['Users'],
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         dispatch(setToastPromise({
           promise: queryFulfilled,

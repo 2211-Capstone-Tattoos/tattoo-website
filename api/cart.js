@@ -84,6 +84,7 @@ router.delete("/:userId", async (req, res, next) => {
         message: "Oops! There's nothing here!"
       })
     }
+    // i dont think this if is getting hit
     if (req.user.id != cart.userId) {
       next({
         name: 'UnauthorizedUserError',
@@ -156,14 +157,25 @@ router.patch('/:userId', async (req, res, next) => {
   }
 })
 
+//Checkout cart
+
+router.post('/checkout', async (req, res, next) => {
+  try {
+
+  } catch ({ name, message }) {
+    next({ name, message })
+  }
+}
+
+)
 
 //Purchase cart
 
 router.post('/purchase', async (req, res, next) => {
+  debugger
   try {
     const { email, products } = req.body
     let user
-    debugger
     //if no user, creates user and cart
     if (!req.user) {
       user = await createUser({ email: email })

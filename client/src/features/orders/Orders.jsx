@@ -59,7 +59,6 @@ const Orders = ({ user }) => {
                                   <h3>Quantity: {product.quantity}</h3>
                                   <Link to={`/products/${product.id}`}><button>View Product</button></Link>
                                 </div>
-                              </div>
                             )
                           })
                         }
