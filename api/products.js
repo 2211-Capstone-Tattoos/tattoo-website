@@ -39,8 +39,10 @@ router.get('/:productId', async (req, res, next) => {
 
 // POST api/products
 router.post('/', async (req, res, next) => {
+	debugger
+
 	try {
-		if (req.user.is_artist) {
+		if (req.user.is_artist || req.user.admin) {
 			// try shorthand as used in patch
 			const body = {
 				title: req.body.title,
@@ -67,10 +69,11 @@ router.post('/', async (req, res, next) => {
 
 // PATCH api/products/:productId
 router.patch('/:productId', async (req, res, next) => {
+	debugger
 	const productId = req.params.productId
 
 	try {
-		if (req.user.is_artist) {
+		if (req.user.is_artist || req.user.admin) {
 			const product = await getProductById(productId)
 			if (!product) {
 				res.status(404)
@@ -81,7 +84,7 @@ router.patch('/:productId', async (req, res, next) => {
 				})
 			}
 
-			if (product.artistId === req.user.id) {
+			if (product.artistId === req.user.id || req.user.admin) {
 				const updatedProduct = await updateProduct({
 					id: productId,
 					...req.body
@@ -109,10 +112,11 @@ router.patch('/:productId', async (req, res, next) => {
 
 // DELETE api/products/:productId
 router.delete('/:productId', async (req, res, next) => {
+	debugger
 	const productId = req.params.productId
 
 	try {
-		if (req.user.is_artist) {
+		if (req.user.is_artist || req.user.admin) {
 			const product = await getProductById(productId)
 			if (!product) {
 				res.status(404)
@@ -123,7 +127,7 @@ router.delete('/:productId', async (req, res, next) => {
 				})
 			}
 
-			if (product.artistId === req.user.id) {
+			if (product.artistId === req.user.id || req.user.admin) {
 				const deletedProduct = await removeProduct(productId)
 				res.send(deletedProduct)
 

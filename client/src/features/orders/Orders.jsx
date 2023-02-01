@@ -51,7 +51,7 @@ const Orders = ({ user }) => {
                         {
                           order.products.map((product) => {
                             return (
-                              <div className="order-product">
+                              <div className="order-product" key={product.id}>
                                 <img src={product.img} alt="product-image" />
                                 <div className="details">
                                   <h3>{product.title}</h3>

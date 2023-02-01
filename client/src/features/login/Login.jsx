@@ -94,7 +94,7 @@ const Login = ({ cartSelector }) => {
           <button type='reset' onClick={() => {setLoginView(!loginView); resetInputs()}} >Click here to login</button>
         </>
         // LOGIN
-        : <> 
+        : <>
           <form onSubmit={async (e) => {
             e.preventDefault()
 
@@ -105,7 +105,7 @@ const Login = ({ cartSelector }) => {
 
             try {
               const { data: response } = await loginUser(body)
-              
+
               if (response.token) {
                 console.log(response)
                 window.localStorage.setItem('token', response.token)

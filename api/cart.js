@@ -83,15 +83,18 @@ router.delete("/:userId", async (req, res, next) => {
         name: "NotFoundError",
         message: "Oops! There's nothing here!"
       })
+    } else {
+      if (req.user.id === cart.userId || req.user.admin) {
+        console.log("for some reason we are running this too")
+        const deletedCart = await clearCart(cart.id)
+        res.send(deletedCart);
+      } else {
+          next({
+            name: 'UnauthorizedUserError',
+            message: 'You can not edit another users cart'
+          })
+      }
     }
-    if (req.user.id != cart.userId) {
-      next({
-        name: 'UnauthorizedUserError',
-        message: 'You can not edit another users cart'
-      })
-    }
-    const deletedCart = await clearCart(cart.id)
-    res.send(deletedCart);
   } catch ({ name, message }) {
     next({ name, message });
   }
@@ -156,14 +159,25 @@ router.patch('/:userId', async (req, res, next) => {
   }
 })
 
+//Checkout cart
+
+router.post('/checkout', async (req, res, next) => {
+  try {
+
+  } catch ({ name, message }) {
+    next({ name, message })
+  }
+}
+
+)
 
 //Purchase cart
 
 router.post('/purchase', async (req, res, next) => {
+  debugger
   try {
     const { email, products } = req.body
     let user
-    debugger
     //if no user, creates user and cart
     if (!req.user) {
       user = await createUser({ email: email })

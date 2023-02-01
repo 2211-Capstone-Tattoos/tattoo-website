@@ -1,7 +1,7 @@
 const { client } = require('./client');
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { createCart } = require('./cart');
+const { getOrdersByUserId } = require('./orders');
 const saltRounds = 10;
 
 const createUser = async (fields) => {
@@ -142,16 +142,39 @@ async function getAllUsers() {
   try {
     const { rows: userIds } = await client.query(`
     SELECT id FROM users
-    WHERE is_artist = false AND admin = false
     `)
-    
-    const users = await Promise.all(userIds.map (
+
+    const users = await Promise.all(userIds.map(
       user => getUserById(user.id)
     ))
 
     return users
   } catch (error) {
     throw error
+  }
+}
+// this doesn't work still
+async function deleteUser(id) {
+  try {
+    await client.query(`
+    DELETE FROM orders
+    WHERE "userId" = $1;
+    `,[id]);
+
+    await client.query(`
+    UPDATE products
+    set active = false
+    WHERE "artistId" = $1;
+    `,[id]);
+    
+    const { rows: [deletedUser] } = await client.query(`
+    DELETE FROM users
+    WHERE id = $1
+    RETURNING *;
+    `, [id]);
+    return deletedUser
+  } catch (error) {
+    console.error("error deleting user", error)
   }
 }
 
@@ -162,5 +185,6 @@ module.exports = {
   getUserByUsername,
   updateUser,
   getUserByEmail,
-  getAllUsers
+  getAllUsers,
+  deleteUser
 };
