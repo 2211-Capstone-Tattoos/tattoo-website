@@ -142,10 +142,9 @@ async function getAllUsers() {
   try {
     const { rows: userIds } = await client.query(`
     SELECT id FROM users
-    WHERE is_artist = false AND admin = false
     `)
-    
-    const users = await Promise.all(userIds.map (
+
+    const users = await Promise.all(userIds.map(
       user => getUserById(user.id)
     ))
 
