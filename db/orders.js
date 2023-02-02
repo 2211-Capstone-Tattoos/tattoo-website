@@ -23,16 +23,18 @@ const getOrderById = async (orderId) => {
   try {
     const { rows: [order] } = await client.query(`
     SELECT * FROM orders
-    WHERE id = $1 AND is_complete = true
+    WHERE id = $1
     `, [orderId])
 
-    const { rows: products } = await client.query(`
-    SELECT * FROM order_products 
-    WHERE "orderId" = $1
-    `, [orderId])
+    if (order) {
+      const { rows: products } = await client.query(`
+      SELECT * FROM order_products 
+      WHERE "orderId" = $1
+      `, [orderId])
 
-    order.products = products
-    return order
+      order.products = products
+      return order
+    }
 
   } catch (error) {
     console.error(error)
@@ -40,7 +42,7 @@ const getOrderById = async (orderId) => {
   }
 }
 
-const completeOrder = async (userId, orderId) => {
+const completeOrder = async (orderId, userId) => {
   try {
     debugger
     const { rows: products } = await client.query(`
@@ -82,10 +84,10 @@ const completeOrder = async (userId, orderId) => {
     WHERE id = $1
     RETURNING *
     `, [orderId])
-    await createCart(userId)
-
-    return completedOrder
-
+    if (userId) {
+      const newCart = await createCart(userId)
+      return newCart
+    }
   } catch (error) {
     console.error(error)
     throw error
@@ -110,5 +112,6 @@ const getOrderProducts = async (orderId) => {
 module.exports = {
   getOrdersByUserId,
   completeOrder,
-  getOrderProducts
+  getOrderProducts,
+  getOrderById
 }

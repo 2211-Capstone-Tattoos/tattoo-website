@@ -9,7 +9,8 @@ const {
   addProductToCart,
   createUser,
   completeOrder,
-  getProductsByOrderId
+  getProductsByOrderId,
+  getOrderById
 } = require('../db')
 
 // Stripe with public sample test API key
@@ -182,24 +183,17 @@ router.post('/checkout', async (req, res, next) => {
 router.post('/purchase', async (req, res, next) => {
   debugger
   try {
-    const { email, products } = req.body
-    let user
-    //if no user, creates user and cart
-    if (!req.user) {
-      user = await createUser({ email: email })
-      if (products) {
-        const cart = await getCartByUserId(user.id)
-        await Promise.all(products.map(async (product) => {
-          await addProductToCart({ orderId: cart.id, productId: product.id, quantity: product.quantity })
-        }))
-      }
+    const { orderId } = req.body
+    const cart = await getOrderById(orderId)
+    if (cart) {
+      const completedCart = await completeOrder(cart.id, req.user?.id)
+      return completedCart
     } else {
-      user = req.user
+      next({
+        name: "InvalidOrder",
+        message: "This order does not exist"
+      })
     }
-    const cart = await getCartByUserId(user.id)
-    const completedOrder = await completeOrder(user.id, cart.id)
-    console.log(completedOrder)
-    res.send(completedOrder)
   } catch ({ name, message }) {
     next({ name, message });
   }
@@ -212,6 +206,7 @@ router.post('/purchase', async (req, res, next) => {
 router.post('/create-payment-intent', async (req, res, next) => {
   try {
     let cart
+    let user
     debugger
     //check if logged in. if not make dummy user and load cart
 
@@ -224,11 +219,8 @@ router.post('/create-payment-intent', async (req, res, next) => {
           name: "NoProductsError",
           message: "No products in cart"
         })
-
       } else {
-
-
-        const user = await createUser('')
+        user = await createUser('')
         cart = await getCartByUserId(user.id)
         await Promise.all(products.map(async (item) => {
           await addProductToCart({
@@ -237,14 +229,12 @@ router.post('/create-payment-intent', async (req, res, next) => {
             quantity: item.quantity
           })
         }))
-
-
-
       }
     } else {
       cart = await getCartByUserId(req.user.id)
     }
     const products = await getProductsByOrderId(cart.id)
+
     if (!products) {
       res.status(400)
       next({
@@ -259,7 +249,7 @@ router.post('/create-payment-intent', async (req, res, next) => {
           return acc + (+current.price.slice(1) * current.quantity)
         }, 0)
         total *= 100
-        return total
+        return Math.floor(total)
       }
 
       const paymentIntent = await stripe.paymentIntents.create({
@@ -273,6 +263,7 @@ router.post('/create-payment-intent', async (req, res, next) => {
 
       res.send({
         clientSecret: paymentIntent.client_secret,
+        orderId: cart.id
       })
     }
   } catch (error) {

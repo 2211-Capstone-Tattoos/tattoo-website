@@ -5,6 +5,8 @@ import {
   useStripe,
   useElements
 } from '@stripe/react-stripe-js'
+import { useDispatch } from "react-redux";
+import { setBlankToast } from "../toast/toastSlice";
 
 const CheckoutForm = () => {
   const stripe = useStripe()
@@ -13,6 +15,7 @@ const CheckoutForm = () => {
   const [email, setEmail] = useState()
   const [message, setMessage] = useState()
   const [isLoading, setIsLoading] = useState()
+
 
   useEffect(() => {
     if (!stripe) {
@@ -57,13 +60,14 @@ const CheckoutForm = () => {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: 'localhost:5173/cart' //payment completion page
+        return_url: 'http://localhost:5173/cart' //payment completion page
       }
     })
 
     if (error.type === "card_error" || error.type === "validation_error") {
       setMessage(error.message);
     } else {
+      console.error(error)
       setMessage("An unexpected error occurred.");
     }
 
