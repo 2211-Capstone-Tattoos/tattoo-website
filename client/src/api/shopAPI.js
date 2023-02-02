@@ -37,16 +37,6 @@ export const shopAPI = createApi({
     getProduct: builder.query({
       query: (id) => `products/${id}`,
       providesTags: (result, error, id) => [{ type: 'Products', id }],
-      async onQueryStarted(id, { dispatch, queryFulfilled }) {
-        dispatch(setToastPromise({
-          promise: queryFulfilled,
-          options: {
-            loading: 'Product loading...',
-            success: "Nice",
-            error: 'Error loading product'
-          }
-        }))
-      }
     }),
     addProduct: builder.mutation({
       query(data) {

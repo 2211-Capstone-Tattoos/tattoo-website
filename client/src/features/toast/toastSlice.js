@@ -10,11 +10,17 @@ const toastSlice = createSlice({
     setBlankToast: (state, action) => {
       return state = toast(action.payload)
     },
+    setLoadingToast: (state, action) => {
+      return state = toast.loading(action.payload)
+    },
     setCustomToast: (state, action) => {
       return state = toast.custom(action.payload)
     },
     setToastPromise: (state, action) => {
       return state = toast.promise(action.payload.promise, action.payload.options)
+    },
+    dismissToasts: (state) => {
+      return state = toast.dismiss
     }
   }
 })
