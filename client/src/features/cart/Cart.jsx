@@ -1,17 +1,19 @@
 import { useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Modal from 'react-modal'
 Modal.setAppElement('#root');
 import './cart.css'
 import Checkout from '../../Checkout';
 import CartProduct from './CartProduct';
+import { setBlankToast } from '../toast/toastSlice';
 
 const Cart = ({ editCartProductQuantity, removeProductFromCart, clearCartProducts }) => {
   const cart = useSelector((state) => state.cart)
   const userId = JSON.parse(window.localStorage.getItem('user'))?.id
   const [modalIsOpen, setIsOpen] = useState(false);
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   function openModal() {
     setIsOpen(true);
@@ -113,10 +115,14 @@ const Cart = ({ editCartProductQuantity, removeProductFromCart, clearCartProduct
 
           </div>
           <button onClick={() => {
-            if (!userId) {
-              openModal()
+            if(cart.products) {
+              if (!userId) {
+                openModal()
+              } else {
+                navigate('checkout')
+              }
             } else {
-              navigate('checkout')
+              dispatch(setBlankToast('You need some items in your cart before checking out.'))
             }
           }}>Checkout</button>
         </div>
