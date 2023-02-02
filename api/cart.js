@@ -17,12 +17,14 @@ router.get("/:userId", async (req, res, next) => {
 
   try {
     if (!req.user) {
+      res.status(401)
       next({
         name: 'AuthorizationError',
         message: 'Must be logged in to view cart'
       })
     } else {
       if (userId != req.user.id) {
+        res.status(403)
         next({
           name: 'UnauthorizedUserError',
           message: 'You can not view another users cart'
@@ -41,6 +43,7 @@ router.get("/:userId", async (req, res, next) => {
 //Add item to cart
 router.post("/:userId/:productId", async (req, res, next) => {
   if (!req.user) {
+    res.status(401)
     next({
       name: 'AuthorizationError',
       message: 'Must be logged in to edit cart'
@@ -49,12 +52,14 @@ router.post("/:userId/:productId", async (req, res, next) => {
   try {
     const cart = await getCartByUserId(req.params.userId);
     if (!cart) {
+      res.status(404)
       next({
         name: "NotFoundError",
         message: "Oops! There's nothing here!"
       })
     }
     if (req.user.id != cart.userId) {
+      res.status(403)
       next({
         name: 'UnauthorizedUserError',
         message: 'You can not edit another users cart'
@@ -71,6 +76,7 @@ router.post("/:userId/:productId", async (req, res, next) => {
 router.delete("/:userId", async (req, res, next) => {
   debugger
   if (!req.user) {
+    res.status(401)
     next({
       name: 'AuthorizationError',
       message: 'Must be logged in to edit cart'
@@ -79,6 +85,7 @@ router.delete("/:userId", async (req, res, next) => {
   try {
     const cart = await getCartByUserId(req.params.userId);
     if (!cart) {
+      res.status(404)
       next({
         name: "NotFoundError",
         message: "Oops! There's nothing here!"
@@ -89,6 +96,7 @@ router.delete("/:userId", async (req, res, next) => {
         const deletedCart = await clearCart(cart.id)
         res.send(deletedCart);
       } else {
+        res.status(403)
           next({
             name: 'UnauthorizedUserError',
             message: 'You can not edit another users cart'
@@ -104,6 +112,7 @@ router.delete("/:userId", async (req, res, next) => {
 router.delete("/:userId/:productId", async (req, res, next) => {
   debugger
   if (!req.user) {
+    res.status(401)
     next({
       name: 'AuthorizationError',
       message: 'Must be logged in to edit cart'
@@ -112,12 +121,14 @@ router.delete("/:userId/:productId", async (req, res, next) => {
   try {
     const cart = await getCartByUserId(req.params.userId);
     if (!cart) {
+      res.status(404)
       next({
         name: "NotFoundError",
         message: "Oops! There's nothing here!"
       })
     }
     if (req.user.id != cart.userId) {
+      res.status(403)
       next({
         name: 'UnauthorizedUserError',
         message: 'You can not edit another users cart'
@@ -133,6 +144,7 @@ router.delete("/:userId/:productId", async (req, res, next) => {
 // Edit item quantity in cart
 router.patch('/:userId', async (req, res, next) => {
   if (!req.user) {
+    res.status(401)
     next({
       name: 'AuthorizationError',
       message: 'Must be logged in to edit cart'
@@ -141,12 +153,14 @@ router.patch('/:userId', async (req, res, next) => {
   try {
     const cart = await getCartByUserId(req.params.userId);
     if (!cart) {
+      res.status(404)
       next({
         name: "NotFoundError",
         message: "Oops! There's nothing here!"
       })
     }
     if (req.user.id != cart.userId) {
+      res.status(403)
       next({
         name: 'UnauthorizedUserError',
         message: 'You can not edit another users cart'
