@@ -37,6 +37,7 @@ const CheckoutPage = () => {
         <Elements options={options} stripe={stripePromise}>
           <CheckoutForm />
         </Elements>
+
       )}
     </div>
   )

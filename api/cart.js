@@ -209,47 +209,76 @@ router.post('/purchase', async (req, res, next) => {
 
 // -------STRIPE-------
 // Tracks the user's payment lifecycle, ensures secure payments and only charges the user once.
-router.post('/create-payment-intent', async (req, res) => {
-  let cart
-  debugger
-  //check if logged in. if not make dummy user and load cart
-  if (!req.user) {
-    const { products } = req.body
-    const user = await createUser('')
-    cart = await getCartByUserId(user.id)
-    await Promise.all(products.map(async (item) => {
-      await addProductToCart({
-        orderId: cart.id,
-        productId: item.id,
-        quantity: item.quantity
+router.post('/create-payment-intent', async (req, res, next) => {
+  try {
+    let cart
+    debugger
+    //check if logged in. if not make dummy user and load cart
+
+
+    if (!req.user) {
+      const { products } = req.body
+      if (!products) {
+        res.status(400)
+        throw new Error({
+          name: "NoProductsError",
+          message: "No products in cart"
+        })
+
+      } else {
+
+
+        const user = await createUser('')
+        cart = await getCartByUserId(user.id)
+        await Promise.all(products.map(async (item) => {
+          await addProductToCart({
+            orderId: cart.id,
+            productId: item.id,
+            quantity: item.quantity
+          })
+        }))
+
+
+
+      }
+    } else {
+      cart = await getCartByUserId(req.user.id)
+    }
+    const products = await getProductsByOrderId(cart.id)
+    if (!products) {
+      res.status(400)
+      next({
+        name: "NoProductsError",
+        message: "No products in cart"
       })
-    }))
-  } else {
-    cart = await getCartByUserId(req.user.id)
+    } else {
+
+      //add prices from db
+      const calculateOrderAmount = async (cartId) => {
+        let total = products.reduce((acc, current) => {
+          return acc + (+current.price.slice(1) * current.quantity)
+        }, 0)
+        total *= 100
+        return total
+      }
+
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: await calculateOrderAmount(cart.id),
+        currency: 'usd',
+        payment_method_types: ['card']
+        /* automatic_payment_methods: {
+          enabled: true,
+        } */
+      })
+
+      res.send({
+        clientSecret: paymentIntent.client_secret,
+      })
+    }
+  } catch (error) {
+    next(error)
   }
 
-  //add prices from db
-  const calculateOrderAmount = async (cartId) => {
-    const products = await getProductsByOrderId(cartId)
-    let total = products.reduce((acc, current) => {
-      return acc + (+current.price.slice(1) * current.quantity)
-    }, 0)
-    total *= 100
-    return total
-  }
-
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: await calculateOrderAmount(cart.id),
-    currency: 'usd',
-    payment_method_types: ['card']
-    /* automatic_payment_methods: {
-      enabled: true,
-    } */
-  })
-
-  res.send({
-    clientSecret: paymentIntent.client_secret,
-  })
 })
 
 
