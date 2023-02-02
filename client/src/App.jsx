@@ -50,7 +50,6 @@ function App() {
   // Cart population
   useEffect(() => {
     //check for db cart, then check localStorage, finally use empty init state.
-    //TODO: add products from state to db on login
     if (user) {
       console.log('checking user to load cart...')
       if (data?.products) {
@@ -58,12 +57,14 @@ function App() {
         dispatch(loadCart(data))
       }
     }
-    else if (localCart?.products) {
+  }, [user, data])
+
+  useEffect(() => {
+    if (localCart?.products) {
       console.log('loading cart from storage...')
       dispatch(loadCart(localCart))
-      return
     }
-  }, [user, data])
+  }, [])
 
   // localStorage population
   useEffect(() => {
