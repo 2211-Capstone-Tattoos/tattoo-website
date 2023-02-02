@@ -15,7 +15,10 @@ const NavBar = () => {
     dispatch(clearCart())
     dispatch(clearUser())
     window.localStorage.clear()
-    navigate('/')
+    if (!window.localStorage.getItem('user')) {
+      dispatch(setBlankToast('Logged out!'))
+      navigate('/')
+    }
   }
 
   return (

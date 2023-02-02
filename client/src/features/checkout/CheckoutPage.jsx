@@ -17,7 +17,7 @@ const CheckoutPage = ({ completeOrder }) => {
   useEffect(() => {
     fetch('http://localhost:8080/api/cart/create-payment-intent', {
       method: 'POST',
-      headers: { 
+      headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${window.localStorage.getItem('token')}`
       },

@@ -21,7 +21,6 @@ import {
   Orders,
   Products,
   Product,
-  PurchaseCart,
   Admin,
   AdminUsers,
   UserDetails,
@@ -166,7 +165,7 @@ function App() {
           element={<Artist />}
           path="artists/:id" />
         <Route
-          element={<Orders user={user}/>}
+          element={<Orders user={user} />}
           path="orders/:id" />
         <Route
           element={<Cart editCartProductQuantity={editCartProductQuantity} removeProductFromCart={removeProductFromCart} clearCartProducts={clearCartProducts} />}
@@ -180,7 +179,7 @@ function App() {
           path="admin"
         />
         <Route
-          element={<AdminUsers APIclearCart={APIclearCart}/>}
+          element={<AdminUsers APIclearCart={APIclearCart} />}
           path="admin/users"
         />
         <Route

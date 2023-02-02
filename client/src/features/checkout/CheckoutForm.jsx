@@ -18,6 +18,7 @@ const CheckoutForm = ({ completeOrder }) => {
   const [message, setMessage] = useState()
   const [isLoading, setIsLoading] = useState()
 
+
   useEffect(() => {
     if (!stripe) {
       return
@@ -70,6 +71,7 @@ const CheckoutForm = ({ completeOrder }) => {
     if (error.type === "card_error" || error.type === "validation_error") {
       setMessage(error.message);
     } else {
+      console.error(error)
       setMessage("An unexpected error occurred.");
     }
 
