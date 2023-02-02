@@ -37,7 +37,7 @@ const getCartByUserId = async (userId) => {
 }
 
 const addProductToCart = async ({ orderId, productId, quantity }) => {
-  debugger
+
   try {
     const { rows: [productQuantity] } = await client.query(`
     SELECT quantity
@@ -47,7 +47,6 @@ const addProductToCart = async ({ orderId, productId, quantity }) => {
     if (productQuantity) {
       quantity += productQuantity.quantity
     }
-    console.log(quantity)
     const { rows: [orderProduct] } = await client.query(`
     INSERT INTO order_products ("orderId", "productId", quantity)
     VALUES ($1, $2, $3)

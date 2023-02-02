@@ -58,7 +58,6 @@
 #your-cart .product-card .bottom button {
     font-size: 12px;
     padding: 5px;
-    position: absolute;
     right: 0;
 }
 
@@ -119,10 +118,6 @@
     display: flex;
     flex-direction: column;
     text-align: left;
-}
-
-.cart-product-buttons {
-    display: flex;
 }
 
 .cart-product-buttons button {
