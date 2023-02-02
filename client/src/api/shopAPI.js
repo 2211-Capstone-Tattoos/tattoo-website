@@ -216,7 +216,17 @@ export const shopAPI = createApi({
 
     getArtist: builder.query({
       query: (id) => `artists/${id}`,
-      providesTags: (result, error, id) => [{ type: 'Artists', id }]
+      providesTags: (result, error, id) => [{ type: 'Artists', id }],
+      async onQueryStarted(body, { dispatch, queryFulfilled }) {
+        dispatch(setToastPromise({
+          promise: queryFulfilled,
+          options: {
+            loading: 'Getting artist',
+            success: "We got artist",
+            error: "Could not get artist"
+          }
+        }))
+      }
     }),
 
     // Cart
