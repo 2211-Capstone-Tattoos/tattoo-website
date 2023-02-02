@@ -23,12 +23,17 @@ async function getAllArtists() {
 async function getArtistById(artistId) {
   try {
     const artist = await getUserById(artistId)
-    if (artist.is_artist) {
-      delete artist.password
-      artist.products = await getProductsByUser(artist.id)
-      return artist
+    console.log("this is artist in db", artist)
+    if (artist) {
+      if (artist.is_artist) {
+        delete artist.password
+        artist.products = await getProductsByUser(artist.id)
+        return artist
+      } else {
+        throw new Error(`User: ${artist.username} is not an artist`)
+      }
     } else {
-      throw new Error(`User: ${artist.username} is not an artist`)
+      return null;
     }
   } catch (error) {
     throw error

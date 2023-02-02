@@ -77,10 +77,12 @@ async function getUserById(userId) {
     SELECT * FROM users
     WHERE id = ${userId};
     `);
-
-    delete user.password;
-
-    return user;
+    if (user) {
+      delete user.password;
+      return user;
+    } else {
+      return null;
+    }
   } catch (error) {
     throw error
   }
