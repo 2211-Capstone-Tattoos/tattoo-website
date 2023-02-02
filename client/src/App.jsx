@@ -46,6 +46,7 @@ function App() {
   const [APIeditQuantity] = usePatchCartProductQuantityMutation()
   const [APIremoveProduct] = useRemoveProductMutation()
   const [APIclearCart] = useClearCartMutation()
+  const [APIcompleteOrder, {data: orderData = [] }] = useCompleteOrderMutation()
 
   // Cart population
   useEffect(() => {
@@ -130,9 +131,9 @@ function App() {
   }
 
   const completeOrder = async (cartId) => {
-    const { data = [] } = useCompleteOrderMutation({ body: cartId })
-    if(data) {
-      dispatch(loadCart(data))
+    APIcompleteOrder({ body: cartId })
+    if(orderData) {
+      dispatch(loadCart(orderData))
     } else {
       dispatch(emptyCart())
     }

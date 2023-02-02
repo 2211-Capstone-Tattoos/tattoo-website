@@ -7,12 +7,13 @@ import {
   useElements
 } from '@stripe/react-stripe-js'
 import { setBlankToast } from "../toast/toastSlice";
+import { useNavigate } from "react-router-dom";
 
-const CheckoutForm = ({ completeOrder }) => {
+const CheckoutForm = ({ completeOrder, orderId }) => {
   const stripe = useStripe()
   const elements = useElements()
   const dispatch = useDispatch()
-
+  const navigate = useNavigate()
 
   const [email, setEmail] = useState()
   const [message, setMessage] = useState()
@@ -32,12 +33,15 @@ const CheckoutForm = ({ completeOrder }) => {
       return
     }
 
-    stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
+    stripe.retrievePaymentIntent(clientSecret).then( async ({ paymentIntent }) => {
+      console.log(paymentIntent)
       switch (paymentIntent.status) {
         //figure out toasts.
         case "succeeded":
           dispatch(setBlankToast('It worked!'))
-          completeOrder(orderId)
+          setMessage('Success!!')
+          await completeOrder(orderId)
+          navigate('/cart')
           break;
         case "processing":
           setMessage("Your payment is processing.");
@@ -64,15 +68,17 @@ const CheckoutForm = ({ completeOrder }) => {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: 'http://localhost:5173/cart' //payment completion page
+        return_url: 'http://localhost:5173/cart/checkout' //payment completion page
       }
     })
 
-    if (error.type === "card_error" || error.type === "validation_error") {
-      setMessage(error.message);
-    } else {
-      console.error(error)
-      setMessage("An unexpected error occurred.");
+    if(error) {
+      if (error.type === "card_error" || error.type === "validation_error") {
+        setMessage(error.message);
+      } else {
+        console.error(error)
+        setMessage("An unexpected error occurred.");
+      }
     }
 
     setIsLoading(false);
@@ -87,7 +93,7 @@ const CheckoutForm = ({ completeOrder }) => {
     <form id="payment-form" onSubmit={handleSubmit}>
       <LinkAuthenticationElement
         id="link-authentication-element"
-        onChange={(e) => setEmail(e.target.value)}
+        //onChange={(e) => setEmail(e.target.value)}
       />
       <PaymentElement id='payment-element' options={paymentElementOptions} />
       <button disabled={isLoading || !stripe || !elements} id="submit">
