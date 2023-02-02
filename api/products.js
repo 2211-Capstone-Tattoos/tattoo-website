@@ -55,7 +55,7 @@ router.post('/', async (req, res, next) => {
 			const newProduct = await createProduct(body)
 			res.send(newProduct)
 		} else {
-			res.status(401)
+			res.status(403)
 			next({
 				name: 'UnauthorizedError',
 				message: 'You must be an authenticated artist to post a new product',
@@ -92,6 +92,7 @@ router.patch('/:productId', async (req, res, next) => {
 				res.send(updatedProduct)
 
 			} else {
+				res.status(403)
 				next({
 					name: 'UnauthorizedError',
 					message: 'You must own this product to edit it.',
@@ -99,6 +100,7 @@ router.patch('/:productId', async (req, res, next) => {
 				})
 			}
 		} else {
+			res.status(403)
 			next({
 				name: 'UnauthorizedError',
 				message: 'You must be an artist to edit products.',
@@ -132,6 +134,7 @@ router.delete('/:productId', async (req, res, next) => {
 				res.send(deletedProduct)
 
 			} else {
+				res.status(403)
 				next({
 					name: 'UnauthorizedError',
 					message: 'You must own this product to delete it.',
@@ -139,6 +142,7 @@ router.delete('/:productId', async (req, res, next) => {
 				})
 			}
 		} else {
+			res.status(403)
 			next({
 				name: 'UnauthorizedError',
 				message: 'You must be an artist to delete products.',

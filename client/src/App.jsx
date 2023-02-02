@@ -6,7 +6,8 @@ import {
   useAddProductToCartMutation,
   useClearCartMutation,
   usePatchCartProductQuantityMutation,
-  useRemoveProductMutation
+  useRemoveProductMutation,
+  useCompleteOrderMutation
 } from './api/shopAPI'
 import { addProduct, loadCart, removeProduct, emptyCart, editQuantity } from './features/cart/cartSlice'
 import Home from './Home'
@@ -127,6 +128,16 @@ function App() {
     }
   }
 
+  const completeOrder = async (cartId) => {
+    const { data = [] } = useCompleteOrderMutation({ body: cartId })
+    if(data) {
+      dispatch(loadCart(data))
+    } else {
+      dispatch(emptyCart())
+    }
+    updateCartStorage(cartSelector)
+  }
+
   return (
     <div className="App">
       <NavBar user={user} />
@@ -159,8 +170,8 @@ function App() {
         <Route
           element={<Cart editCartProductQuantity={editCartProductQuantity} removeProductFromCart={removeProductFromCart} clearCartProducts={clearCartProducts} />}
           exact path="cart/" />
-        <Route
-          element={<CheckoutPage />}
+        <Route 
+          element={<CheckoutPage completeOrder={completeOrder}/>}
           path='cart/checkout'
         />
         <Route

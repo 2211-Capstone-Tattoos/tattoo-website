@@ -23,6 +23,7 @@ router.get('/:artistId', async (req, res, next) => {
         res.send(artist)
       }
     } else {
+      res.status(404)
       next({
         name: 'ArtistNotFoundError',
         message: `Unable to locate an artist with id: ${req.params.artistId}`,
