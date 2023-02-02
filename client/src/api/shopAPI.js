@@ -309,7 +309,26 @@ export const shopAPI = createApi({
         }))
       }
     }),
-
+    completeOrder: builder.mutation({
+      query(body) {
+        return {
+          url: `cart/purchase`,
+          method: POST,
+          body
+        }
+      },
+      invalidatesTags: ['Cart'],
+      async onQueryStarted(body, { dispatch, queryFulfilled }) {
+        dispatch(setToastPromise({
+          promise: queryFulfilled,
+          options: {
+            loading: 'Wrapping up your order on our server',
+            success: "Your order is all set",
+            error: 'Error completing your order. Please contact customer service.'
+          }
+        }))
+      }
+    }),
     // ORDERS
     getUserOrders: builder.query({
       query: (userId) => `orders/${userId}`,
@@ -336,6 +355,7 @@ export const {
   useAddProductToCartMutation,
   usePatchCartProductQuantityMutation,
   useClearCartMutation,
+  useCompleteOrderMutation,
   useRemoveProductMutation,
   useGetUserOrdersQuery
 } = shopAPI

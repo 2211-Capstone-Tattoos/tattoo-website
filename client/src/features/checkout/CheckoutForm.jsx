@@ -1,14 +1,18 @@
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import {
   PaymentElement,
   LinkAuthenticationElement,
   useStripe,
   useElements
 } from '@stripe/react-stripe-js'
+import { setBlankToast } from "../toast/toastSlice";
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ completeOrder }) => {
   const stripe = useStripe()
   const elements = useElements()
+  const dispatch = useDispatch()
+
 
   const [email, setEmail] = useState()
   const [message, setMessage] = useState()
@@ -29,8 +33,10 @@ const CheckoutForm = () => {
 
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
       switch (paymentIntent.status) {
+        //figure out toasts.
         case "succeeded":
-          setMessage("Payment succeeded!");
+          dispatch(setBlankToast('It worked!'))
+          completeOrder(orderId)
           break;
         case "processing":
           setMessage("Your payment is processing.");
@@ -57,7 +63,7 @@ const CheckoutForm = () => {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: 'localhost:5173/cart' //payment completion page
+        return_url: 'http://localhost:5173/cart' //payment completion page
       }
     })
 
