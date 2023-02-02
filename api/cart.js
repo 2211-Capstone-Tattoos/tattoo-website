@@ -1,14 +1,20 @@
 const router = require('express').Router();
+require('dotenv').config()
 const {
   createCart,
   getCartByUserId,
   clearCart,
   removeProductFromCart,
   editProductQuantity,
-  addProductToCart
-} = require('../db/cart')
-const { createUser } = require('../db/users')
-const { completeOrder } = require('../db/orders')
+  addProductToCart,
+  createUser,
+  completeOrder,
+  getProductsByOrderId
+} = require('../db')
+
+// Stripe with public sample test API key
+// REMOVE BEFORE PRODUCTION
+const stripe = require("stripe")(process.env.STRIPE_SK)
 
 
 // Get user cart
@@ -89,10 +95,10 @@ router.delete("/:userId", async (req, res, next) => {
         const deletedCart = await clearCart(cart.id)
         res.send(deletedCart);
       } else {
-          next({
-            name: 'UnauthorizedUserError',
-            message: 'You can not edit another users cart'
-          })
+        next({
+          name: 'UnauthorizedUserError',
+          message: 'You can not edit another users cart'
+        })
       }
     }
   } catch ({ name, message }) {
@@ -201,6 +207,50 @@ router.post('/purchase', async (req, res, next) => {
 //adds products from state/storage to new cart
 //run purchase cart func'
 
+// -------STRIPE-------
+// Tracks the user's payment lifecycle, ensures secure payments and only charges the user once.
+router.post('/create-payment-intent', async (req, res) => {
+  let cart
+  debugger
+  //check if logged in. if not make dummy user and load cart
+  if (!req.user) {
+    const { products } = req.body
+    const user = await createUser('')
+    cart = await getCartByUserId(user.id)
+    await Promise.all(products.map(async (item) => {
+      await addProductToCart({
+        orderId: cart.id,
+        productId: item.id,
+        quantity: item.quantity
+      })
+    }))
+  } else {
+    cart = await getCartByUserId(req.user.id)
+  }
+
+  //add prices from db
+  const calculateOrderAmount = async (cartId) => {
+    const products = await getProductsByOrderId(cartId)
+    let total = products.reduce((acc, current) => {
+      return acc + (+current.price.slice(1) * current.quantity)
+    }, 0)
+    total *= 100
+    return total
+  }
+
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: await calculateOrderAmount(cart.id),
+    currency: 'usd',
+    payment_method_types: ['card']
+    /* automatic_payment_methods: {
+      enabled: true,
+    } */
+  })
+
+  res.send({
+    clientSecret: paymentIntent.client_secret,
+  })
+})
 
 
 

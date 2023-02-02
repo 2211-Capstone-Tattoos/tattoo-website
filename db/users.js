@@ -23,12 +23,13 @@ const createUser = async (fields) => {
       const hashedPassword = await bcrypt.hash(password, saltRounds);
       fields.password = hashedPassword
     }
-    debugger
+
     if (!fields) {
       const { rows: [user] } = await client.query(`
      INSERT INTO users DEFAULT VALUES
      RETURNING *
      `)
+      const cart = await createCart(user.id)
       return user
     } else {
       const { rows: [user] } = await client.query(`
@@ -159,14 +160,14 @@ async function deleteUser(id) {
     await client.query(`
     DELETE FROM orders
     WHERE "userId" = $1;
-    `,[id]);
+    `, [id]);
 
     await client.query(`
     UPDATE products
     set active = false
     WHERE "artistId" = $1;
-    `,[id]);
-    
+    `, [id]);
+
     const { rows: [deletedUser] } = await client.query(`
     DELETE FROM users
     WHERE id = $1

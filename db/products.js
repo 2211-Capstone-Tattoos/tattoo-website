@@ -97,11 +97,30 @@ const removeProduct = async (productId) => {
   }
 }
 
+const getProductsByOrderId = async (orderId) => {
+  try {
+    const { rows: products } = await client.query(`
+    SELECT 
+      order_products.quantity, 
+      products.price
+    FROM products
+    JOIN order_products
+    ON products.id = order_products."productId"
+    WHERE order_products."orderId" = ${orderId}
+    `)
+    console.log(products)
+    return products
+  } catch (error) {
+    throw error
+  }
+}
+
 module.exports = {
   createProduct,
   getProducts,
   getProductById,
   getProductsByUser,
   updateProduct,
-  removeProduct
+  removeProduct,
+  getProductsByOrderId
 }
