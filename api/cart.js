@@ -226,10 +226,6 @@ router.post('/purchase', async (req, res, next) => {
 router.post('/create-payment-intent', async (req, res, next) => {
   try {
     let cart
-    debugger
-    //check if logged in. if not make dummy user and load cart
-
-
     if (!req.user) {
       const { products } = req.body
       if (!products) {
@@ -238,10 +234,7 @@ router.post('/create-payment-intent', async (req, res, next) => {
           name: "NoProductsError",
           message: "No products in cart"
         })
-
       } else {
-
-
         const user = await createUser('')
         cart = await getCartByUserId(user.id)
         await Promise.all(products.map(async (item) => {
@@ -251,9 +244,6 @@ router.post('/create-payment-intent', async (req, res, next) => {
             quantity: item.quantity
           })
         }))
-
-
-
       }
     } else {
       cart = await getCartByUserId(req.user.id)

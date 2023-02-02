@@ -8,19 +8,23 @@ import { useSelector } from 'react-redux'
 // CHANGE BEFORE PRODUCTION
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK)
 
-const CheckoutPage = () => {
+const CheckoutPage = ({ completeOrder }) => {
   const [clientSecret, setClientSecret] = useState('')
+  const [orderId, setOrderId] = useState('')
   const cartSelector = useSelector((state) => state.cart)
 
   // ---------Stripe---------
   useEffect(() => {
     fetch('http://localhost:8080/api/cart/create-payment-intent', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${window.localStorage.getItem('token')}`
+      },
       body: JSON.stringify(cartSelector),
     })
       .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret))
+      .then((data) => {setClientSecret(data.clientSecret); setOrderId(data.orderId)})
   }, [])
 
   const appearance = {
@@ -35,7 +39,7 @@ const CheckoutPage = () => {
     <div className='checkout'>
       {clientSecret && (
         <Elements options={options} stripe={stripePromise}>
-          <CheckoutForm />
+          <CheckoutForm completeOrder={completeOrder} orderId={orderId}/>
         </Elements>
 
       )}

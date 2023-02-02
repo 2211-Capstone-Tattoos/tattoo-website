@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import Modal from 'react-modal'
 Modal.setAppElement('#root');
@@ -84,7 +84,6 @@ const Cart = ({ editCartProductQuantity, removeProductFromCart, clearCartProduct
             cart // try passing down isLoading from cart query
               ? cart.products?.length
                 ? cart.products.map(product => {
-                  //const qtyRef = useRef()
                   return (
                     <div className="product-card" key={product.id}>
                       <CartProduct product={product} editCartProductQuantity={editCartProductQuantity} removeProductFromCart={removeProductFromCart}/>
