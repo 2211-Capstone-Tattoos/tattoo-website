@@ -10,6 +10,7 @@ router.post("/login", async (req, res, next) => {
     const { username, password } = req.body;
 
     if (!username || !password) {
+      res.status(401)
       next({
         name: 'Missing Credentials',
         message: 'Please provide both username and password',
@@ -20,7 +21,7 @@ router.post("/login", async (req, res, next) => {
       user = await getUserByEmail(username)
     }
     if (!user) {
-      res.status(401)
+      res.status(404)
       next({
         name: 'UserDoesntExistError',
         message: 'User does not exist'
@@ -38,6 +39,7 @@ router.post("/login", async (req, res, next) => {
           user
         });
       } else {
+        res.status(401)
         next({
           name: 'Incorrect Credentials',
           message: 'Username or Password is incorrect'
@@ -64,6 +66,7 @@ router.post("/register", async (req, res, next) => {
     }
     if (_user) {
       if (_user.password) {
+        res.status(401)
         next({
           name: "UsernameTaken",
           message: `This username ${_user.username} is already taken.`
@@ -71,6 +74,7 @@ router.post("/register", async (req, res, next) => {
       } else {
         debugger
         if (password.length < 8) {
+          res.status(401)
           next({
             name: "InsufficientPassword",
             message: "Password is too short!"
@@ -80,6 +84,7 @@ router.post("/register", async (req, res, next) => {
       }
     } else {
       if (password.length < 8) {
+        res.status(401)
         next({
           name: "InsufficientPassword",
           message: "Password is too short!"
@@ -119,6 +124,7 @@ router.patch('/:userId', async (req, res, next) => {
   try {
     if (req.user?.admin || req.user?.id === userId) {
       if (!req.user?.admin && req.body.admin) {
+        res.status(403)
         next({
           name: 'Unauthorized Error',
           message: 'You need to be an Authorized User',
@@ -130,9 +136,10 @@ router.patch('/:userId', async (req, res, next) => {
         res.send(updatedUser)
       }
     } else {
+      res.status(403)
       next({
         name: 'Unauthorized Error',
-        message: 'You need to be an Authorized User',
+        message: 'You must be the owner',
         error: 'UnauthorizedError'
       })
     }
@@ -152,8 +159,8 @@ router.delete('/:userId', async (req, res, next) => {
     } else {
       res.status(403)
       next({
-        name: "UnauthorizedError",
-        message: "You must be owner",
+        name: "Unauthorized Error",
+        message: "You must be the owner",
         error: "UnauthorizedError"
       })
     }
