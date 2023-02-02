@@ -51,7 +51,7 @@ const Orders = ({ user }) => {
                         {
                           order.products.map((product) => {
                             return (
-                              <div className="order-product">
+                              <div className="order-product" key={product.id}>
                                 <img src={product.img} alt="product-image" />
                                 <div className="details">
                                   <h3>{product.title}</h3>
@@ -59,6 +59,7 @@ const Orders = ({ user }) => {
                                   <h3>Quantity: {product.quantity}</h3>
                                   <Link to={`/products/${product.id}`}><button>View Product</button></Link>
                                 </div>
+                              </div>
                             )
                           })
                         }

@@ -77,17 +77,7 @@ const removeProductFromCart = async (orderId, productId) => {
 }
 
 const editProductQuantity = async ({ cartId, productId, quantity }) => {
-  // cartId, productId, quantity
-  //  WHERE orderId = ... and productId = ...
   try {
-    /* const { rows: [quantity] } = await client.query(`
-    SELECT quantity 
-    FROM order_products
-    WHERE id = $1
-    `, [id])
-
-    console.log(quantity) */
-
     const { rows: [product] } = await client.query(`
     UPDATE order_products
     SET quantity = $1

@@ -70,7 +70,6 @@ export const shopAPI = createApi({
         }))
       }
     }),
-    //updateProduct:
     updateProduct: builder.mutation({
       query(data) {
         const { artistId, productId, body } = data
@@ -92,7 +91,6 @@ export const shopAPI = createApi({
         }))
       }
     }),
-    //deleteProduct:
     deleteProduct: builder.mutation({
       query(data) {
         const { artistId, productId } = data
