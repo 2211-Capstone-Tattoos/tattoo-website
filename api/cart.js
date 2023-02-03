@@ -197,12 +197,15 @@ router.post('/checkout', async (req, res, next) => {
 router.post('/purchase', async (req, res, next) => {
   debugger
   try {
+    console.log(req.body)
     const { orderId } = req.body
+    console.log('server orderId', orderId)
     const cart = await getOrderById(orderId)
     if (cart) {
       const completedCart = await completeOrder(cart.id, req.user?.id)
-      return completedCart
+      res.send(completedCart)
     } else {
+      res.status(400)
       next({
         name: "InvalidOrder",
         message: "This order does not exist"
