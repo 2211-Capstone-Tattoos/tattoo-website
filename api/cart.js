@@ -24,11 +24,7 @@ router.get("/:userId", async (req, res, next) => {
 
   try {
     if (!req.user) {
-      res.status(401)
-      next({
-        name: 'AuthorizationError',
-        message: 'Must be logged in to view cart'
-      })
+      next()
     } else {
       if (userId != req.user.id) {
         res.status(403)
@@ -104,10 +100,10 @@ router.delete("/:userId", async (req, res, next) => {
         res.send(deletedCart);
       } else {
         res.status(403)
-          next({
-            name: 'UnauthorizedUserError',
-            message: 'You can not edit another users cart'
-          })
+        next({
+          name: 'UnauthorizedUserError',
+          message: 'You can not edit another users cart'
+        })
       }
     }
   } catch ({ name, message }) {

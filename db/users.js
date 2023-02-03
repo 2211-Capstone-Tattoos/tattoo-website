@@ -5,6 +5,7 @@ const { getOrdersByUserId } = require('./orders');
 const saltRounds = 10;
 
 const createUser = async (fields) => {
+  debugger
   const { password } = fields
   delete fields.id
   const keys = Object.keys(fields)
@@ -92,8 +93,8 @@ async function getUserByUsername(username) {
   try {
     const { rows: [user] } = await client.query(`
     SELECT * FROM users
-    WHERE username = $1;
-    `, [username]);
+    WHERE LOWER(username) = $1;
+    `, [username.toLowerCase()]);
 
     return user;
   } catch (error) {
@@ -105,7 +106,7 @@ async function getUserByEmail(email) {
   try {
     const { rows: [user] } = await client.query(`
     SELECT * FROM users
-    WHERE email = $1;
+    WHERE LOWER(email) = $1;
     `, [email]);
 
     return user;

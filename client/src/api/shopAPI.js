@@ -111,6 +111,7 @@ export const shopAPI = createApi({
           body
         }
       },
+      invalidatesTags: (result, error, { artistId }) => ['Users'],
       async onQueryStarted(body, { dispatch, queryFulfilled }) {
         dispatch(setToastPromise({
           promise: queryFulfilled,
