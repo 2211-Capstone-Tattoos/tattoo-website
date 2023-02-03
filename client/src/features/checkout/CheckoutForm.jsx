@@ -40,6 +40,7 @@ const CheckoutForm = ({ completeOrder, orderId }) => {
         case "succeeded":
           dispatch(setBlankToast('It worked!'))
           setMessage('Success!!')
+          console.log('Checkoutform orderId --->', orderId)
           await completeOrder(orderId)
           navigate('/cart')
           break;
@@ -68,7 +69,7 @@ const CheckoutForm = ({ completeOrder, orderId }) => {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: 'http://localhost:5173/cart/checkout' //payment completion page
+        return_url: 'http://localhost:4173/cart/checkout' //payment completion page
       }
     })
 

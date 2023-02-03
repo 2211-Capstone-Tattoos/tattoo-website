@@ -20,6 +20,14 @@ app.use(express.static(path.join(__dirname, './client', 'dist')));
 // -------API-------
 app.use('/api', require('./api'));
 
+app.use('/', (req, res, next) => {
+  try {
+    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
+  } catch (error) {
+    next(error);
+  }
+});
+
 app.use((req, res, next) => {
   try {
     res.status(404).send("Sorry, can't find that! :/");
