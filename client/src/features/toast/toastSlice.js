@@ -19,6 +19,9 @@ const toastSlice = createSlice({
     setToastPromise: (state, action) => {
       return state = toast.promise(action.payload.promise, action.payload.options)
     },
+    dismissSingleToast: (state) => {
+      state.toast.dismiss()
+    },
     dismissToasts: (state) => {
       return state = toast.dismiss
     }

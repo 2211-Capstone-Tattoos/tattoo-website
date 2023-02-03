@@ -284,9 +284,7 @@ const createInitialProducts = async () => {
 }
 
 const addInitialProductsToOrders = async (orderId) => {
-  debugger
   console.log("Adding initial products to orders")
-  debugger
   try {
     const productsToAdd = [
       {
@@ -319,7 +317,6 @@ const addInitialProductsToOrders = async (orderId) => {
 
 (async () => {
   try {
-    await client.connect();
     await dropTables();
     await createTables();
     await createInitialUsers();
@@ -332,7 +329,8 @@ const addInitialProductsToOrders = async (orderId) => {
     throw error;
   } finally {
     console.log("Database has been rebuilt, and you're good to go!");
-    await client.end();
+    await client.end()
+    console.log('Pool ended')
   }
 })();
 
