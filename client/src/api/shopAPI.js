@@ -313,7 +313,7 @@ export const shopAPI = createApi({
       query(body) {
         return {
           url: `cart/purchase`,
-          method: POST,
+          method: 'POST',
           body
         }
       },
