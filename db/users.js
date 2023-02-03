@@ -157,25 +157,31 @@ async function getAllUsers() {
     throw error
   }
 }
+
 // this doesn't work still
 async function deleteUser(id) {
   try {
-    await client.query(`
-    DELETE FROM orders
-    WHERE "userId" = $1;
-    `, [id]);
-
-    await client.query(`
+    const deletedUser = await client.query(`
+    UPDATE users
+    SET deleted = true,
+        username = null,
+        password = null,
+        fullname = null,
+        profile_img = null,
+        location = null,
+        is_artist = false
+    WHERE id = ${id}
+    RETURNING *
+    `)
+    const userProducts = await client.query(`
     UPDATE products
-    set active = false
-    WHERE "artistId" = $1;
-    `, [id]);
-
-    const { rows: [deletedUser] } = await client.query(`
-    DELETE FROM users
-    WHERE id = $1
-    RETURNING *;
-    `, [id]);
+    SET is_active = false,
+    "artistId" = 1
+    WHERE "artistId" = ${id}
+    `)
+    debugger
+    console.log(deletedUser)
+    console.log(userProducts)
     return deletedUser
   } catch (error) {
     console.error("error deleting user", error)

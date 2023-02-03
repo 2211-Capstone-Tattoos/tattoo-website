@@ -33,7 +33,8 @@ const createTables = async () => {
       profile_img TEXT,
       location VARCHAR(255),
       is_artist BOOLEAN DEFAULT false,
-      admin BOOLEAN DEFAULT false
+      admin BOOLEAN DEFAULT false,
+      deleted BOOLEAN DEFAULT false
     );
     CREATE TABLE products(
       id SERIAL PRIMARY KEY,
@@ -319,7 +320,6 @@ const addInitialProductsToOrders = async (orderId) => {
 
 (async () => {
   try {
-    await client.connect();
     await dropTables();
     await createTables();
     await createInitialUsers();
