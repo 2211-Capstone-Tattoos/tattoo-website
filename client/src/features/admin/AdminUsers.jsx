@@ -2,16 +2,32 @@ import React from 'react'
 import { useRef } from 'react';
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAllUsersQuery, useDeleteUserMutation, useGetAllArtistsQuery, useUpdateUserMutation } from "../../api/shopAPI"
+import {
+  useAllUsersQuery,
+  useDeleteUserMutation,
+  useRegisterMutation,
+  useUpdateUserMutation
+} from "../../api/shopAPI"
 import "./Admin.css"
 
-const AdminUsers = ({APIclearCart}) => {
+const AdminUsers = ({ APIclearCart }) => {
 
+  const navigate = useNavigate()
   const { data = [] } = useAllUsersQuery();
+  const [createUser] = useRegisterMutation();
   const [updateUser] = useUpdateUserMutation();
   const [deleteUser] = useDeleteUserMutation();
-  const navigate = useNavigate()
   const [search, setSearch] = useState('')
+  const [addView, setAddView] = useState(false)
+  const [editView, setEditView] = useState(null)
+  const [username, setUsername] = useState('')
+  const [fullname, setFullname] = useState('')
+  const [email, setEmail] = useState('email')
+  const [location, setLocation] = useState('')
+  const [isArtist, setIsArtist] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
+  const [password, setPassword] = useState(false)
+
 
   const makeArtist = async (user) => {
     const body = {
@@ -36,12 +52,38 @@ const AdminUsers = ({APIclearCart}) => {
       }
     }
   }
-//doesnt work yet brother
+  //doesnt work yet brother
   const removeAllOfUser = async (userId) => {
     await APIclearCart(userId);
     await deleteUser(userId)
   }
 
+  const handleSubmit = async (productId) => {
+    const body = {
+      username: username,
+      fullname: fullname,
+      email: email,
+      location: location,
+      isArtist: isArtist,
+      admin: isAdmin,
+      password: password
+    }
+    if (addView) {
+      await createUser(body)
+    }
+    if (editView) {
+      await updateUser(body)
+
+    }
+    setAddView(false)
+
+
+  }
+
+  const handleClose = () => {
+    setAddView(false)
+
+  }
 
   return (
     <div>
@@ -50,6 +92,11 @@ const AdminUsers = ({APIclearCart}) => {
         <div className="search-bar">
           <input onChange={(e) => setSearch(e.target.value)}></input>
         </div>
+        {
+          addView
+            ? <button onClick={() => handleClose()}>Close</button>
+            : <button onClick={() => setAddView(true)}>Add User</button>
+        }
       </div>
       <table>
 
@@ -62,9 +109,37 @@ const AdminUsers = ({APIclearCart}) => {
             <th>Location</th>
             <th>Artist</th>
             <th>Admin</th>
+            {addView
+              ? <th>password</th>
+              : null
+            }
           </tr>
         </thead>
         <tbody>
+          {addView
+            ? <tr style={{ backgroundColor: 'red' }}>
+              <td>-</td>
+              <td contentEditable onInput={(e) => setUsername(e.currentTarget.textContent)}>-</td>
+              <td><div className="edit-field" contentEditable onInput={(e) => setFullname(e.currentTarget.textContent)}>-</div></td>
+              <td><div className="edit-field" contentEditable onInput={(e) => setEmail(e.currentTarget.textContent)}>-</div></td>
+              <td><div className="edit-field" contentEditable onInput={(e) => setLocation(e.currentTarget.textContent)}>-</div></td>
+              <td>
+                <select onChange={(e) => setIsArtist(e.target.value)}>
+                  <option>false</option>
+                  <option>true</option>
+                </select>
+              </td>
+              <td>
+                <select onChange={(e) => setIsAdmin(e.target.value)}>
+                  <option>false</option>
+                  <option>true</option>
+                </select>
+              </td>
+              <td><div contentEditable onInput={(e) => setPassword(e.currentTarget.textContent)}>-</div></td>
+              <td><button onClick={() => handleSubmit()}>{"\u2714"}</button></td>
+            </tr>
+            : <></>
+          }
           {[...data]
             .sort((a, b) => {
               return a.id - b.id

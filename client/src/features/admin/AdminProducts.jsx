@@ -82,6 +82,11 @@ const AdminProducts = () => {
         <div className="search-bar">
           <input onChange={(e) => setSearch(e.target.value)}></input>
         </div>
+        {
+          addView
+            ? <button onClick={() => handleClose()}>Close</button>
+            : <button onClick={() => setAddView(true)}>Add Product</button>
+        }
       </div>
 
 
@@ -98,11 +103,6 @@ const AdminProducts = () => {
             <th>active</th>
 
           </tr>
-          {
-            addView
-              ? <button onClick={() => handleClose()}>Close</button>
-              : <button onClick={() => setAddView(true)}>Add Product</button>
-          }
         </thead>
         <tbody>
           {addView

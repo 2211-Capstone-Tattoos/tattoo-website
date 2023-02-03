@@ -52,11 +52,15 @@ router.post("/login", async (req, res, next) => {
 
 // POST /api/users/register
 router.post("/register", async (req, res, next) => {
+  debugger
   try {
     const {
       email,
       username,
       password,
+      location,
+      isArtist,
+      admin
     } = req.body;
     let user
     let _user = await getUserByUsername(username);
