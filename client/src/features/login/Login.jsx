@@ -89,9 +89,9 @@ const Login = ({ cartSelector }) => {
             <div>
               <button>Create account</button>
             </div>
-          <p>Already have an account?</p>
+            <p>Already have an account?</p>
           </form>
-          <button type='reset' onClick={() => {setLoginView(!loginView); resetInputs()}} >Click here to login</button>
+          <button type='reset' onClick={() => { setLoginView(!loginView); resetInputs() }} >Click here to login</button>
         </>
         // LOGIN
         : <>
@@ -99,7 +99,7 @@ const Login = ({ cartSelector }) => {
             e.preventDefault()
 
             const body = {
-              username: loginUsernameRef.current.value,
+              username: loginUsernameRef.current.value.toLowerCase(),
               password: loginPasswordRef.current.value
             }
 
@@ -147,7 +147,7 @@ const Login = ({ cartSelector }) => {
             </div>
             <button>Login</button>
           </form>
-            <button type='reset' onClick={() => {setLoginView(!loginView); resetInputs()}} >Click here to create an account</button>
+          <button type='reset' onClick={() => { setLoginView(!loginView); resetInputs() }} >Click here to create an account</button>
         </>
       }
     </div>

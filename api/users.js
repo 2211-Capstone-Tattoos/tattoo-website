@@ -5,9 +5,10 @@ const router = require('express').Router();
 
 // POST /api/users/login
 router.post("/login", async (req, res, next) => {
+  debugger
   try {
-    const { username, password } = req.body;
-
+    let { username, password } = req.body;
+    username = username.toLowerCase()
     if (!username || !password) {
       res.status(401)
       next({
