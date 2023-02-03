@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Deployment
+.dockerignore
+Dockerfile
+fly.toml
