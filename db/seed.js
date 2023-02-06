@@ -33,7 +33,8 @@ const createTables = async () => {
       profile_img TEXT,
       location VARCHAR(255),
       is_artist BOOLEAN DEFAULT false,
-      admin BOOLEAN DEFAULT false
+      admin BOOLEAN DEFAULT false,
+      description TEXT
     );
     CREATE TABLE products(
       id SERIAL PRIMARY KEY,
@@ -92,7 +93,8 @@ const createInitialUsers = async () => {
       profileImg: "https://robohash.org/voluptatemidaut.png?size=500x500&set=set1",
       location: "Maracanã",
       isArtist: true,
-      admin: true
+      admin: true,
+      description: "I am the best artist ever brother! You will never be disappointed with what I can do."
     },
     {
       id: 3,

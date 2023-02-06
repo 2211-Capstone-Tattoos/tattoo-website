@@ -9,6 +9,7 @@ const Artist = () => {
   const { id } = useParams()
   const { data = [], isLoading, isFetching, isError } = useGetArtistQuery(id)
   const [isPosting, setIsPosting] = useState()
+  console.log("this is the data we get", data)
 
   return (
     <div className='single-artist'>
@@ -18,7 +19,7 @@ const Artist = () => {
         </div>
         <div className='right'>
           <h2>{data.fullname}</h2>
-          <p>Lorem ipsum blah blah blah blah whatever this is the artist description</p>
+          <p>{data.description}</p>
         </div>
 
         
