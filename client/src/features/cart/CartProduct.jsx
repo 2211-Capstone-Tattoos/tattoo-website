@@ -2,7 +2,7 @@ import { useRef } from "react"
 import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 
-const CartProduct = ({product, editCartProductQuantity, removeProductFromCart}) => {
+const CartProduct = ({ product, editCartProductQuantity, removeProductFromCart }) => {
   const qtyRef = useRef()
   const cartSelector = useSelector((state) => state.cart)
 
@@ -14,9 +14,11 @@ const CartProduct = ({product, editCartProductQuantity, removeProductFromCart}) 
     }
   }
 
+  const imgUrl = new URL(`../../assets/images/${product.img}.png`, import.meta.url).href
+
   return (
     <>
-      <img src={product.img} alt="product-image" />
+      <img src={imgUrl} alt="product-image" />
       <div className="details">
         <div className="top">
           <Link to={`/products/${product.productId}`}><p>{product.title}</p></Link>
