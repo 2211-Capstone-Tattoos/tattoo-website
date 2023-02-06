@@ -28,6 +28,9 @@ const cartSlice = createSlice({
       state.products.push(action.payload)
       }
     },
+    sumCartTotal: (state, action) => {
+      state.total = action.payload 
+    },
     editQuantity: (state, action) => {
       const product = state.products.find(prod => prod.id === action.payload.id)
       product.quantity = action.payload.quantity
@@ -43,6 +46,6 @@ const cartSlice = createSlice({
   }
 })
 
-export const { loadCart, addProduct, editQuantity, removeProduct, emptyCart, clearCart } = cartSlice.actions
+export const { loadCart, addProduct, sumCartTotal, editQuantity, removeProduct, emptyCart, clearCart } = cartSlice.actions
 
 export default cartSlice.reducer

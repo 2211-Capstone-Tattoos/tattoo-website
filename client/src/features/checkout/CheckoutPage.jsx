@@ -6,8 +6,9 @@ import { useSelector } from 'react-redux'
 //const API_URL = import.meta.env.VITE_API_PATH || 'http://localhost:8080/api/'
 const API_URL = "https://flashsheet.fly.dev/api/"
 
-// Generic test API 
-// CHANGE BEFORE PRODUCTION
+import './checkout.css'
+
+// Personal test API 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK)
 
 const CheckoutPage = ({ completeOrder }) => {
@@ -39,12 +40,32 @@ const CheckoutPage = ({ completeOrder }) => {
 
   return (
     <div className='checkout'>
+      <div></div>
       {clientSecret && (
         <Elements options={options} stripe={stripePromise}>
           <CheckoutForm completeOrder={completeOrder} orderId={orderId}/>
         </Elements>
-
       )}
+      <div id="checkout-summary">
+          <h3>Order Summary</h3>
+          {
+            cartSelector?.products
+              ? cartSelector.products.map(product => {
+                const imgUrl = new URL(`../../assets/images/${product.img}.png`, import.meta.url).href
+                return (
+                  <div key={product.id}>
+                    <img src={imgUrl} alt="product-image" />
+                    <p>{product.title}</p>
+                    <p>{product.price}</p>
+                    <p>Quantity: {product.quantity}</p>
+                    <hr />
+                  </div>
+                )
+              })
+              : null
+          }
+          <h4>Total: ${cartSelector.total}</h4>
+      </div>
     </div>
   )
 }

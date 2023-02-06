@@ -39,3 +39,4 @@ processes = []
     timeout = "2s"
 
 [deploy]
+  #release_command = 'npm run seed'

@@ -105,7 +105,8 @@ const createInitialUsers = async () => {
       fullname: "Tonnie Hazelden",
       profileImg: "1",
       location: "San Pedro",
-      isArtist: true
+      isArtist: true,
+      deleted: true
     },
     {
       email: "begglestone3@skyrock.com",

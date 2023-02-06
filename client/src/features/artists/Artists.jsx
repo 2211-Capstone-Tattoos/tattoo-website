@@ -15,15 +15,16 @@ const Artists = () => {
           : isLoading || isFetching
             ? <>Loading artists...</>
             : data.map(artist => {
-              const imgUrl = new URL(`../../assets/images/a${artist.profile_img}.png`, import.meta.url).href
+              if(!artist.deleted) {
+                const imgUrl = new URL(`../../assets/images/a${artist.profile_img}.png`, import.meta.url).href
 
-              return (
-                <div className="product-card" key={artist.id}>
-                  <h2><Link to={`/artists/${artist.id}`}>{artist.fullname}</Link></h2>
-                  <img src={imgUrl} />
-                </div>
-              )
-
+                return (
+                  <div className="product-card" key={artist.id}>
+                    <h2><Link to={`/artists/${artist.id}`}>{artist.fullname}</Link></h2>
+                    <img src={imgUrl} />
+                  </div>
+                )
+              }
             })
       }
     </div>

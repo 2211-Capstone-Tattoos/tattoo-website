@@ -7,6 +7,8 @@ import './cart.css'
 import Checkout from '../../Checkout';
 import CartProduct from './CartProduct';
 import { setBlankToast } from '../toast/toastSlice';
+import { useEffect } from 'react';
+import { sumCartTotal } from './cartSlice';
 
 const Cart = ({ editCartProductQuantity, removeProductFromCart, clearCartProducts }) => {
   const cart = useSelector((state) => state.cart)
@@ -40,10 +42,9 @@ const Cart = ({ editCartProductQuantity, removeProductFromCart, clearCartProduct
       return x + y;
     }, 0) * 100) / 100).toFixed(2)
 
-  prices.reduce((x, y) => {
-    return x + y;
-  }, 0)
-
+  useEffect(() => {
+    dispatch(sumCartTotal(totalCart))
+  }, [totalCart])
 
   return (
     <>
@@ -110,7 +111,7 @@ const Cart = ({ editCartProductQuantity, removeProductFromCart, clearCartProduct
           }
           <div>
 
-            <h4>Your Total ${(Math.round(totalCart * 100) / 100).toFixed(2)}</h4>
+            <h4>Your Total ${cart.total}</h4>
 
           </div>
           <button onClick={() => {
