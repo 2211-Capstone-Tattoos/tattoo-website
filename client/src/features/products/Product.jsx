@@ -33,9 +33,7 @@ const Product = ({ addProductToCart }) => {
                 <h2>{data.title}</h2>
               </div>
               <div className="container">
-                <div className="product-img">
-                  <img src={imgUrl}></img>
-                </div>
+                <img src={imgUrl}></img>
                 <div className="bottom">
                   <div className="description">
                     {data.description}

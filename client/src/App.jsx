@@ -46,7 +46,7 @@ function App() {
   const [APIeditQuantity] = usePatchCartProductQuantityMutation()
   const [APIremoveProduct] = useRemoveProductMutation()
   const [APIclearCart] = useClearCartMutation()
-  const [APIcompleteOrder, {data: orderData = [] }] = useCompleteOrderMutation()
+  const [APIcompleteOrder, { data: orderData = [] }] = useCompleteOrderMutation()
 
   // Cart population
   useEffect(() => {
@@ -132,9 +132,9 @@ function App() {
 
   const completeOrder = async (orderId) => {
     APIcompleteOrder({
-        orderId
+      orderId
     })
-    if(orderData) {
+    if (orderData) {
       dispatch(loadCart(orderData))
     } else {
       dispatch(emptyCart())
@@ -170,12 +170,12 @@ function App() {
           path="artists/:id" />
         <Route
           element={<Orders user={user} />}
-          path="orders/:id" />
+          path="profile/:id" />
         <Route
           element={<Cart editCartProductQuantity={editCartProductQuantity} removeProductFromCart={removeProductFromCart} clearCartProducts={clearCartProducts} />}
           exact path="cart/" />
-        <Route 
-          element={<CheckoutPage completeOrder={completeOrder}/>}
+        <Route
+          element={<CheckoutPage completeOrder={completeOrder} />}
           path='cart/checkout'
         />
         <Route
