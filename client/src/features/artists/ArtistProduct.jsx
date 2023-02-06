@@ -63,29 +63,27 @@ const ArtistProduct = ({ product, isOwner }) => {
       handleUpdateProduct()
     }} className='product-card'>
       <Link to={`/products/${product.id}`}><img src={imgUrl} alt="product-image" /></Link>
-      <div>
-        <label htmlFor="product-title">Title: </label>
+      <div className={`row ${isEditable ? 'is-active' : ''}`}>
         {/* FIXME: <Link to={`/products/${product.id}`}></Link> */}
         <input type='text' ref={titleRef} defaultValue={product.title} disabled={!isEditable} />
       </div>
-      <div>
-        <label htmlFor="product-description">Description: </label>
-        <input type="text" ref={descRef} defaultValue={product.description} disabled={!isEditable} />
+      <div className={`row ${isEditable ? 'is-active' : ''}`}>
+        <textarea type="text" ref={descRef} defaultValue={product.description} disabled={!isEditable} />
       </div>
-      <div>
-        <label htmlFor="product-price">Price: </label>
+      <div className={`row ${isEditable ? 'is-active' : ''}`}>
         <input type="text" ref={priceRef} defaultValue={product.price} disabled={!isEditable} />
       </div>
-      <p>{product.active ? 'true' : 'false'}</p>
       {
         isOwner
           ? isEditable
-            ? <>
-              <button type='button' onClick={() => { setIsEditable(false) }}>Close Edit</button>
-              <button>Save edit</button>
-              <button type="button" onClick={() => { handleRemoveProduct() }}>Remove Product</button>
-            </>
-            : <button type='button' onClick={() => { setIsEditable(true) }}>Edit</button>
+            ? <div className="buttons">
+              <button type='button' onClick={() => { setIsEditable(false) }}>Close</button>
+              <button type="button" onClick={() => { handleUpdateProduct() }}>Save</button>
+              <button type="button" onClick={() => { handleRemoveProduct() }}>Delete</button>
+            </div>
+            : <div className="buttons">
+              <button type='button' onClick={() => { setIsEditable(true) }}>Edit</button>
+            </div>
           : null
       }
     </form>

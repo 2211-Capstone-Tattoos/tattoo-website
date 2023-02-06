@@ -91,7 +91,7 @@ const createInitialUsers = async () => {
       username: "dblitzer1",
       password: "pUW8UcRKydCp",
       fullname: "Delmore Blitzer",
-      profileImg: "https://robohash.org/voluptatemidaut?size=500x500&set=set1",
+      profileImg: "2",
       location: "Maracanã",
       isArtist: true,
       admin: true,
@@ -103,7 +103,7 @@ const createInitialUsers = async () => {
       username: "thazelden2",
       password: "e1N5Yct6O",
       fullname: "Tonnie Hazelden",
-      profileImg: "https://robohash.org/essesitreiciendis?size=500x500&set=set1",
+      profileImg: "1",
       location: "San Pedro",
       isArtist: true
     },
@@ -112,7 +112,7 @@ const createInitialUsers = async () => {
       username: "begglestone3",
       password: "hXjoO5C",
       fullname: "Brendis Egglestone",
-      profileImg: "https://robohash.org/voluptateaspernaturtempora?size=500x500&set=set1",
+      profileImg: "3",
       location: "Belo Oriente",
       isArtist: true
     },
@@ -166,7 +166,7 @@ const createInitialUsers = async () => {
       username: "ChiquiChiqui",
       password: "eFScjkGl",
       fullname: "Chiquia De Ruggiero",
-      profileImg: "https://robohash.org/odioquiaculpa?size=500x500&set=set1",
+      profileImg: "4",
       location: "Xishaqiao",
       isArtist: true
     },

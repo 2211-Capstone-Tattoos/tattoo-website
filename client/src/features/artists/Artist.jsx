@@ -10,37 +10,42 @@ const Artist = () => {
   const { data = [], isLoading, isFetching, isError } = useGetArtistQuery(id)
   const [isPosting, setIsPosting] = useState()
   console.log("this is the data we get", data)
+  const imgUrl = new URL(`../../assets/images/a${data.profile_img}.png`, import.meta.url).href
+  console.log(imgUrl)
 
   return (
     <div className='single-artist'>
       <div className='top'>
         <div className='left'>
-          <img src={data.profile_img} />
+          <img src={imgUrl} />
         </div>
         <div className='right'>
           <h2>{data.fullname}</h2>
           <p>{data.description}</p>
         </div>
 
-        
+
       </div>
       <div className='bottom'>
-        {data.isOwner 
-        ? <button onClick={() => {setIsPosting(true)}}>Add product</button>
-        : null}
-        { isPosting
-          ? <ProductForm setIsPosting={setIsPosting}/>
+        {data.isOwner
+          ? <button onClick={() => { setIsPosting(true) }}>Add product</button>
+          : null}
+        {isPosting
+          ? <ProductForm setIsPosting={setIsPosting} />
           : null
         }
-        { isError
+        {isError
           ? <>Oh noes something broke!</>
           : isLoading || isFetching
             ? <>Loading products...</>
-            :data.products.map(product => {
+            : data.products.map(product => {
               if (product.active) {
                 return (
-                  <ArtistProduct product={product} isOwner={data.isOwner} key={product.id}/>
-                )  
+                  <div style={{ order: product.id }} key={product.id}>
+
+                    <ArtistProduct product={product} isOwner={data.isOwner} />
+                  </div>
+                )
               }
             })
         }

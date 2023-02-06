@@ -1,3 +1,24 @@
+.artists {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.artists div:nth-child(odd) {
+  flex-direction: row-reverse;
+}
+
+.artists .product-card {
+  display: flex;
+  align-items: center;
+  gap: 80px;
+}
+
+.artists .product-card img {
+  width: 300px;
+  display: flex;
+}
+
 .single-artist {
   max-width: 80%;
   display: flex;
@@ -20,26 +41,26 @@
 }
 
 .top img {
-  width: 100%;
+  max-width: 300px;
   flex: 0 1 auto;
 }
 
 .bottom {
   width: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
   gap: 15px;
   flex-wrap: wrap;
 }
 
 .single-artist .product-card {
-  width: 100%;
+  width: 250px;
   display: flex;
   flex-direction: column;
   padding: 10px;
   height: auto;
   max-width: 500px;
+  gap: 5px;
 }
 
 .single-artist .product-card img {
@@ -58,8 +79,32 @@
   width: 100%;
 }
 
-.artist-product img {
+.single-artist .product-card input,
+.single-artist .product-card textarea {
+  width: 100%;
+  font-family: inherit;
+  font-size: 16px;
+  background-color: rgba(255, 255, 255, 0);
+  color: black;
+  border: none;
+}
+
+.single-artist .product-card button {
+  width: 85px;
+}
+
+.single-artist .product-card .is-active input,
+.single-artist .product-card .is-active textarea {
+  background-color: rgba(255, 255, 255, 0.452);
+}
+
+.single-artist .product-card textarea {
+  margin-bottom: -7px;
   width: 100%;
   height: auto;
-  flex: 0 1 auto;
+  resize: none;
+}
+
+.single-artist .product-card .row {
+  width: 100%;
 }
