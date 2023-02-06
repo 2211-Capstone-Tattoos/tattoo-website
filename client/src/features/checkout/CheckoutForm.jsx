@@ -75,7 +75,8 @@ const CheckoutForm = ({ completeOrder, orderId }) => {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: return_url //payment completion page
+        return_url: return_url, //payment completion page
+        receipt_email: email
       }
     })
 

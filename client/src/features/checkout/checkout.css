@@ -1,0 +1,23 @@
+.checkout { 
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.checkout>* {
+  width: 25%;
+  max-width: 25%;
+  margin: 0 2.5%
+}
+
+#checkout-summary {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid black;
+  gap: 10px;
+}
+
+#checkout-summary img {
+  width: 100px;
+  height: 100px
+}

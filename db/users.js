@@ -179,9 +179,6 @@ async function deleteUser(id) {
     "artistId" = 1
     WHERE "artistId" = ${id}
     `)
-    debugger
-    console.log(deletedUser)
-    console.log(userProducts)
     return deletedUser
   } catch (error) {
     console.error("error deleting user", error)
