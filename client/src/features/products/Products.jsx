@@ -19,13 +19,17 @@ const Products = () => {
                 console.log(product.img)
                 return (
                   <div className="product-card" key={product.id}>
-                    <img src={imgUrl} alt="product-image" />
-                    <h3>{product.title}</h3>
+                    <div className="top">
+
+                      <img src={imgUrl} alt="product-image" />
+                    </div>
                     <div className="product-footer">
-                      <Link to={`/products/${product.id}`}><button>View Product</button></Link>
+                      <h3>{product.title}</h3>
                       <h3>{product.price}</h3>
+                      <Link to={`/products/${product.id}`}><button>View Product</button></Link>
                     </div>
                   </div>
+
 
                 )
               }
