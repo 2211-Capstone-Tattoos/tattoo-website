@@ -25,7 +25,7 @@ const Artist = () => {
         
       </div>
       <div className='bottom'>
-        {data.isOwner 
+        {data.isOwner
         ? <button onClick={() => {setIsPosting(true)}}>Add product</button>
         : null}
         { isPosting
