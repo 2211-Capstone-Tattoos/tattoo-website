@@ -130,8 +130,10 @@ function App() {
     }
   }
 
-  const completeOrder = async (cartId) => {
-    APIcompleteOrder({ body: cartId })
+  const completeOrder = async (orderId) => {
+    APIcompleteOrder({
+        orderId
+    })
     if(orderData) {
       dispatch(loadCart(orderData))
     } else {

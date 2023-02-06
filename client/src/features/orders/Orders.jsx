@@ -1,14 +1,24 @@
 import React from 'react'
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useGetUserOrdersQuery } from '../../api/shopAPI'
 import { Link } from 'react-router-dom'
+import Modal from 'react-modal'
+import UpdateUserForm from './UpdateUserForm'
 import './Orders.css'
 
 const Orders = ({ user }) => {
+  const [modalIsOpen, setIsOpen] = useState(false);
   const { id } = useParams()
   const { data = [], isLoading, isFetching, isError } = useGetUserOrdersQuery(id)
-
+  function openModal() {
+    setIsOpen(true);
+  }
+  function closeModal() {
+    setIsOpen(false);
+  }
   console.log('THIS IS DATA', data)
+  console.log('THIS IS user', user)
   return (
     <div className='profile-order-container'>
     <div className="profile">
@@ -25,6 +35,13 @@ const Orders = ({ user }) => {
         : null
         }
       </div>
+      <Modal
+      isOpen={modalIsOpen}
+      onRequestClose={closeModal}>
+        <button onClick={closeModal}>back</button>
+        <UpdateUserForm user={user} closeModal={closeModal}></UpdateUserForm>
+      </Modal>
+      <button onClick={openModal}>Edit profile</button>
     </div>
       <div className="orders">
         <h2>Your Orders</h2>

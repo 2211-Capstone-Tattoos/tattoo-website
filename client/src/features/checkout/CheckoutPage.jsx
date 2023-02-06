@@ -3,6 +3,8 @@ import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 import CheckoutForm from './CheckoutForm'
 import { useSelector } from 'react-redux'
+//const API_URL = import.meta.env.VITE_API_PATH || 'http://localhost:8080/api/'
+const API_URL = "https://flashsheet.fly.dev/api/"
 
 // Generic test API 
 // CHANGE BEFORE PRODUCTION
@@ -15,7 +17,7 @@ const CheckoutPage = ({ completeOrder }) => {
 
   // ---------Stripe---------
   useEffect(() => {
-    fetch('http://localhost:8080/api/cart/create-payment-intent', {
+    fetch(`${API_URL}cart/create-payment-intent`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

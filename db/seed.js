@@ -34,7 +34,8 @@ const createTables = async () => {
       location VARCHAR(255),
       is_artist BOOLEAN DEFAULT false,
       admin BOOLEAN DEFAULT false,
-      deleted BOOLEAN DEFAULT false
+      deleted BOOLEAN DEFAULT false,
+      description TEXT,
     );
     CREATE TABLE products(
       id SERIAL PRIMARY KEY,
@@ -93,7 +94,8 @@ const createInitialUsers = async () => {
       profileImg: "https://robohash.org/voluptatemidaut.png?size=500x500&set=set1",
       location: "Maracanã",
       isArtist: true,
-      admin: true
+      admin: true,
+      description: "I am the best artist ever brother! You will never be disappointed with what I can do."
     },
     {
       id: 3,
@@ -285,9 +287,7 @@ const createInitialProducts = async () => {
 }
 
 const addInitialProductsToOrders = async (orderId) => {
-  debugger
   console.log("Adding initial products to orders")
-  debugger
   try {
     const productsToAdd = [
       {
@@ -332,7 +332,8 @@ const addInitialProductsToOrders = async (orderId) => {
     throw error;
   } finally {
     console.log("Database has been rebuilt, and you're good to go!");
-    await client.end();
+    await client.end()
+    console.log('Pool ended')
   }
 })();
 

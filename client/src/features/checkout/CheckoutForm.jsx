@@ -9,6 +9,12 @@ import {
 import { setBlankToast } from "../toast/toastSlice";
 import { useNavigate } from "react-router-dom";
 
+let return_url
+/* import.meta.env.PROD 
+  ? return_url = 'https://flashsheet.fly.dev/cart/checkout' 
+  : return_url = 'http://localhost:5173/cart/checkout' */
+return_url = "https://flashsheet.fly.dev/cart/checkout"
+
 const CheckoutForm = ({ completeOrder, orderId }) => {
   const stripe = useStripe()
   const elements = useElements()
@@ -40,6 +46,7 @@ const CheckoutForm = ({ completeOrder, orderId }) => {
         case "succeeded":
           dispatch(setBlankToast('It worked!'))
           setMessage('Success!!')
+          console.log('Checkoutform orderId --->', orderId)
           await completeOrder(orderId)
           navigate('/cart')
           break;
@@ -68,7 +75,7 @@ const CheckoutForm = ({ completeOrder, orderId }) => {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: 'http://localhost:5173/cart/checkout' //payment completion page
+        return_url: return_url //payment completion page
       }
     })
 
