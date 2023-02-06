@@ -1,5 +1,5 @@
-//const API_URL = import.meta.env.VITE_API_PATH || 'http://localhost:8080/api/'
-const API_URL = "https://flashsheet.fly.dev/api/"
+const API_URL = import.meta.env.VITE_API_PATH || 'http://localhost:8080/api/'
+// const API_URL = "https://flashsheet.fly.dev/api/"
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { setToastPromise } from '../features/toast/toastSlice'
 
