@@ -53,9 +53,17 @@ const AdminUsers = ({ APIclearCart }) => {
     }
   }
   //doesnt work yet brother
-  const removeAllOfUser = async (userId) => {
-    await APIclearCart(userId);
-    await deleteUser(userId)
+  const removeAllOfUser = async (user) => {
+
+    if (confirm(`Are you sure you want to delete ${user.username}? This action can not be undone.`)) {
+      if (user.admin) {
+        window.alert('Cannot delete a user with admin privileges')
+      } else {
+        await APIclearCart(user.id);
+        await deleteUser(user.id)
+
+      }
+    }
   }
 
   const handleSubmit = async (productId) => {
@@ -162,7 +170,7 @@ const AdminUsers = ({ APIclearCart }) => {
                   <td><a onClick={() => makeArtist(user)}>{user.is_artist ? "\u2714" : "\u274C"}</a></td>
                   <td><a onClick={() => makeAdmin(user)}>{user.admin ? "\u2714" : "\u274C"}</a></td>
                   <td><a onClick={() => navigate(`${user.id}`)}>View Details</a></td>
-                  <td><a onClick={() => removeAllOfUser(user.id)}>Delete User</a></td>
+                  <td><a onClick={() => removeAllOfUser(user)}>Delete User</a></td>
                 </tr>
               )
 

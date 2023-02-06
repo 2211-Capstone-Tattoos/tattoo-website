@@ -152,21 +152,23 @@ router.patch('/:userId', async (req, res, next) => {
     next(error);
   }
 })
+
+//Delete user
+
 router.delete('/:userId', async (req, res, next) => {
-  const userId = req.params.userId
   try {
-    if (req.user.admin || req.user.id === userId) {
-      console.log("before deletedUsser")
-      const deletedUser = await deleteUser(userId)
-      console.log("after deletedUsser", deletedUser)
-      res.send(deletedUser);
-    } else {
-      res.status(403)
+
+    const user = await getUserById(req.params.userId)
+    if (user.admin) {
+      res.status(400)
       next({
-        name: "Unauthorized Error",
-        message: "You must be the owner",
-        error: "UnauthorizedError"
+        name: 'CannotDeleteUser',
+        message: 'Can not delete a user with admin privileges',
+        error: 'CannotDeleteUser'
       })
+    } else {
+      const deletedUser = await deleteUser(user.id)
+      res.send(deletedUser)
     }
   } catch (error) {
     next(error)

@@ -34,7 +34,8 @@ const createTables = async () => {
       location VARCHAR(255),
       is_artist BOOLEAN DEFAULT false,
       admin BOOLEAN DEFAULT false,
-      description TEXT
+      deleted BOOLEAN DEFAULT false,
+      description TEXT,
     );
     CREATE TABLE products(
       id SERIAL PRIMARY KEY,

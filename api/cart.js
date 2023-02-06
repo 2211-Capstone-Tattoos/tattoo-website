@@ -77,7 +77,6 @@ router.post("/:userId/:productId", async (req, res, next) => {
 
 // Clear Cart
 router.delete("/:userId", async (req, res, next) => {
-  debugger
   if (!req.user) {
     res.status(401)
     next({
@@ -95,7 +94,6 @@ router.delete("/:userId", async (req, res, next) => {
       })
     } else {
       if (req.user.id === cart.userId || req.user.admin) {
-        console.log("for some reason we are running this too")
         const deletedCart = await clearCart(cart.id)
         res.send(deletedCart);
       } else {
@@ -113,7 +111,6 @@ router.delete("/:userId", async (req, res, next) => {
 
 // Remove item from cart
 router.delete("/:userId/:productId", async (req, res, next) => {
-  debugger
   if (!req.user) {
     res.status(401)
     next({
@@ -191,7 +188,7 @@ router.post('/checkout', async (req, res, next) => {
 //Purchase cart
 
 router.post('/purchase', async (req, res, next) => {
-  debugger
+
   try {
     console.log(req.body)
     const { orderId } = req.body
@@ -220,7 +217,7 @@ router.post('/create-payment-intent', async (req, res, next) => {
   try {
     let cart
     let user
-    debugger
+
     //check if logged in. if not make dummy user and load cart
     if (!req.user) {
       const { products } = req.body
