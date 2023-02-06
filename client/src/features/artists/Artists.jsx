@@ -13,13 +13,14 @@ const Artists = () => {
           : isLoading || isFetching
             ? <>Loading artists...</>
             : data.map(artist => {
-              return (
-                <div className="product-card" key={artist.id}>
-                  <Link to={`/artists/${artist.id}`}>{artist.fullname}</Link>
-                  <img src={artist.profile_img} />
-                </div>
-              )
-
+              if(!artist.deleted) {
+                return (
+                  <div className="product-card" key={artist.id}>
+                    <Link to={`/artists/${artist.id}`}>{artist.fullname}</Link>
+                    <img src={artist.profile_img} />
+                  </div>
+                )
+              }
             })
       }
     </div>

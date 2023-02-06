@@ -105,7 +105,8 @@ const createInitialUsers = async () => {
       fullname: "Tonnie Hazelden",
       profileImg: "https://robohash.org/essesitreiciendis?size=500x500&set=set1",
       location: "San Pedro",
-      isArtist: true
+      isArtist: true,
+      deleted: true
     },
     {
       email: "begglestone3@skyrock.com",
