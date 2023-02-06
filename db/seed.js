@@ -82,7 +82,7 @@ const createInitialUsers = async () => {
       username: "tmainds0",
       password: "lJ1c3FuiU",
       fullname: "Thorsten Mainds",
-      profileImg: "https://robohash.org/etquasullam.png?size=500x500&set=set1",
+      profileImg: "https://robohash.org/etquasullam?size=500x500&set=set1",
       location: "Vila",
       isArtist: false
     },
@@ -91,7 +91,7 @@ const createInitialUsers = async () => {
       username: "dblitzer1",
       password: "pUW8UcRKydCp",
       fullname: "Delmore Blitzer",
-      profileImg: "https://robohash.org/voluptatemidaut.png?size=500x500&set=set1",
+      profileImg: "https://robohash.org/voluptatemidaut?size=500x500&set=set1",
       location: "Maracanã",
       isArtist: true,
       admin: true,
@@ -103,7 +103,7 @@ const createInitialUsers = async () => {
       username: "thazelden2",
       password: "e1N5Yct6O",
       fullname: "Tonnie Hazelden",
-      profileImg: "https://robohash.org/essesitreiciendis.png?size=500x500&set=set1",
+      profileImg: "https://robohash.org/essesitreiciendis?size=500x500&set=set1",
       location: "San Pedro",
       isArtist: true
     },
@@ -112,7 +112,7 @@ const createInitialUsers = async () => {
       username: "begglestone3",
       password: "hXjoO5C",
       fullname: "Brendis Egglestone",
-      profileImg: "https://robohash.org/voluptateaspernaturtempora.png?size=500x500&set=set1",
+      profileImg: "https://robohash.org/voluptateaspernaturtempora?size=500x500&set=set1",
       location: "Belo Oriente",
       isArtist: true
     },
@@ -121,7 +121,7 @@ const createInitialUsers = async () => {
       username: "arostron4",
       password: "F4pEfs",
       fullname: "Aimil Rostron",
-      profileImg: "https://robohash.org/corporismolestiasqui.png?size=500x500&set=set1",
+      profileImg: "https://robohash.org/corporismolestiasqui?size=500x500&set=set1",
       location: "Palaihari",
       isArtist: false
     },
@@ -130,7 +130,7 @@ const createInitialUsers = async () => {
       username: "bnixon5",
       password: "9tvI2A",
       fullname: "Barry Nixon",
-      profileImg: "https://robohash.org/rerumsequipraesentium.png?size=500x500&set=set1",
+      profileImg: "https://robohash.org/rerumsequipraesentium?size=500x500&set=set1",
       location: "Santa Gertrudes",
       isArtist: false
     },
@@ -139,7 +139,7 @@ const createInitialUsers = async () => {
       username: "tparlet6",
       password: "drXLIa8UhUD",
       fullname: "Tildie Parlet",
-      profileImg: "https://robohash.org/odioautin.png?size=500x500&set=set1",
+      profileImg: "https://robohash.org/odioautin?size=500x500&set=set1",
       location: "Lorica",
       isArtist: false
     },
@@ -148,7 +148,7 @@ const createInitialUsers = async () => {
       username: "ppanchen7",
       password: "FnWtMzqsef",
       fullname: "Paolina Panchen",
-      profileImg: "https://robohash.org/consecteturexpeditaquidem.png?size=500x500&set=set1",
+      profileImg: "https://robohash.org/consecteturexpeditaquidem?size=500x500&set=set1",
       location: "Quinipot",
       isArtist: false
     },
@@ -157,7 +157,7 @@ const createInitialUsers = async () => {
       username: "ijackson8",
       password: "pTYJ4YaFz",
       fullname: "Issi Jackson",
-      profileImg: "https://robohash.org/doloranimiaccusantium.png?size=500x500&set=set1",
+      profileImg: "https://robohash.org/doloranimiaccusantium?size=500x500&set=set1",
       location: "Binuangan",
       isArtist: false
     },
@@ -166,7 +166,7 @@ const createInitialUsers = async () => {
       username: "ChiquiChiqui",
       password: "eFScjkGl",
       fullname: "Chiquia De Ruggiero",
-      profileImg: "https://robohash.org/odioquiaculpa.png?size=500x500&set=set1",
+      profileImg: "https://robohash.org/odioquiaculpa?size=500x500&set=set1",
       location: "Xishaqiao",
       isArtist: true
     },
@@ -193,83 +193,139 @@ const createInitialProducts = async () => {
   try {
     const products = [
       {
-        title: "Common brushtail possum",
-        description: "In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem. Integer tincidunt ante vel ipsum.",
-        price: "$21.47",
-        img: "https://images.pexels.com/photos/2183131/pexels-photo-2183131.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        title: "Black Panther",
+        description: "Majestic, black panther design symbolizes power, grace and mystery",
+        price: "$20.00",
+        img: "3",
         artistId: 2,
         active: true
       },
       {
-        title: "Cat, ringtail",
-        description: "Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat. In congue. Etiam justo.",
-        price: "$48.09",
-        img: "https://images.pexels.com/photos/2183131/pexels-photo-2183131.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        title: "Eagle",
+        description: "Soaring eagle design represents freedom, and strength.",
+        price: "$40",
+        img: "2",
         artistId: 2,
         active: true
       },
       {
-        title: "Asian red fox",
-        description: "Morbi non quam nec dui luctus rutrum. Nulla tellus. In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus. Suspendisse potenti.",
-        price: "$20.63",
-        img: "https://images.pexels.com/photos/2183131/pexels-photo-2183131.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        title: "Dagger",
+        description: "Sharp and striking dagger symbolizes protection, bravery and determination.",
+        price: "$55",
+        img: "4",
         artistId: 2,
         active: true
       },
       {
-        title: "Albatross, waved",
-        description: "Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh. Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.",
+        title: "Butterfly",
+        description: "Beautiful butterfly represents transformation, hope, and renewal",
         price: "$23.82",
-        img: "https://images.pexels.com/photos/2183131/pexels-photo-2183131.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        img: "5",
         artistId: 3,
         active: true
       },
       {
-        title: "Waved albatross",
-        description: "Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus. Suspendisse potenti. In eleifend quam a odio.",
+        title: "Skull with Pipe and Top Hat",
+        description: "This skull figure embodies nonconformity, wit and individuality.",
         price: "$37.84",
-        img: "https://images.pexels.com/photos/2183131/pexels-photo-2183131.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        img: "6",
         artistId: 3,
         active: true
       },
       {
-        title: "Water moccasin",
-        description: "Nulla suscipit ligula in lacus. Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla.",
+        title: "Barn Swallow",
+        description: "This elegant design represents love, freedom, and a journey.",
         price: "$21.34",
-        img: "https://images.pexels.com/photos/2183131/pexels-photo-2183131.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        img: "7",
         artistId: 3,
         active: true
       },
       {
-        title: "Radiated tortoise",
-        description: "Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi. Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.",
+        title: "Lucky Aces",
+        description: "Four aces symbolize good luck, victory and success in gambling or life",
         price: "$22.98",
-        img: "https://images.pexels.com/photos/2183131/pexels-photo-2183131.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        img: "8",
         artistId: 4,
         active: true
       },
       {
-        title: "Mountain lion",
-        description: "Nullam molestie nibh in lectus. Pellentesque at nulla.",
+        title: "Tiger",
+        description: "Fierce tiger design represents power, bravery, and protection",
         price: "$37.74",
-        img: "https://images.pexels.com/photos/2183131/pexels-photo-2183131.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        img: "9",
         artistId: 4,
         active: true
       },
       {
-        title: "Kiskadee, great",
-        description: "Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui. Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.",
-        price: "$15.86",
-        img: "https://images.pexels.com/photos/2183131/pexels-photo-2183131.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        title: "Traditional Devil",
+        description: "Intimidating demon face in American Tradition style embodies evil, fear, and strength",
+        price: "$49.99",
+        img: "10",
         artistId: 10,
         active: true
       },
       {
-        title: "Tern, royal",
-        description: "Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus. Pellentesque at nulla.",
-        price: "$34.45",
-        img: "https://images.pexels.com/photos/2183131/pexels-photo-2183131.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        title: "Skull and Crossbones",
+        description: "Classic design that represents danger, rebellion and freedom.",
+        price: "$35",
+        img: "11",
         artistId: 10,
+        active: true
+      },
+      {
+        title: "Chinese Dragon",
+        description: "Mythical Chinese dragon design symbolizes power, luck, and prosperity.",
+        price: "$90",
+        img: "12",
+        artistId: 10,
+        active: true
+      },
+      {
+        title: "Pinup Girl",
+        description: "Sultry pin-up girl embodies femininity, sexiness, and confidence.",
+        price: "$45",
+        img: "13",
+        artistId: 10,
+        active: true
+      },
+      {
+        title: "Red Rose",
+        description: "Eternal classic red rose symbolizes love, passion, and beauty.",
+        price: "$35",
+        img: "14",
+        artistId: 10,
+        active: true
+      },
+      {
+        title: "Mermaid",
+        description: "Seductive mermaid represents mystery, sensuality, and the ocean.",
+        price: "$70",
+        img: "15",
+        artistId: 2,
+        active: true
+      },
+      {
+        title: "Snake",
+        description: "Sly snake design represents temptation, danger, and cunning.",
+        price: "$50",
+        img: "16",
+        artistId: 2,
+        active: true
+      },
+      {
+        title: "Anchor",
+        description: "Sturdy anchro represents stability, security, and a steady journey.",
+        price: "$50",
+        img: "17",
+        artistId: 3,
+        active: true
+      },
+      {
+        title: "M.O.M.",
+        description: "This heartwarming classic design symbolizes love, pride, and  devotion to Mom of course.",
+        price: "$39.99",
+        img: "18",
+        artistId: 3,
         active: true
       }
     ]

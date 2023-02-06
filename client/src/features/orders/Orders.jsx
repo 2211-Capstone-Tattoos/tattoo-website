@@ -21,28 +21,28 @@ const Orders = ({ user }) => {
   console.log('THIS IS user', user)
   return (
     <div className='profile-order-container'>
-    <div className="profile">
-      <h2>Your profile</h2>
-      <div className="profile-items">
-        <img src={user.profile_img} alt="your profile picture" />
-        <h3>{user.username}</h3>
-        <p>Name: {user.fullname}</p>
-        <p>Email: {user.email}</p>
-        <p>Location: {user.location}</p>
-        <hr />
-        {user.is_artist
-        ? <p>Thanks for being one of our artists</p>
-        : null
-        }
+      <div className="profile">
+        <h2>Your profile</h2>
+        <div className="profile-items">
+          <img src={user.profile_img} alt="your profile picture" />
+          <h3>{user.username}</h3>
+          <p>Name: {user.fullname}</p>
+          <p>Email: {user.email}</p>
+          <p>Location: {user.location}</p>
+          <hr />
+          {user.is_artist
+            ? <p>Thanks for being one of our artists</p>
+            : null
+          }
+        </div>
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}>
+          <button onClick={closeModal}>back</button>
+          <UpdateUserForm user={user} closeModal={closeModal}></UpdateUserForm>
+        </Modal>
+        <button onClick={openModal}>Edit profile</button>
       </div>
-      <Modal
-      isOpen={modalIsOpen}
-      onRequestClose={closeModal}>
-        <button onClick={closeModal}>back</button>
-        <UpdateUserForm user={user} closeModal={closeModal}></UpdateUserForm>
-      </Modal>
-      <button onClick={openModal}>Edit profile</button>
-    </div>
       <div className="orders">
         <h2>Your Orders</h2>
         {
@@ -67,9 +67,11 @@ const Orders = ({ user }) => {
                       <div className="order-products">
                         {
                           order.products.map((product) => {
+                            const imgUrl = new URL(`../../assets/images/${product.img}.png`, import.meta.url).href
+
                             return (
                               <div className="order-product" key={product.id}>
-                                <img src={product.img} alt="product-image" />
+                                <img src={imgUrl} alt="product-image" />
                                 <div className="details">
                                   <h3>{product.title}</h3>
                                   <h3>{product.paid_price}</h3>
