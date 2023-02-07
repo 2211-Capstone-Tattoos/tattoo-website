@@ -204,6 +204,7 @@ function App() {
             path="*" />
         </Routes>
       </div>
+        <Footer />
     </div >
   )
 }
