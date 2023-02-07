@@ -50,15 +50,19 @@
 #your-cart .product-card .bottom {
     width: 100%;
     display: flex;
-    gap: 15px;
-    position: relative;
     justify-content: space-between;
+    align-items: center;
+}
+
+#your-cart .product-card .bottom .quantity {
+    width: 50px;
+    display: flex;
+    flex-direction: column;
+
 }
 
 #your-cart .product-card .bottom button {
     font-size: 12px;
-    padding: 5px;
-    right: 0;
 }
 
 #order-summary {
@@ -120,6 +124,11 @@
     text-align: left;
 }
 
-.cart-product-buttons button {
+/* .cart-product-buttons button {
     background-color: blue;
+} */
+
+.cart-product-buttons {
+    display: flex;
+    flex-direction: column;
 }

@@ -25,12 +25,12 @@ const CartProduct = ({ product, editCartProductQuantity, removeProductFromCart }
           <p>{product.price}</p>
         </div>
         <div className="bottom">
-          <div>
+          <div className="quantity">
             <label htmlFor="quantity">Quantity: </label>
             <input type='number' ref={qtyRef} defaultValue={product.quantity} />
           </div>
           <div className="cart-product-buttons">
-            <button onClick={() => handleQtyChange()}>Edit quantity</button>
+            <button onClick={() => handleQtyChange()}>Update quantity</button>
             <button onClick={() => { removeProductFromCart(product) }}>Remove</button>
           </div>
         </div>
