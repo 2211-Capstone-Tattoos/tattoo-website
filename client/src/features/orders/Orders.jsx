@@ -20,9 +20,10 @@ const Orders = ({ user }) => {
   const imgUrl = new URL(`../../assets/images/a${user.profile_img}.png`, import.meta.url).href
 
   return (
-    <><h2>Your profile</h2>
+    <>
       <div className='profile-order-container'>
         <div className="profile">
+        
           <div className="profile-items">
             <img src={user.is_artist ? imgUrl : user.profile_img} alt="your profile picture" />
             <div className="section">
@@ -47,6 +48,7 @@ const Orders = ({ user }) => {
               : null
             }
           </div>
+          <button onClick={openModal}>Edit...</button>
           <Modal
             className="edit-modal"
             isOpen={modalIsOpen}
@@ -64,7 +66,6 @@ const Orders = ({ user }) => {
             <button className="back-button" onClick={closeModal}>{"\u274C"}</button>
             <UpdateUserForm user={user} closeModal={closeModal}></UpdateUserForm>
           </Modal>
-          <button onClick={openModal}>Edit profile</button>
         </div>
         <div className="orders">
           <h2>Your Orders</h2>

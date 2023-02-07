@@ -1,3 +1,11 @@
+.profile-order-container {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  min-width: 100%;
+  border-top: solid 1px;
+}
+
 .orders {
   display: flex;
   flex-direction: column;
@@ -7,7 +15,7 @@
 .order {
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
+  border: 1px solid;
   padding: 10px;
 }
 
@@ -31,6 +39,8 @@
   display: flex;
   justify-content: center;
   gap: 20px;
+  background-color: #e0dedc;
+  color: #c2761f;
 }
 
 .order-product img {
@@ -48,10 +58,22 @@
   text-align: left;
 }
 
-.profile-order-container {
+.profile {
   display: flex;
-  justify-content: center;
-  gap: 6rem;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 50%;
+  border-right: solid 1px;
+}
+
+.profile button {
+  width: 20%;
+  background-color: rgba(0,0,0,0);
+  color: #e0dedc;
+  border-right: solid 1px;
+  align-self: flex-start;
+  font-size: 20px;
 }
 
 .profile-items img {
@@ -70,8 +92,8 @@
 .profile-items .section {
   width: 100%;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
+  margin-left: 40%;
 }
 
 .profile-items .title {
