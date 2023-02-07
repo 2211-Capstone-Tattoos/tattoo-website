@@ -48,9 +48,20 @@ const Orders = ({ user }) => {
             }
           </div>
           <Modal
+            className="edit-modal"
             isOpen={modalIsOpen}
-            onRequestClose={closeModal}>
-            <button onClick={closeModal}>back</button>
+            onRequestClose={closeModal}
+            style={{
+              overlay: {
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                margin: '0',
+                padding: '0'
+              }
+            }}>
+            <button className="back-button" onClick={closeModal}>{"\u274C"}</button>
             <UpdateUserForm user={user} closeModal={closeModal}></UpdateUserForm>
           </Modal>
           <button onClick={openModal}>Edit profile</button>
