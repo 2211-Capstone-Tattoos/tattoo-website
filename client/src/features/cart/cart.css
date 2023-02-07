@@ -43,8 +43,9 @@
 #your-cart .product-card .top {
     width: 100%;
     display: flex;
-    gap: 15px;
+    gap: 30px;
     justify-content: space-between;
+    text-align: left;
 }
 
 #your-cart .product-card .bottom {
