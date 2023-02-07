@@ -74,11 +74,11 @@ const NavBar = () => {
             {
               userId
                 ? <NavLink
-                  to={`orders/${userId}`}
+                  to={`profile/${userId}`}
                   className={({ isActive }) =>
                     isActive ? "active-nav" : undefined
                   }>
-                  <button>Orders</button>
+                  <button>Profile</button>
                 </NavLink>
                 : <></>
             }
