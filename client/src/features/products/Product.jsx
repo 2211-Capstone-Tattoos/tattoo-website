@@ -26,6 +26,7 @@ const Product = ({ addProductToCart }) => {
         ? () => { toast.error('Something broke!'); console.error(error) }
         : !isLoading
           ?
+          <div id="main-single-product">
           <div className="single-product">
             {toast.dismiss()}
             <div className="left">
@@ -56,6 +57,7 @@ const Product = ({ addProductToCart }) => {
             </div>
             <div className="right">
             </div>
+          </div>
           </div>
           : toast.loading('loading product...')
       }
