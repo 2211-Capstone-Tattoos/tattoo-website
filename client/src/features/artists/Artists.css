@@ -1,22 +1,60 @@
 .artists {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 50px;
 }
 
-.artists div:nth-child(odd) {
+.artists>div:nth-child(odd) {
   flex-direction: row-reverse;
 }
 
-.artists .product-card {
+.artists .artist-summary-container {
   display: flex;
-  align-items: center;
-  gap: 80px;
+  justify-content: space-between;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
 }
 
-.artists .product-card img {
-  width: 300px;
+.artists .artist-aside {
   display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 1rem 0 0 .2rem;
+  width: 48%;
+  gap: 10px;
+  text-align: left;
+}
+
+.artists div:nth-child(odd) .artist-aside {
+  text-align: right;
+  margin-right: .2rem;
+}
+
+.artists .artist-aside a {
+  color: #e0dedc;
+  transition: color 0.25s;
+}
+
+.artists .artist-aside a:hover {
+  color: rgba(255, 245, 225, .5);
+}
+
+.artist-aside p {
+  font-style: italic;
+}
+
+.artists .artist-summary-container img {
+  width: 50%;
+  display: flex;
+  border-left: solid 1px;
+  padding: 1.8% 0 1.8% 1.8%
+}
+
+.artists div:nth-child(odd) img {
+  border-left: none;
+  border-right: solid 1px;
+  padding: 1.8% 1.8% 1.8% 0
 }
 
 .single-artist {

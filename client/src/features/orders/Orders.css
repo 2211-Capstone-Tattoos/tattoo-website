@@ -1,3 +1,11 @@
+.profile-order-container {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  min-width: 100%;
+  border-top: solid 1px;
+}
+
 .orders {
   display: flex;
   flex-direction: column;
@@ -7,7 +15,7 @@
 .order {
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
+  border: 1px solid;
   padding: 10px;
 }
 
@@ -31,6 +39,8 @@
   display: flex;
   justify-content: center;
   gap: 20px;
+  background-color: #e0dedc;
+  color: #c2761f;
 }
 
 .order-product img {
@@ -48,10 +58,22 @@
   text-align: left;
 }
 
-.profile-order-container {
+.profile {
   display: flex;
-  justify-content: center;
-  gap: 6rem;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 50%;
+  border-right: solid 1px;
+}
+
+.profile button {
+  width: 20%;
+  background-color: rgba(0,0,0,0);
+  color: #e0dedc;
+  border-right: solid 1px;
+  align-self: flex-start;
+  font-size: 20px;
 }
 
 .profile-items img {
@@ -70,8 +92,8 @@
 .profile-items .section {
   width: 100%;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
+  margin-left: 40%;
 }
 
 .profile-items .title {
@@ -80,4 +102,73 @@
 
 button {
   padding: 3px;
+}
+
+.back-button {
+  width: 200px;
+}
+
+.edit-modal {
+  width: 404px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: white;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0px 1px 10px 0px #00000065;
+  gap: 10px;
+}
+
+.edit-modal .back-button {
+  width: 30px;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 0;
+  color: red;
+}
+
+.edit-modal .back-button button {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+
+.edit-modal form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.edit-modal .edit-profile {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-modal .section {
+  width: 100%;
+  display: flex;
+}
+
+.edit-modal form .label {
+  width: 140px;
+}
+
+.edit-modal form .value,
+.edit-modal form input {
+  width: 100%;
+}
+
+.edit-modal textarea {
+  background-color: darkgrey;
+  border: none;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 14px;
+  resize: vertical;
+  overflow-y: hidden;
 }

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, NavLink } from 'react-router-dom'
 import {
   useGetCartQuery,
   useAddProductToCartMutation,
@@ -146,60 +146,64 @@ function App() {
   return (
     <div className="App">
       <NavBar user={user} />
+      <NavLink to='/'>
+        <h1 className='logo'>flashsheet</h1>
+      </NavLink>
       <Toaster
         position='top-right'
       //toastOptions={}
       />
-      <Routes>
-        <Route
-          element={<Home />}
-          exact path="" />
-        <Route
-          element={<Login cartSelector={cartSelector} />}
-          exact path="login/:from" />
-        <Route
-          element={<Products />}
-          path="products" />
-        <Route
-          element={<Product addProductToCart={addProductToCart} />}
-          path="products/:id" />
-        <Route
-          element={<Artists />}
-          exact path="artists/" />
-        <Route
-          element={<Artist />}
-          path="artists/:id" />
-        <Route
-          element={<Orders user={user} />}
-          path="profile/:id" />
-        <Route
-          element={<Cart editCartProductQuantity={editCartProductQuantity} removeProductFromCart={removeProductFromCart} clearCartProducts={clearCartProducts} />}
-          exact path="cart/" />
-        <Route
-          element={<CheckoutPage completeOrder={completeOrder} />}
-          path='cart/checkout'
-        />
-        <Route
-          element={<Admin />}
-          path="admin"
-        />
-        <Route
-          element={<AdminUsers APIclearCart={APIclearCart} />}
-          path="admin/users"
-        />
-        <Route
-          element={<UserDetails />}
-          path="admin/users/:userId"
-        />
-        <Route
-          element={<AdminProducts />}
-          path="admin/products"
-        />
-        <Route
-          element={<NotFound />}
-          path="*" />
-      </Routes>
-      <Footer />
+      <div className='main'>
+        <Routes>
+          <Route
+            element={<Home />}
+            exact path="" />
+          <Route
+            element={<Login cartSelector={cartSelector} />}
+            exact path="login/:from" />
+          <Route
+            element={<Products />}
+            path="products" />
+          <Route
+            element={<Product addProductToCart={addProductToCart} />}
+            path="products/:id" />
+          <Route
+            element={<Artists />}
+            exact path="artists/" />
+          <Route
+            element={<Artist />}
+            path="artists/:id" />
+          <Route
+            element={<Orders user={user} />}
+            path="profile/:id" />
+          <Route
+            element={<Cart editCartProductQuantity={editCartProductQuantity} removeProductFromCart={removeProductFromCart} clearCartProducts={clearCartProducts} />}
+            exact path="cart/" />
+          <Route
+            element={<CheckoutPage completeOrder={completeOrder} />}
+            path='cart/checkout'
+          />
+          <Route
+            element={<Admin />}
+            path="admin"
+          />
+          <Route
+            element={<AdminUsers APIclearCart={APIclearCart} />}
+            path="admin/users"
+          />
+          <Route
+            element={<UserDetails />}
+            path="admin/users/:userId"
+          />
+          <Route
+            element={<AdminProducts />}
+            path="admin/products"
+          />
+          <Route
+            element={<NotFound />}
+            path="*" />
+        </Routes>
+      </div>
     </div >
   )
 }

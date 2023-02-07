@@ -2,7 +2,7 @@ import React from "react";
 import { useRef } from "react";
 import { useUpdateUserMutation } from "../../api/shopAPI";
 
- const UpdateUserForm = ({user, closeModal}) => {
+const UpdateUserForm = ({ user, closeModal }) => {
 
     const [updateUser] = useUpdateUserMutation();
 
@@ -15,7 +15,7 @@ import { useUpdateUserMutation } from "../../api/shopAPI";
     const userId = user.id
 
     return (
-        <div>
+        <div className="edit-profile">
             <form onSubmit={async (e) => {
                 e.preventDefault();
                 const body = {
@@ -26,44 +26,43 @@ import { useUpdateUserMutation } from "../../api/shopAPI";
                     location: locationRef.current.value,
                     description: descriptionRef.current.value
                 }
-                const data = {userId, body}
+                const data = { userId, body }
                 const updatedProfile = await updateUser(data)
-                console.log("this is updated profile",updatedProfile)
+                console.log("this is updated profile", updatedProfile)
                 // probably gonna have to change this bottom part brother
                 window.localStorage.setItem('user', JSON.stringify(updatedProfile.data))
                 closeModal();
                 location.reload();
             }}>
-                <div>
-                    <label htmlFor="email">Email:</label>
-                    <input type="text" ref={emailRef} defaultValue={user.email}/>
+                <div className="section">
+                    <div className="label"><label htmlFor="email">Email:</label></div>
+                    <div className="value"><input type="text" ref={emailRef} defaultValue={user.email} /></div>
                 </div>
-                <div>
-                    <label htmlFor="email">Username:</label>
-                    <input type="text" ref={usernameRef} defaultValue={user.username}/>
+                <div className="section">
+                    <div className="label"><label htmlFor="email">Username:</label></div>
+                    <div className="value"><input type="text" ref={usernameRef} defaultValue={user.username} /></div>
                 </div>
-                <div>
-                    <label htmlFor="email">Fullname:</label>
-                    <input type="text" ref={fullnameRef} defaultValue={user.fullname}/>
+                <div className="section">
+                    <div className="label"><label htmlFor="email">Fullname:</label></div>
+                    <div className="value"><input type="text" ref={fullnameRef} defaultValue={user.fullname} /></div>
                 </div>
-                <div>
-                    <label htmlFor="email">Location:</label>
-                    <input type="text" ref={locationRef} defaultValue={user.location}/>
+                <div className="section">
+                    <div className="label"><label htmlFor="email">Location:</label></div>
+                    <div className="value"><input type="text" ref={locationRef} defaultValue={user.location} /></div>
                 </div>
                 {
-                user.is_artist
-                ?
-                <div>
-                <div>
-                    <label htmlFor="email">Profile Picture:</label>
-                    <input type="text" ref={profile_imgRef} defaultValue={user.profile_img}/>
-                </div>
-                <div>
-                    <label htmlFor="email">Description:</label>
-                    <input type="text" ref={descriptionRef} defaultValue={user.description}/>
-                </div>
-                </div>
-                : null
+                    user.is_artist
+                        ? <>
+                            <div className="section">
+                                <div className="label"><label htmlFor="email">Profile Picture:</label></div>
+                                <div className="value"><input type="text" ref={profile_imgRef} defaultValue={user.profile_img} /></div>
+                            </div>
+                            <div className="section">
+                                <div className="label"><label htmlFor="email">Description:</label></div>
+                                <div className="value"><textarea cols="30" rows="8" ref={descriptionRef} defaultValue={user.description} /></div>
+                            </div>
+                        </>
+                        : null
                 }
                 <button>Submit</button>
             </form>
