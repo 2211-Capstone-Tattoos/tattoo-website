@@ -1,8 +1,10 @@
-import { useState, useRef } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useRef } from 'react'
+import { useDispatch } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { loadUser } from '../users/userSlice'
 import { useAddProductToCartMutation, useRegisterMutation } from '../../api/shopAPI'
+
+import './Register.css'
 
 const Register = ({ cartSelector }) => {
   const params = useParams()
@@ -19,7 +21,7 @@ const Register = ({ cartSelector }) => {
   const passwordRef = useRef()
 
   return (
-    <div className="login">
+    <div className="register">
           <form onSubmit={async (e) => {
             e.preventDefault()
 
@@ -48,7 +50,6 @@ const Register = ({ cartSelector }) => {
                   })
                 })
               }
-
               if (params.from === 'cart-redirect') {
                 navigate('/cart')
               } else {
@@ -59,25 +60,27 @@ const Register = ({ cartSelector }) => {
             }
           }}>
             <h4>Register</h4>
-            <div>
-              <label htmlFor="email">Email: </label>
-              <input type="text" id='email-ref' ref={emailRef} defaultValue='' required={true} />
-            </div>
-            <div>
-              <label htmlFor="username">Username: </label>
-              <input type="text" ref={usernameRef} required={true} />
-            </div>
-            <div>
-              <label htmlFor="first-name">First name: </label>
-              <input type="text" ref={firstNameRef} required={true} />
-            </div>
-            <div>
-              <label htmlFor="last-name">Last name: </label>
-              <input type="text" ref={lastNameRef} required={true} />
-            </div>
-            <div>
-              <label htmlFor="password">Password: </label>
-              <input type="password" ref={passwordRef} required={true} minLength={8} />
+            <div className="register-inputs">
+              <div>
+                <label htmlFor="email">Email: </label>
+                <input type="text" id='email-ref' ref={emailRef} defaultValue='' required={true} />
+              </div>
+              <div>
+                <label htmlFor="username">Username: </label>
+                <input type="text" ref={usernameRef} required={true} />
+              </div>
+              <div>
+                <label htmlFor="first-name">First name: </label>
+                <input type="text" ref={firstNameRef} required={true} />
+              </div>
+              <div>
+                <label htmlFor="last-name">Last name: </label>
+                <input type="text" ref={lastNameRef} required={true} />
+              </div>
+              <div>
+                <label htmlFor="password">Password: </label>
+                <input type="password" ref={passwordRef} required={true} minLength={8} />
+              </div>
             </div>
             <div>
               <button>Create account</button>
