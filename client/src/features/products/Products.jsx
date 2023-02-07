@@ -7,7 +7,6 @@ const Products = () => {
   const { data = [], isLoading, isFetching, isError } = useGetAllProductsQuery()
   return (
     <>
-      <h2>All Products</h2>
       <div className="products">
         {
           isError

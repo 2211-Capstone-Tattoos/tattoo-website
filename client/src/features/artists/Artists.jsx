@@ -19,9 +19,13 @@ const Artists = () => {
                 const imgUrl = new URL(`../../assets/images/a${artist.profile_img}.png`, import.meta.url).href
 
                 return (
-                  <div className="product-card" key={artist.id}>
-                    <h2><Link to={`/artists/${artist.id}`}>{artist.fullname}</Link></h2>
-                    <img src={imgUrl} />
+                  <div className="artist-summary-container" key={artist.id}>
+                    <div className="artist-aside">
+                      <h2><Link to={`/artists/${artist.id}`}>{artist.fullname}</Link></h2>
+                      <span>{artist.location}</span>
+                      <p>- {artist.description}</p>
+                    </div>
+                    <img src={imgUrl} /> {/* Add a link! */}
                   </div>
                 )
               }
