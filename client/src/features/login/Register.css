@@ -1,0 +1,40 @@
+.register {
+  display: flex;
+  justify-content: center;
+}
+
+.register form {
+  background-color: #e0dedc;
+  color: #c2761f;
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+  padding: 1rem;
+  border: 1px solid black;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.register-inputs {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: .75rem;
+}
+
+.register-inputs > div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.register button {
+  color: #c2761f;
+  background-color: rgba(0,0,0,0);
+  padding: 0.3rem 1rem;
+  border-right: 1px solid;
+  margin-left: 4rem;
+}
+
+.register button:hover {
+  color: #a56114;
+}

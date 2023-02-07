@@ -31,6 +31,7 @@ import { Toaster } from 'react-hot-toast'
 
 import './App.css'
 import CheckoutPage from './features/checkout/CheckoutPage'
+import Register from './features/login/Register'
 
 const updateCartStorage = (cart) => {
   window.localStorage.setItem('cart', JSON.stringify(cart))
@@ -145,12 +146,12 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar user={user} />
+      <NavBar user={user} cartSelector={cartSelector}/>
       <NavLink to='/'>
         <h1 className='logo'>flashsheet</h1>
       </NavLink>
       <Toaster
-        position='top-right'
+        position='bottom-right'
       //toastOptions={}
       />
       <div className='main'>
@@ -159,8 +160,8 @@ function App() {
             element={<Home />}
             exact path="" />
           <Route
-            element={<Login cartSelector={cartSelector} />}
-            exact path="login/:from" />
+            element={<Register cartSelector={cartSelector} />}
+            exact path="register/:from" />
           <Route
             element={<Products />}
             path="products" />
