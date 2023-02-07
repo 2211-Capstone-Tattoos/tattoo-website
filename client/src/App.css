@@ -55,32 +55,51 @@ body {
   width: 75%;
 }
 
-.login {
-  width: 250px;
+.login-float {
+  background-color: #e0dedc;
+  color: #c2761f;
+  position: absolute;
+  top: 3.1rem;
+  right: 2.3rem;
+  min-width: 10vw;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 1rem;
   border: 1px solid black;
-  border-radius: 10px;
   justify-content: space-between;
+  gap: 1rem;
 }
 
-.login form {
+#login-form {
   display: flex;
   flex-direction: column;
-  text-align: left;
-  gap: 10px;
+  gap: 1rem;
 }
 
-.login form div {
+.login-form-inputs {
   display: flex;
   flex-direction: column;
+  gap: 1rem;
 }
 
-.login h4 {
-  text-align: center;
-  margin: 0 0 10px 0;
+.login-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 2rem;
 }
+
+.login-buttons button {
+  color: #c2761f;
+  background-color: rgba(0,0,0,0);
+  padding: 0.3rem 1rem;
+  border-right: 1px solid;
+}
+
+.login-buttons button:hover {
+  color: #a56114;
+}
+
 
 #footer {
   background-color: #c2761f;
