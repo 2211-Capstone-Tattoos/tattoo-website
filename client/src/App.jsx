@@ -13,6 +13,7 @@ import { addProduct, loadCart, removeProduct, emptyCart, editQuantity } from './
 import Home from './Home'
 import NotFound from './NotFound'
 import NavBar from './NavBar'
+import Footer from './Footer'
 import {
   Artists,
   Artist,
@@ -198,6 +199,7 @@ function App() {
           element={<NotFound />}
           path="*" />
       </Routes>
+      <Footer />
     </div >
   )
 }

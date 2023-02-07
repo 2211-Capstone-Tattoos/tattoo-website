@@ -31,7 +31,10 @@ const Orders = ({ user }) => {
           <p>Location: {user.location}</p>
           <hr />
           {user.is_artist
-            ? <p>Thanks for being one of our artists</p>
+            ? <div>
+              <p>Thanks for being one of our artists</p>
+              <p>Description: {user.Description}</p>
+            </div>
             : null
           }
         </div>
