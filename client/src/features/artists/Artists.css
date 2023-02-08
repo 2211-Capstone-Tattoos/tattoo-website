@@ -115,6 +115,7 @@
   align-items: center;
   gap: 15px;
   flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .single-artist .product-card {
@@ -123,13 +124,17 @@
   flex-direction: column;
   padding: 10px;
   height: auto;
-  max-width: 500px;
   gap: 5px;
+  background-color: #e0dedc;
+  margin: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .single-artist .product-card img {
   width: 100%;
-  height: auto;
+  height: 300px;
   flex: 1 1 auto;
 }
 
@@ -149,12 +154,15 @@
   font-family: inherit;
   font-size: 16px;
   background-color: rgba(255, 255, 255, 0);
-  color: black;
+  color: #c2761f;
   border: none;
 }
 
 .single-artist .product-card button {
   width: 85px;
+  color: #c2761f;
+  background-color: rgba(0,0,0,0);
+  border-right: 1px solid #c2761f;
 }
 
 .single-artist .product-card .is-active input,
@@ -171,4 +179,15 @@
 
 .single-artist .product-card .row {
   width: 100%;
+}
+
+#artist-products-box {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+#single-artist-main {
+  display: flex;
+  justify-content: center;
 }
