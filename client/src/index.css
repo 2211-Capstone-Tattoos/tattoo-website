@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: 'Teutonic1';
-  src: url('public/teutonic1.ttf');
+  src: url('/teutonic1.ttf');
 }
 
 * {

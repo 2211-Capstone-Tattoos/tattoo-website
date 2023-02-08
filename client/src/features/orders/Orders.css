@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   margin: auto;
-  min-width: 100%;
+  width: 100%;
   border-top: solid 1px;
 }
 
@@ -38,7 +38,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 10px;
   background-color: #e0dedc;
   color: #c2761f;
 }
@@ -50,12 +50,14 @@
 
 .order-product .details {
   max-width: 125px;
+  min-width: 100px;
   width: 100%;
   font-size: 12px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: left;
+  padding: 10px;
 }
 
 .profile {
@@ -63,13 +65,13 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  width: 50%;
+  width: 100%;
   border-right: solid 1px;
 }
 
 .profile button {
   width: 20%;
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0, 0);
   color: #e0dedc;
   border-right: solid 1px;
   align-self: flex-end;
@@ -89,6 +91,7 @@
   flex-direction: column;
   text-align: left;
   align-items: center;
+  flex: 1
 }
 
 .profile-items .section {
@@ -173,4 +176,15 @@ button {
   font-size: 14px;
   resize: vertical;
   overflow-y: hidden;
+}
+
+@media (max-width: 950px) {
+  .profile-order-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-order-container>* {
+    border: none;
+  }
 }

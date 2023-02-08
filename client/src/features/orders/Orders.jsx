@@ -23,7 +23,7 @@ const Orders = ({ user }) => {
     <>
       <div className='profile-order-container'>
         <div className="profile">
-        
+
           <div className="profile-items">
             <img src={user.is_artist ? imgUrl : user.profile_img} alt="your profile picture" />
             <div className="section">
@@ -47,8 +47,8 @@ const Orders = ({ user }) => {
               ? <p>Thanks for being one of our artists</p>
               : null
             }
+            <button onClick={openModal}>Edit...</button>
           </div>
-          <button onClick={openModal}>Edit...</button>
           <Modal
             className="edit-modal"
             isOpen={modalIsOpen}

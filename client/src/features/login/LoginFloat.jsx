@@ -15,59 +15,59 @@ const LoginFloat = ({ setOpenLogin, cartSelector }) => {
 
   return (
     <div className="login-float">
-        <>
-          <form id='login-form' onSubmit={async (e) => {
-            e.preventDefault()
+      <>
+        <form id='login-form' onSubmit={async (e) => {
+          e.preventDefault()
 
-            const body = {
-              username: loginUsernameRef.current.value.toLowerCase(),
-              password: loginPasswordRef.current.value
-            }
+          const body = {
+            username: loginUsernameRef.current.value.toLowerCase(),
+            password: loginPasswordRef.current.value
+          }
 
-            try {
-              const { data: response } = await loginUser(body)
+          try {
+            const { data: response } = await loginUser(body)
 
-              if (response.token) {
-                console.log("this is response", response)
-                window.localStorage.setItem('token', response.token)
-                window.localStorage.setItem('user', JSON.stringify(response.user))
-                dispatch(loadUser(response.user))
-                setOpenLogin(false)
-                // Add existing cart to user db
-                if (cartSelector.products?.length) {
-                  cartSelector.products.map(product => {
-                    addToCart({
-                      userId: response.user.id,
-                      productId: product.id,
-                      body: {
-                        quantity: product.quantity
-                      }
-                    })
+            if (response.token) {
+              console.log("this is response", response)
+              window.localStorage.setItem('token', response.token)
+              window.localStorage.setItem('user', JSON.stringify(response.user))
+              dispatch(loadUser(response.user))
+              setOpenLogin(false)
+              // Add existing cart to user db
+              if (cartSelector.products?.length) {
+                cartSelector.products.map(product => {
+                  addToCart({
+                    userId: response.user.id,
+                    productId: product.id,
+                    body: {
+                      quantity: product.quantity
+                    }
                   })
-                }
-              } else {
-                throw new Error(response.error, response.message)
+                })
               }
-            } catch (err) {
-              throw err
+            } else {
+              throw new Error(response.error, response.message)
             }
-          }}>
-            <div className="login-form-inputs">
-              <div>
-                <label htmlFor="username">Username: </label>
-                <input type="text" id='usernameRef' ref={loginUsernameRef} defaultValue='' required={true} />
-              </div>
-              <div>
-                <label htmlFor="password">Password: </label>
-                <input type="password" ref={loginPasswordRef} required={true} />
-              </div>
+          } catch (err) {
+            throw err
+          }
+        }}>
+          <div className="login-form-inputs">
+            <div>
+              <label htmlFor="username">Username: </label>
+              <input type="text" id='usernameRef' ref={loginUsernameRef} defaultValue='' required={true} />
             </div>
-          </form>
-          <div className="login-buttons">
-            <button type='submit' form='login-form'>Login</button>
-            <button type='button' onClick={() => { setOpenLogin(false); navigate('/register/main') }} >Click here to create an account</button>
+            <div>
+              <label htmlFor="password">Password: </label>
+              <input type="password" ref={loginPasswordRef} required={true} />
+            </div>
           </div>
-        </>
+        </form>
+        <div className="login-buttons">
+          <button type='submit' form='login-form'>Login</button>
+          <button type='button' onClick={() => { setOpenLogin(false); navigate('/register/main') }} >Register</button>
+        </div>
+      </>
     </div>
   )
 }

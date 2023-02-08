@@ -5,10 +5,14 @@ import { clearCart } from './features/cart/cartSlice'
 import { clearUser } from './features/users/userSlice'
 import { setBlankToast } from './features/toast/toastSlice'
 import LoginFloat from './features/login/LoginFloat'
+import NavItems from './NavItems'
+import { useEffect } from 'react'
 
 const NavBar = ({ cartSelector }) => {
   const userId = JSON.parse(window.localStorage.getItem('user'))?.id
   const [openLogin, setOpenLogin] = useState(false)
+  const [responsiveNav, setResponsiveNav] = useState(false)
+  const [showNavItems, setShowNavItems] = useState(false)
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -23,95 +27,25 @@ const NavBar = ({ cartSelector }) => {
     }
   }
 
-  return (
-    <div className="navbar">
-      <>
-        {
-          window.location.href.indexOf('admin') > -1
-            ? <>
-              <NavLink
-                to="/"
-                className={({ isActive }) =>
-                  isActive ? "active-nav" : undefined
-                }>
-                <button>Main Site</button>
-              </NavLink>
-              <NavLink
-                to="admin/users"
-                className={({ isActive }) =>
-                  isActive ? "active-nav" : undefined
-                }>
-                <button>Users</button>
-              </NavLink>
-              <NavLink
-                to="admin/orders"
-                className={({ isActive }) =>
-                  isActive ? "active-nav" : undefined
-                }>
-                <button>Orders</button>
-              </NavLink>
-              <NavLink
-                to="admin/products"
-                className={({ isActive }) =>
-                  isActive ? "active-nav" : undefined
-                }>
-                <button>Products</button>
-              </NavLink>
-            </>
-            : <>
-              <NavLink
-                to="products"
-                className={({ isActive }) =>
-                  isActive ? "active-nav" : undefined
-                }>
-                <button>Works</button>
-              </NavLink>
-              <NavLink
-                to="artists"
-                className={({ isActive }) =>
-                  isActive ? "active-nav" : undefined
-                }>
-                <button>Artists</button>
-              </NavLink>
-              {
-                userId
-                  ? <NavLink
-                    to={`profile/${userId}`}
-                    className={({ isActive }) =>
-                      isActive ? "active-nav" : undefined
-                    }>
-                    <button>Profile</button>
-                  </NavLink>
-                  : <></>
-              }
-              <NavLink
-                to={`cart`}
-                className={({ isActive }) =>
-                  isActive ? "active-nav" : undefined
-                }>
-                <button>Cart</button>
-              </NavLink>
-              {!userId
-                ? <>
-                  <button onClick={() => setOpenLogin(!openLogin)}>Login</button>
-                </>
-                : < NavLink
-                  to="/">
-                  <button onClick={() => handleLogout()}>Log Out</button>
-                </NavLink>
-              }
-            </>
-        }
-        <>{
-          openLogin
-            ?
-            <LoginFloat setOpenLogin={setOpenLogin} cartSelector={cartSelector} />
+  useEffect(() => {
+    if (window.innerWidth < 590) {
+      setResponsiveNav(true)
+    }
+  })
 
-            : null
+  return (
+    <div className='navbar'>
+      <div className="full-nav">
+        <NavItems cartSelector={cartSelector} setShowNavItems={setShowNavItems} />
+      </div>
+      <div className="small-nav">
+        <button onClick={() => setShowNavItems(!showNavItems)}>☰</button>
+        {showNavItems
+          ? <NavItems cartSelector={cartSelector} setShowNavItems={setShowNavItems} />
+          : null
         }
-        </>
-      </>
-    </div >
+      </div>
+    </div>
   )
 }
 
