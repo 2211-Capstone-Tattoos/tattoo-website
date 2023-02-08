@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { loadUser } from '../users/userSlice'
 import { useAddProductToCartMutation, useLoginMutation } from '../../api/shopAPI'
 
-const LoginFloat = ({ setOpenLogin, cartSelector }) => {
+const LoginFloat = ({ setOpenLogin, cartSelector, setShowNavItems }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [loginUser] = useLoginMutation()
@@ -33,6 +33,7 @@ const LoginFloat = ({ setOpenLogin, cartSelector }) => {
               window.localStorage.setItem('user', JSON.stringify(response.user))
               dispatch(loadUser(response.user))
               setOpenLogin(false)
+              setShowNavItems(false)
               // Add existing cart to user db
               if (cartSelector.products?.length) {
                 cartSelector.products.map(product => {
@@ -65,7 +66,7 @@ const LoginFloat = ({ setOpenLogin, cartSelector }) => {
         </form>
         <div className="login-buttons">
           <button type='submit' form='login-form'>Login</button>
-          <button type='button' onClick={() => { setOpenLogin(false); navigate('/register/main') }} >Register</button>
+          <button type='button' onClick={() => { setOpenLogin(false); setShowNavItems(false); navigate('/register/main'); }} >Register</button>
         </div>
       </>
     </div>
