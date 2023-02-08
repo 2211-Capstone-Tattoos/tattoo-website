@@ -1,10 +1,12 @@
-import React from "react";
 import { useRef } from "react";
+import { useDispatch } from "react-redux";
 import { useUpdateUserMutation } from "../../api/shopAPI";
+import { loadUser } from "../users/userSlice";
 
 const UpdateUserForm = ({ user, closeModal }) => {
 
     const [updateUser] = useUpdateUserMutation();
+    const dispatch = useDispatch()
 
     const emailRef = useRef()
     const usernameRef = useRef()
@@ -28,9 +30,9 @@ const UpdateUserForm = ({ user, closeModal }) => {
                 }
                 const data = { userId, body }
                 const updatedProfile = await updateUser(data)
+                dispatch(loadUser(updatedProfile.data))
                 window.localStorage.setItem('user', JSON.stringify(updatedProfile.data))
                 closeModal();
-                location.reload();
             }}>
                 <div className="section">
                     <div className="label"><label htmlFor="email">Email:</label></div>

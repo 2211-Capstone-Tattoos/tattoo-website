@@ -2,7 +2,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     margin-top: 20px;
     gap: 30px;
 }
@@ -158,6 +158,14 @@
     gap: 5px;
 }
 
+.top a {
+    color: #c2761f;
+}
+
+.top a:hover {
+    color: #a56114;
+}
+
 @media (max-width: 600px) {
     .cart {
         flex-direction: column;
@@ -169,12 +177,4 @@
 
     #your-cart {
         width: 100%;
-    }
-
-    .top a {
-        color: #c2761f;
-    }
-
-    .top a:hover {
-        color: #a56114;
     }

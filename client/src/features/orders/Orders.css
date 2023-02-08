@@ -9,7 +9,10 @@
 .orders {
   display: flex;
   flex-direction: column;
+  min-width: 40%;
+  max-width: 40%;
   gap: 20px;
+  padding: 1rem;
 }
 
 .order {
@@ -17,21 +20,45 @@
   flex-direction: column;
   border: 1px solid;
   padding: 10px;
+  background-color: #e0dedc ;
+  color: #c2761f;
+  border: black 1px solid;
+}
+
+.open-order-button {
+  background-color: rgba(0, 0, 0, 0);
+  padding: 0;
+  color: #c2761f;
+  transition: .2s;
+  transform: rotate(0.75turn);
+}
+
+.open-order-button.open {
+  transform: rotate(1turn);
 }
 
 .header {
   display: flex;
   flex-direction: column;
   text-align: left;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .order-products {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
+  display: none;
+  position: column;
+  flex-wrap: wrap;
+  max-width: 100%;
+  height: 0%;
   gap: 20px;
   padding: 20px;
+  z-index: 1;
+  transition: .2s;
+}
+
+.order-products.open {
+  display: flex;
+  height: 100%;
 }
 
 .order-product {
@@ -63,10 +90,39 @@
 .profile {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  width: 100%;
+  width: 60%;
   border-right: solid 1px;
+  padding: 1rem 1rem 1rem 0;
+}
+
+.profile-items {
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  align-items: center;
+  gap: 1rem;
+}
+
+.profile-items img {
+  width: 175px;
+  align-self: flex-start;
+}
+
+.profile-items .profile-items-text {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.profile-items .section {
+  display: flex;
+  gap: 1rem;
+}
+
+.profile-items .profile-items-text p {
+  margin-top: 5rem;
 }
 
 .profile button {
@@ -75,38 +131,8 @@
   color: #e0dedc;
   border-right: solid 1px;
   align-self: flex-end;
-  margin-right: 2rem;
   font-size: 20px;
   padding: 0.3rem;
-}
-
-.profile-items img {
-  width: 300px;
-  margin: 20px 0;
-}
-
-.profile-items {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-  align-items: center;
-  flex: 1
-}
-
-.profile-items .section {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  margin-left: 40%;
-}
-
-.profile-items .title {
-  width: 90px;
-}
-
-button {
-  padding: 3px;
 }
 
 .back-button {

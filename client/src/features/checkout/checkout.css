@@ -15,9 +15,30 @@
   flex-direction: column;
   border: 2px solid black;
   gap: 10px;
+  background-color: #e0dedc;
+  color: #c2761f;
+  padding: 15px;
+}
+
+#submit {
+  color: #c2761f;
+  background-color: rgba(0,0,0,0);
+  right: auto;
+  border-right: 1px solid #c2761f;
+  margin-top: 10px;
+}
+
+#submit:hover {
+  color: #a56114;
 }
 
 #checkout-summary img {
   width: 100px;
   height: 100px
+}
+
+#payment-form {
+  background-color: #e0dedc;
+  padding: 15px;
+  border: 2px solid black;
 }

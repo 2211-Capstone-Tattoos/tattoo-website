@@ -12,6 +12,7 @@ const Artist = () => {
   const imgUrl = new URL(`../../assets/images/a${data.profile_img}.png`, import.meta.url).href
 
   return (
+    <div id="single-artist-main">
     <div className='single-artist'>
       <div className='top'>
         <div className='left'>
@@ -32,22 +33,24 @@ const Artist = () => {
           ? <ProductForm setIsPosting={setIsPosting} />
           : null
         }
-        {isError
-          ? <>Oh noes something broke!</>
-          : isLoading || isFetching
+        <div id="artist-products-box">
+          {isError
+            ? <>Oh noes something broke!</>
+            : isLoading || isFetching
             ? <>Loading products...</>
             : data.products.map(product => {
               if (product.active) {
                 return (
                   <div style={{ order: product.id }} key={product.id}>
-
                     <ArtistProduct product={product} isOwner={data.isOwner} />
                   </div>
                 )
               }
             })
-        }
+          }
+        </div>
       </div>
+    </div>
     </div>
   )
 }
