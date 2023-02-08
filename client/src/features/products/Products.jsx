@@ -16,8 +16,6 @@ const Products = () => {
               : data.map(product => {
                 if (product.active) {
                   const imgUrl = new URL(`../../assets/images/${product.img}.png`, import.meta.url).href
-                  console.log(imgUrl)
-                  console.log(product.img)
                   return (
                     <div className="product-card" key={product.id}>
                       <div className="top">

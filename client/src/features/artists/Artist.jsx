@@ -9,9 +9,7 @@ const Artist = () => {
   const { id } = useParams()
   const { data = [], isLoading, isFetching, isError } = useGetArtistQuery(id)
   const [isPosting, setIsPosting] = useState()
-  console.log("this is the data we get", data)
   const imgUrl = new URL(`../../assets/images/a${data.profile_img}.png`, import.meta.url).href
-  console.log(imgUrl)
 
   return (
     <div className='single-artist'>

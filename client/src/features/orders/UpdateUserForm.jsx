@@ -28,8 +28,6 @@ const UpdateUserForm = ({ user, closeModal }) => {
                 }
                 const data = { userId, body }
                 const updatedProfile = await updateUser(data)
-                console.log("this is updated profile", updatedProfile)
-                // probably gonna have to change this bottom part brother
                 window.localStorage.setItem('user', JSON.stringify(updatedProfile.data))
                 closeModal();
                 location.reload();

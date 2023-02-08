@@ -39,14 +39,12 @@ const CheckoutForm = ({ completeOrder, orderId }) => {
       return
     }
 
-    stripe.retrievePaymentIntent(clientSecret).then( async ({ paymentIntent }) => {
-      console.log(paymentIntent)
+    stripe.retrievePaymentIntent(clientSecret).then(async ({ paymentIntent }) => {
       switch (paymentIntent.status) {
         //figure out toasts.
         case "succeeded":
           dispatch(setBlankToast('It worked!'))
           setMessage('Success!!')
-          console.log('Checkoutform orderId --->', orderId)
           await completeOrder(orderId)
           navigate('/cart')
           break;
@@ -80,7 +78,7 @@ const CheckoutForm = ({ completeOrder, orderId }) => {
       }
     })
 
-    if(error) {
+    if (error) {
       if (error.type === "card_error" || error.type === "validation_error") {
         setMessage(error.message);
       } else {
@@ -101,7 +99,7 @@ const CheckoutForm = ({ completeOrder, orderId }) => {
     <form id="payment-form" onSubmit={handleSubmit}>
       <LinkAuthenticationElement
         id="link-authentication-element"
-        //onChange={(e) => setEmail(e.target.value)}
+      //onChange={(e) => setEmail(e.target.value)}
       />
       <PaymentElement id='payment-element' options={paymentElementOptions} />
       <button disabled={isLoading || !stripe || !elements} id="submit">

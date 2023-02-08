@@ -135,7 +135,6 @@ async function updateUser(userId, fields) {
     RETURNING *
     `, Object.values(fields))
     delete user.password
-    console.log(user)
     return user
   } catch (error) {
     console.error(error);

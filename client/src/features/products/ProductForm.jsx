@@ -27,7 +27,6 @@ const ProductForm = ({ setIsPosting }) => {
                         artistId: JSON.parse(window.localStorage.getItem('user')).id,
                         body
                     })
-                    console.log(newProduct)
                     setIsPosting(false)
                 } catch (error) {
                     throw error
@@ -35,19 +34,19 @@ const ProductForm = ({ setIsPosting }) => {
             }}>
                 <div>
                     <label htmlFor="title">Title: </label>
-                    <input type="text" ref={titleRef} required={true}/>
+                    <input type="text" ref={titleRef} required={true} />
                 </div>
                 <div>
                     <label htmlFor="description">Description: </label>
-                    <input type="text" ref={descriptionRef} required={true}/>
+                    <input type="text" ref={descriptionRef} required={true} />
                 </div>
                 <div>
                     <label htmlFor="price">Price: </label>
-                    <input type="text" ref={priceRef} required={true}/>
+                    <input type="text" ref={priceRef} required={true} />
                 </div>
                 <div>
                     <label htmlFor="img">Image: </label>
-                    <input type="text" ref={imgRef} required={true}/>
+                    <input type="text" ref={imgRef} required={true} />
                 </div>
                 <button>Create!</button>
             </form>

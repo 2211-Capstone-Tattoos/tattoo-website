@@ -94,16 +94,13 @@ const AdminUsers = ({ APIclearCart }) => {
   }
 
   return (
-    <div>
+    <div className='admin-users'>
       <div className="header">
-        <div className="users">All Users</div>
-        <div className="search-bar">
-          <input onChange={(e) => setSearch(e.target.value)}></input>
-        </div>
+        <input className="search-bar" placeholder="Search Users" onChange={(e) => setSearch(e.target.value)}></input>
         {
           addView
-            ? <button onClick={() => handleClose()}>Close</button>
-            : <button onClick={() => setAddView(true)}>Add User</button>
+            ? <a onClick={() => handleClose()}>Close</a>
+            : <a onClick={() => setAddView(true)}>Add User</a>
         }
       </div>
       <table>
@@ -167,10 +164,21 @@ const AdminUsers = ({ APIclearCart }) => {
                   <td>{user.fullname ? user.fullname : '---'}</td>
                   <td>{user.email ? user.email : '---'}</td>
                   <td>{user.location ? user.location : '---'}</td>
-                  <td><a onClick={() => makeArtist(user)}>{user.is_artist ? "\u2714" : "\u274C"}</a></td>
-                  <td><a onClick={() => makeAdmin(user)}>{user.admin ? "\u2714" : "\u274C"}</a></td>
-                  <td><a onClick={() => navigate(`${user.id}`)}>View Details</a></td>
-                  <td><a onClick={() => removeAllOfUser(user)}>Delete User</a></td>
+                  <td className="artist-admin">
+                    <a onClick={() => makeArtist(user)}>
+                      <div className={user.is_artist ? 'active' : null}>
+                        {user.is_artist ? "\u2714" : "\u274C"}
+                      </div>
+                    </a>
+                  </td>
+                  <td className="artist-admin">
+                    <a onClick={() => makeAdmin(user)}>
+                      <div className={user.admin ? 'active' : null}>
+                        {user.admin ? "\u2714" : "\u274C"}
+                      </div>
+                    </a>
+                  </td>
+                  <td className="delete-user"><a onClick={() => removeAllOfUser(user)}>Delete User</a></td>
                 </tr>
               )
 

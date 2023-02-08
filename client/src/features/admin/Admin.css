@@ -1,18 +1,66 @@
-.users {
-  text-align: left;
-
+td a {
+  color: white
 }
 
-.admin-products td {
-  max-width: 300px;
+td a:hover {
+  color: black;
+}
+
+.users {
+  text-align: left;
 }
 
 table {
-  width: 800px;
+  width: 100%;
+}
+
+.delete-user {
+  min-width: 80px;
+}
+
+.artist-admin div,
+.toggle-active div {
+  background-color: crimson;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.artist-admin div:hover,
+.toggle-active div:hover {
+  background-color: red;
+  color: white
+}
+
+.artist-admin .active,
+.toggle-active .active {
+  background-color: limegreen;
+}
+
+.artist-admin .active:hover,
+.toggle-active .active:hover {
+  background-color: lime;
+}
+
+
+.artist-admin .active:hover .toggle-active .active:hover {
+  background-color: lime;
 }
 
 tbody tr:nth-child(odd) {
   background-color: rgb(112, 112, 112);
+}
+
+table .price {
+  display: flex;
+}
+
+table .price div {
+  min-width: 30px;
+  overflow: hidden;
 }
 
 td,
@@ -20,8 +68,4 @@ th {
   padding: 0 5px;
   font-size: 12px;
   text-align: left;
-}
-
-td a {
-  color: red
 }

@@ -30,30 +30,14 @@ const NavItems = ({ cartSelector, setShowNavItems }) => {
       {
         window.location.href.indexOf('admin') > -1
           ? <>
-            <NavLink
-              to="/"
-              onClick={() => setShowNavItems(false)}
-              className={({ isActive }) =>
-                isActive ? "active-nav nav-link" : 'nav-link'
 
-              }>
-              <button>Main Site</button>
-            </NavLink>
             <NavLink
               to="admin/users"
               onClick={() => setShowNavItems(false)}
               className={({ isActive }) =>
                 isActive ? "active-nav nav-link" : 'nav-link'
               }>
-              <button>Users</button>
-            </NavLink>
-            <NavLink
-              to="admin/orders"
-              onClick={() => setShowNavItems(false)}
-              className={({ isActive }) =>
-                isActive ? "active-nav nav-link" : 'nav-link'
-              }>
-              <button>Orders</button>
+              <button>Manage Users</button>
             </NavLink>
             <NavLink
               to="admin/products"
@@ -61,7 +45,7 @@ const NavItems = ({ cartSelector, setShowNavItems }) => {
               className={({ isActive }) =>
                 isActive ? "active-nav nav-link" : 'nav-link'
               }>
-              <button>Products</button>
+              <button>Manage Products</button>
             </NavLink>
           </>
           : <>

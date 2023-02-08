@@ -124,7 +124,6 @@ router.get("/", async (req, res, next) => {
 router.patch('/:userId', async (req, res, next) => {
 
   const userId = req.params.userId
-  console.log(req.user)
   try {
     if (req.user?.admin || req.user?.id === userId) {
       if (!req.user?.admin && req.body.admin) {
@@ -136,7 +135,6 @@ router.patch('/:userId', async (req, res, next) => {
         })
       } else {
         const updatedUser = await updateUser(userId, req.body)
-        console.log(updatedUser)
         res.send(updatedUser)
       }
     } else {
