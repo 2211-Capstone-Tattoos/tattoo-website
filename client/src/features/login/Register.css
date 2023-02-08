@@ -11,14 +11,12 @@
   width: 33%;
   padding: 1rem;
   border: 1px solid black;
-  justify-content: space-between;
   gap: 1rem;
 }
 
 .register-inputs {
   display: flex;
   flex-direction: column;
-  text-align: left;
   gap: .75rem;
 }
 
@@ -27,12 +25,15 @@
   justify-content: space-between;
 }
 
+.register-create-button {
+  align-self: flex-end;
+}
+
 .register button {
   color: #c2761f;
   background-color: rgba(0,0,0,0);
   padding: 0.3rem 1rem;
   border-right: 1px solid;
-  margin-left: 4rem;
 }
 
 .register button:hover {
