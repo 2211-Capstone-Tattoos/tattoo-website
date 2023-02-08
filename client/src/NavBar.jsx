@@ -6,7 +6,7 @@ import { clearUser } from './features/users/userSlice'
 import { setBlankToast } from './features/toast/toastSlice'
 import LoginFloat from './features/login/LoginFloat'
 
-const NavBar = ({cartSelector}) => {
+const NavBar = ({ cartSelector }) => {
   const userId = JSON.parse(window.localStorage.getItem('user'))?.id
   const [openLogin, setOpenLogin] = useState(false)
   const navigate = useNavigate()
@@ -24,8 +24,8 @@ const NavBar = ({cartSelector}) => {
   }
 
   return (
-    <>
-      <div className="navbar">
+    <div className="navbar">
+      <>
         {
           window.location.href.indexOf('admin') > -1
             ? <>
@@ -93,8 +93,8 @@ const NavBar = ({cartSelector}) => {
               </NavLink>
               {!userId
                 ? <>
-                    <button onClick={() => setOpenLogin(!openLogin)}>Login</button>
-                  </>
+                  <button onClick={() => setOpenLogin(!openLogin)}>Login</button>
+                </>
                 : < NavLink
                   to="/">
                   <button onClick={() => handleLogout()}>Log Out</button>
@@ -102,16 +102,16 @@ const NavBar = ({cartSelector}) => {
               }
             </>
         }
-      </div >
-      <>{
-      openLogin
-      ? <>
-          <LoginFloat setOpenLogin={setOpenLogin} cartSelector={cartSelector}/>
+        <>{
+          openLogin
+            ?
+            <LoginFloat setOpenLogin={setOpenLogin} cartSelector={cartSelector} />
+
+            : null
+        }
         </>
-      : null
-      }
       </>
-    </>
+    </div >
   )
 }
 
