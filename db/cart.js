@@ -9,7 +9,7 @@ const createCart = async (userId) => {
     `, [userId])
     return cart
   } catch (error) {
-    console.log(error)
+    console.error(error)
     throw error
   }
 }
@@ -100,7 +100,6 @@ const editProductQuantities = async ({ ...fields }) => {
       return product
 
     }))
-    console.log('this is promised products', promisedProducts)
     return promisedProducts
   } catch (error) {
     console.error(error)

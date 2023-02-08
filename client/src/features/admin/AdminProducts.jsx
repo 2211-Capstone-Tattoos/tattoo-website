@@ -17,11 +17,6 @@ const AdminProducts = () => {
   const [artistId, setArtistId] = useState('1')
   const artistData = useGetAllArtistsQuery()
 
-
-
-  console.log(artistData.data)
-
-  console.log(data)
   const handleSubmit = async (productId) => {
     const body = {
       title: title,
@@ -76,22 +71,18 @@ const AdminProducts = () => {
 
   return (
     <div className="admin-products">
-      <div>
-
-        All Products
-        <div className="search-bar">
-          <input onChange={(e) => setSearch(e.target.value)}></input>
-        </div>
+      <div className="header">
+        <input className="search-bar" placeholder="Search Products" onChange={(e) => setSearch(e.target.value)}></input>
         {
           addView
-            ? <button onClick={() => handleClose()}>Close</button>
-            : <button onClick={() => setAddView(true)}>Add Product</button>
+            ? <a onClick={() => handleClose()}>Close</a>
+            : <a onClick={() => setAddView(true)}>Add Product</a>
         }
       </div>
 
 
 
-      <table class="sortable">
+      <table>
 
         <thead>
           <tr>
@@ -120,8 +111,10 @@ const AdminProducts = () => {
               </select></td>
               <td contentEditable onInput={(e) => setTitle(e.currentTarget.textContent)}>NewProduct</td>
               <td><div contentEditable onInput={(e) => setDescription(e.currentTarget.textContent)}>This is a new product</div></td>
-              <td>$<div contentEditable onInput={(e) => setPrice(e.currentTarget.textContent)}>0</div></td>
+              <td className="price">$<div contentEditable onInput={(e) => setPrice(e.currentTarget.textContent)}>0</div></td>
+              <td></td>
               <td><button onClick={() => handleSubmit()}>{"\u2714"}</button></td>
+
 
             </tr>
             : <></>
@@ -154,6 +147,7 @@ const AdminProducts = () => {
                     <td><div contentEditable onInput={(e) => setTitle(e.currentTarget.textContent)}>{product.title}</div></td>
                     <td><div contentEditable onInput={(e) => setDescription(e.currentTarget.textContent)}>{product.description}</div></td>
                     <td>$<div contentEditable onInput={(e) => setPrice(e.currentTarget.textContent)}>{product.price.slice(1)}</div></td>
+
                     <td><a disabled={addView} onClick={() => toggleActive(product)}>{product.active ? "\u2714" : "\u274C"}</a></td>
                     <td><button onClick={() => handleSubmit(product.id)}>{"\u2714"}</button><button onClick={() => setEditView(null)}>{"\u274C"}</button></td>
 
@@ -167,8 +161,13 @@ const AdminProducts = () => {
                     <td>{product.title ? product.title : '---'}</td>
                     <td>{product.description ? product.description : '---'}</td>
                     <td>{product.price ? product.price : '---'}</td>
-                    <td><a disabled={addView} onClick={() => toggleActive(product)}>{product.active ? "\u2714" : "\u274C"}</a></td>
-                    <td><a disabled={addView} onClick={() => handleOpenEdit(product)}>Edit</a></td>
+                    <td className="toggle-active">
+                      <a onClick={() => toggleActive(product)}>
+                        <div className={product.active ? 'active' : null}>
+                          {product.active ? "\u2714" : "\u274C"}
+                        </div>
+                      </a>
+                    </td>                    <td><a disabled={addView} onClick={() => handleOpenEdit(product)}>Edit</a></td>
                   </tr>
                 )
               }

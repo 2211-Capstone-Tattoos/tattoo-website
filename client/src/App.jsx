@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Routes, Route, NavLink } from 'react-router-dom'
+import { Routes, Route, NavLink, Navigate } from 'react-router-dom'
 import {
   useGetCartQuery,
   useAddProductToCartMutation,
@@ -146,10 +146,14 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar user={user} cartSelector={cartSelector}/>
-      <NavLink to='/'>
-        <h1 className='logo'>flashsheet</h1>
-      </NavLink>
+      <NavBar user={user} cartSelector={cartSelector} />
+      {window.location.href.indexOf('admin') !== -1
+        ? null
+        : < NavLink to='/'>
+
+          <h1 className='logo'>flashsheet</h1>
+        </NavLink>
+      }
       <Toaster
         position='bottom-right'
       //toastOptions={}
@@ -185,7 +189,11 @@ function App() {
             path='cart/checkout'
           />
           <Route
-            element={<Admin />}
+            element={
+              <Navigate
+                to='users'
+                replace
+              />}
             path="admin"
           />
           <Route
@@ -205,7 +213,7 @@ function App() {
             path="*" />
         </Routes>
       </div>
-        <Footer />
+      <Footer />
     </div >
   )
 }

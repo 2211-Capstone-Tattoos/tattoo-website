@@ -28,7 +28,6 @@ const LoginFloat = ({ setOpenLogin, cartSelector, setShowNavItems }) => {
             const { data: response } = await loginUser(body)
 
             if (response.token) {
-              console.log("this is response", response)
               window.localStorage.setItem('token', response.token)
               window.localStorage.setItem('user', JSON.stringify(response.user))
               dispatch(loadUser(response.user))

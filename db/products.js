@@ -108,7 +108,6 @@ const getProductsByOrderId = async (orderId) => {
     ON products.id = order_products."productId"
     WHERE order_products."orderId" = ${orderId}
     `)
-    console.log(products)
     return products
   } catch (error) {
     throw error

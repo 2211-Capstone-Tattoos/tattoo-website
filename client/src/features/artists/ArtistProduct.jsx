@@ -32,7 +32,6 @@ const ArtistProduct = ({ product, isOwner }) => {
         productId: product.id,
         body
       })
-      console.log(updatedProduct)
       setIsEditable(false)
     } catch (err) {
       throw err
@@ -46,7 +45,6 @@ const ArtistProduct = ({ product, isOwner }) => {
         artistId: artistId,
         productId: product.id
       })
-      console.log(removedProduct)
     } catch (err) {
       throw err
     }
