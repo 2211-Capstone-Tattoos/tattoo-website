@@ -1,5 +1,4 @@
-import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useGetUserOrdersQuery } from '../../api/shopAPI'
 import { Link } from 'react-router-dom'
@@ -11,12 +10,15 @@ const Orders = ({ user }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const { id } = useParams()
   const { data = [], isLoading, isFetching, isError } = useGetUserOrdersQuery(id)
+  //const [user, setUser] = useState(userData) 
   function openModal() {
     setIsOpen(true);
   }
   function closeModal() {
     setIsOpen(false);
   }
+
+
   const imgUrl = new URL(`../../assets/images/a${user.profile_img}.png`, import.meta.url).href
 
   return (
@@ -26,28 +28,29 @@ const Orders = ({ user }) => {
 
           <div className="profile-items">
             <img src={user.is_artist ? imgUrl : user.profile_img} alt="your profile picture" />
-            <div className="section">
-              <div className="title">Username: </div>
-              <div className="value">{user.username}</div>
-            </div>
-            <div className="section">
-              <div className="title">Name: </div>
-              <div className="value">{user.fullname}</div>
-            </div>
-            <div className="section">
-              <div className="title">Email: </div>
-              <div className="value">{user.email}</div>
-            </div>
-            <div className="section">
-              <div className="title">Location:</div>
-              <div className="value">{user.location}</div>
-            </div>
-            <hr />
+            <div className="profile-items-text">
+              <div className="section">
+                <div className="title">Username: </div>
+                <div className="value">{user.username}</div>
+              </div>
+              <div className="section">
+                <div className="title">Name: </div>
+                <div className="value">{user.fullname}</div>
+              </div>
+              <div className="section">
+                <div className="title">Email: </div>
+                <div className="value">{user.email}</div>
+              </div>
+              <div className="section">
+                <div className="title">Location:</div>
+                <div className="value">{user.location}</div>
+              </div>
+              <button onClick={openModal}>Edit...</button>
             {user.is_artist
               ? <p>Thanks for being one of our artists</p>
               : null
             }
-            <button onClick={openModal}>Edit...</button>
+            </div>
           </div>
           <Modal
             className="edit-modal"
@@ -88,6 +91,7 @@ const Orders = ({ user }) => {
                           <p>Order #: {order.id}</p>
                           <p>Total: {order.total}</p>
                         </div>
+                        <button className='open-order-button' onClick={(e) => {e.target.nextSibling.classList.toggle('open'); e.target.classList.toggle('open')}}>&#5167;</button>
                         <div className="order-products">
                           {
                             order.products.map((product) => {

@@ -33,7 +33,9 @@ const Artists = () => {
                           }
                           const imgUrl = new URL(`../../assets/images/${product.img}.png`, import.meta.url).href
                           return (
-                            <Link to={`/products/${product.id}`} ><img src={imgUrl} alt="product-image" className="artist-thumbnail" /></Link>
+                            <Link to={`/products/${product.id}`} key={product.id}>
+                              <img src={imgUrl} alt="product-image" className="artist-thumbnail" />
+                            </Link>
                           )
                         })
                       } 
