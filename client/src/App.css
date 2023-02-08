@@ -61,7 +61,7 @@ body {
 
 .logo {
   font-family: 'Teutonic1';
-  font-size: 20vw;
+  font-size: 15vw;
   margin-bottom: 2rem;
   color: #e0dedc;
 }
@@ -130,6 +130,7 @@ body {
   flex-direction: row;
   justify-content: space-evenly;
   border-top: solid 1px;
+  margin-top: auto;
 }
 
 #footer div {

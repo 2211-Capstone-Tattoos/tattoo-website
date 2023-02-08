@@ -2,7 +2,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     margin-top: 20px;
     gap: 30px;
 }
@@ -170,6 +170,7 @@
     #your-cart {
         width: 100%;
     }
+}
 
 .top a {
     color: #c2761f;
