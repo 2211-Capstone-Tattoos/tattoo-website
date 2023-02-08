@@ -95,7 +95,7 @@ const Cart = ({ editCartProductQuantity, removeProductFromCart, clearCartProduct
               : <>Loading Cart...</>
           }
           <h3>{`Subtotal (${cart && cart.products ? cart.products?.length : 0} items): $${totalCart}`}</h3>
-          <button onClick={() => { clearCartProducts() }}>Clear Cart</button>
+          <button id="clear-button" onClick={() => { clearCartProducts() }}>Clear Cart</button>
         </div>
         <div id="order-summary">
           <h3>Order Summary</h3>
