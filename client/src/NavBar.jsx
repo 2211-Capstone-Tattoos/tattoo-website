@@ -36,7 +36,7 @@ const NavBar = ({ cartSelector }) => {
   return (
     <div className='navbar'>
       <div className="full-nav">
-        <NavItems cartSelector={cartSelector} />
+        <NavItems cartSelector={cartSelector} setShowNavItems={setShowNavItems} />
       </div>
       <div className="small-nav">
         <button onClick={() => setShowNavItems(!showNavItems)}>☰</button>
