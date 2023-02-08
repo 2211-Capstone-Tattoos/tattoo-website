@@ -21,12 +21,27 @@ const Artists = () => {
                 return (
                   <div className="artist-summary-container" key={artist.id}>
                     <div className="artist-aside">
-                      <h2><Link to={`/artists/${artist.id}`}>{artist.fullname}</Link></h2>
-                      <span>{artist.location}</span>
-                      <p>- {artist.description}</p>
+                      <div className="artist-aside-text">
+                        <h2><Link to={`/artists/${artist.id}`}>{artist.fullname}</Link></h2>
+                        <span>{artist.location}</span>
+                        <p>- {artist.description}</p>
+                      </div>
+                      <div className="artist-overview-thumbnails">{
+                        artist.products?.map((product, index) => {
+                          if (index > 2) {
+                            return
+                          }
+                          const imgUrl = new URL(`../../assets/images/${product.img}.png`, import.meta.url).href
+                          return (
+                            <Link to={`/products/${product.id}`} ><img src={imgUrl} alt="product-image" className="artist-thumbnail" /></Link>
+                          )
+                        })
+                      } 
+                      </div>
                     </div>
-                    <img src={imgUrl} /> {/* Add a link! */}
+                    <Link to={`/artists/${artist.id}`} ><img src={imgUrl} /></Link>
                   </div>
+                  
                 )
               }
             })
