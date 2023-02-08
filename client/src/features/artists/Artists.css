@@ -19,16 +19,36 @@
 .artists .artist-aside {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  margin: 1rem 0 0 .2rem;
   width: 48%;
+  justify-content: space-between;
+  margin: 1rem 0 1rem .2rem;
+}
+
+.artists .artist-aside .artist-aside-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   gap: 10px;
   text-align: left;
 }
 
 .artists div:nth-child(odd) .artist-aside {
-  text-align: right;
   margin-right: .2rem;
+}
+
+.artists div:nth-child(odd) .artist-aside .artist-aside-text {
+  text-align: right;
+}
+
+.artists .artist-aside .artist-overview-thumbnails {
+  display: flex;
+  gap: 1rem;
+  align-self: center;
+}
+
+.artists .artist-aside .artist-overview-thumbnails img {
+  width: 150px;
+  height: 150px;
 }
 
 .artists .artist-aside a {
@@ -44,14 +64,20 @@
   font-style: italic;
 }
 
-.artists .artist-summary-container img {
+/* These are just for the artist profiles */
+.artists .artist-summary-container>a {
   width: 50%;
   display: flex;
   border-left: solid 1px;
-  padding: 1.8% 0 1.8% 1.8%
+  padding: 1.8% 0 1.8% 1.8%;
+  color: inherit;
 }
 
-.artists div:nth-child(odd) img {
+.artists .artist-summary-container>a>img {
+  width: 100%;
+}
+
+.artists div:nth-child(odd)>a {
   border-left: none;
   border-right: solid 1px;
   padding: 1.8% 1.8% 1.8% 0

@@ -111,7 +111,7 @@ body {
   width: 100%;
   height: max-content;
   padding-top: 1rem;
-  margin: auto 0 0 0;
+  margin: 1.5rem 0 0 0;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;

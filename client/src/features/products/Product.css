@@ -89,9 +89,12 @@
   padding: 5px 0 10px 0;
 }
 
+.product-footer a {
+  align-self: flex-end;
+  margin-right: .75rem;
+}
+
 .product-footer button {
-  display: flex;
-  align-items: center;
   padding: 10px;
   background-color: rgba(0,0,0,0);
   color: #c2761f;

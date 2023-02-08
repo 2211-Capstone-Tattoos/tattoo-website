@@ -64,7 +64,7 @@ const NavBar = ({ cartSelector }) => {
                 className={({ isActive }) =>
                   isActive ? "active-nav" : undefined
                 }>
-                <button>Products</button>
+                <button>Works</button>
               </NavLink>
               <NavLink
                 to="artists"
