@@ -46,11 +46,11 @@ const Product = ({ addProductToCart }) => {
                   <div className="product-footer">
                     <h2>{data.price}</h2>
                     <div>
-                      <button onClick={() => { if (quantity > 1) setQuantity(quantity - 1) }} disabled={!data.active}>-</button>
+                      <button id='single-product-increment' onClick={() => { if (quantity > 1) setQuantity(quantity - 1) }} disabled={!data.active}>-</button>
                       {quantity}
-                      <button onClick={() => setQuantity(quantity + 1)} disabled={!data.active}>+</button>
+                      <button id='single-product-increment' onClick={() => setQuantity(quantity + 1)} disabled={!data.active}>+</button>
                     </div>
-                    <button onClick={() => handleAddToCart(data)} disabled={!data.active}>Add to Cart</button>
+                    <button id='single-product-button' onClick={() => handleAddToCart(data)} disabled={!data.active}>Add to Cart</button>
                   </div>
                 </div>
               </div>
