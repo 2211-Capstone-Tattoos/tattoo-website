@@ -13,6 +13,7 @@ const NavItems = ({ cartSelector, setShowNavItems }) => {
   const [openLogin, setOpenLogin] = useState(false)
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
   const handleLogout = () => {
     dispatch(setBlankToast('Logging you out...'))
     dispatch(clearCart())
@@ -20,6 +21,7 @@ const NavItems = ({ cartSelector, setShowNavItems }) => {
     window.localStorage.clear()
     if (!window.localStorage.getItem('user')) {
       dispatch(setBlankToast('Logged out!'))
+      setShowNavItems(false)
       navigate('/')
     }
   }
@@ -114,7 +116,7 @@ const NavItems = ({ cartSelector, setShowNavItems }) => {
       <>{
         openLogin
           ? <>
-            <LoginFloat setOpenLogin={setOpenLogin} cartSelector={cartSelector} />
+            <LoginFloat setShowNavItems={setShowNavItems} setOpenLogin={setOpenLogin} cartSelector={cartSelector} />
           </>
           : null
       }
