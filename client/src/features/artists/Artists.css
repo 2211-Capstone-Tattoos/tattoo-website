@@ -51,12 +51,12 @@
   height: 150px;
 }
 
-.artists .artist-aside a {
+.artists .artist-aside .artist-aside-text a {
   color: #e0dedc;
   transition: color 0.25s;
 }
 
-.artists .artist-aside a:hover {
+.artists .artist-aside .artist-aside-text a:hover {
   color: rgba(255, 245, 225, .5);
 }
 
