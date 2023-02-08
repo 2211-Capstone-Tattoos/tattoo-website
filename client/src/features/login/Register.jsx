@@ -82,7 +82,7 @@ const Register = ({ cartSelector }) => {
                 <input type="password" ref={passwordRef} required={true} minLength={8} />
               </div>
             </div>
-            <div>
+            <div className='register-create-button'>
               <button>Create account</button>
             </div>
           </form>

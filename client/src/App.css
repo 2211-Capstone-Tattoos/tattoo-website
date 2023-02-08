@@ -16,6 +16,7 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  height: 100vh;
 }
 
 .navbar {
@@ -38,6 +39,7 @@ body {
   font-weight: 400;
   padding: 0.2rem 1rem;
   margin-top: .6rem;
+  font-weight: 500;
 }
 
 .navbar a.active-nav button {
@@ -59,7 +61,7 @@ body {
   background-color: #e0dedc;
   color: #c2761f;
   position: absolute;
-  top: 3.1rem;
+  top: 3.3rem;
   right: 2.3rem;
   min-width: 10vw;
   display: flex;
@@ -100,15 +102,26 @@ body {
   color: #a56114;
 }
 
+.home-copy {
+  font-size: 20px;
+}
 
 #footer {
   background-color: #c2761f;
   width: 100%;
   height: max-content;
   padding-top: 1rem;
-  margin: 5rem 0 20px 0;
+  margin: auto 0 0 0;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   border-top: solid 1px;
+}
+
+#footer div {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: .6rem;
+  gap: .5rem;
 }

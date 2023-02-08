@@ -105,9 +105,9 @@ const NavBar = ({cartSelector}) => {
       </div >
       <>{
       openLogin
-      ? <div >
+      ? <>
           <LoginFloat setOpenLogin={setOpenLogin} cartSelector={cartSelector}/>
-        </div>
+        </>
       : null
       }
       </>
