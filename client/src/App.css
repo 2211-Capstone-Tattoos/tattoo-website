@@ -121,6 +121,7 @@ body {
 #footer div {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 1rem;
+  align-items: center;
+  margin-bottom: .6rem;
   gap: .5rem;
 }
