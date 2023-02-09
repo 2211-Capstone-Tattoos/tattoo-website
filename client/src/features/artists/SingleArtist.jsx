@@ -73,7 +73,7 @@ const SingleArtist = ({ artist }) => {
             ))}
           </div>
         </div>
-        <button>View All Work</button>
+
       </div>
       <div className='big-artist-image'>
         <img onClick={() => navigate(`/artists/${artist.id}`)} src={imgUrl} />
