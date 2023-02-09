@@ -17,7 +17,8 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
+  height: fit-content;
 }
 
 .navbar {
@@ -31,6 +32,7 @@ body {
   justify-content: space-between;
   border-bottom: #e0dedc 1px solid;
   background-color: #c2761f;
+  z-index: 2;
 }
 
 .navbar .full-nav {
