@@ -10,7 +10,7 @@ const Checkout = () => {
       {!view
         ? <div>
           <h2>Would you like to..</h2>
-          <Link to='/login/cart-redirect'><button>Login or Register?</button></Link>
+          <Link to='/register/cart-redirect'><button>Login or Register?</button></Link>
           <Link to='/cart/checkout'><button>Checkout as Guest</button></Link>
         </div>
         : <></>
